@@ -237,6 +237,19 @@ jobs:
           name: runtime-manifest
           path: out/release
 
+      - name: Prepare the release files
+        run: |
+          set -eo pipefail
+          # The runtime artifact stores the archive under the name the build
+          # produced (rootfs.tgz); ship it as opencode-runtime.tgz — the name
+          # the app and the release notes expect.
+          if [ -f out/release/rootfs.tgz ] && [ ! -f out/release/opencode-runtime.tgz ]; then
+            mv out/release/rootfs.tgz out/release/opencode-runtime.tgz
+          fi
+          ls -l out/release
+          test -f out/release/opencode-runtime.tgz
+          test -f out/release/opencode-runtime.json
+
       - name: Publish the release
         # NB: compare against the string 'false' — on push events inputs.publish
         # is empty and would loosely compare equal to the boolean false.
