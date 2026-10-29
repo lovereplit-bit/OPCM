@@ -179,17 +179,25 @@ try {
 // Detect keystore type (pkcs12 vs jks). keytool can list a keystore with a
 // specific storetype; try pkcs12 first and fall back to jks. The password is
 // read from the environment via `-storepass:env` so it never enters argv.
+// The resolved password (env override or the embedded default) is injected
+// into the subprocess environment under a private variable name — the outer
+// ANDROID_KEYSTORE_PASSWORD is not guaranteed to exist when the embedded
+// keystore is used.
 function runKeytoolList(keystoreFile, storetype) {
   try {
     const proc = spawnSync('keytool', [
       '-list',
+      '-v',
       '-keystore',
       keystoreFile,
       '-storepass:env',
-      'ANDROID_KEYSTORE_PASSWORD',
+      'OPENCODE_KEYSTORE_PASSWORD',
       '-storetype',
       storetype,
-    ], { encoding: 'utf8', env: process.env });
+    ], {
+      encoding: 'utf8',
+      env: { ...process.env, OPENCODE_KEYSTORE_PASSWORD: keystorePassword },
+    });
     return { status: proc.status, stdout: proc.stdout || '', stderr: proc.stderr || '' };
   } catch (e) {
     return { status: 1, stdout: '', stderr: String(e) };
@@ -235,7 +243,7 @@ if (validation.storeType) {
     console.error(`--- store type: ${t.type} ---`);
     if (t.res.stderr) console.error(t.res.stderr.split(/\r?\n/).slice(0,50).join('\n'));
   }
-  fail('Keystore validation failed. Ensure the base64 secret decodes to a valid PKCS12 or JKS keystore and that the password is correct.');
+  fail('Keystore validation failed. Ensure the keystore file (or the ANDROID_KEYSTORE_BASE64 secret) is a valid PKCS12 or JKS keystore and that the password is correct.');
 }
 
 const detectedStoreType = validation.storeType;
