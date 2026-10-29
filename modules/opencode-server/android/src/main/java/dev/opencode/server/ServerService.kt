@@ -143,9 +143,7 @@ class ServerService : Service() {
 
     server.killOrphans()
 
-    var port = pickPort(prefs.port)
-
-    if (port == null) {
+    var port: Int = pickPort(prefs.port) ?: run {
       fail("No free port was left for the server (looked from ${prefs.port} upward).")
       return
     }
@@ -336,6 +334,9 @@ class ServerService : Service() {
   companion object {
     const val CHANNEL_ID = "opencode-server"
     const val NOTIFICATION_ID = 0x0CDE
+
+    /** How many times a startup may move to the next port after a bind race. */
+    const val MAX_PORT_SHIFTS = 8
 
     const val ACTION_START = "dev.opencode.server.START"
     const val ACTION_STOP = "dev.opencode.server.STOP"

@@ -63,26 +63,28 @@ object ServerLog {
   }
 
   /** Lines of the server log since a byte mark, bounded, for failure hints. */
-  fun since(file: File, mark: Long, bytes: Int): String = try {
-    val length = file.length()
-    if (length <= mark) return ""
-    val from = maxOf(mark, length - bytes)
-    val out = StringBuilder()
+  fun since(file: File, mark: Long, bytes: Int): String {
+    return try {
+      val length = file.length()
+      if (length <= mark) return ""
+      val from = maxOf(mark, length - bytes)
+      val out = StringBuilder()
 
-    file.inputStream().use { input ->
-      input.skip(from)
-      val buffer = ByteArray(4 * 1024)
+      file.inputStream().use { input ->
+        input.skip(from)
+        val buffer = ByteArray(4 * 1024)
 
-      while (out.length < bytes) {
-        val n = input.read(buffer)
-        if (n < 0) break
+        while (out.length < bytes) {
+          val n = input.read(buffer)
+          if (n < 0) break
 
-        out.append(String(buffer, 0, n, Charsets.UTF_8))
+          out.append(String(buffer, 0, n, Charsets.UTF_8))
+        }
       }
-    }
 
-    out.toString()
-  } catch (_: Exception) {
-    ""
+      out.toString()
+    } catch (_: Exception) {
+      ""
+    }
   }
 }

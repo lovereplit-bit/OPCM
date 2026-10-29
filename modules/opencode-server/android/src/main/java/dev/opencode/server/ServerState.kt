@@ -38,7 +38,7 @@ object ServerState {
   @Synchronized
   fun listen(listener: (Snapshot) -> Unit): () -> Unit {
     listeners.add(listener)
-    return @Synchronized { listeners.remove(listener) }
+    return { listeners.remove(listener) }
   }
 
   /** Publishes from any thread; listeners always run on the main thread. */
