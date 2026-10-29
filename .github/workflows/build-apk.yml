@@ -271,7 +271,7 @@ jobs:
             --title "$RELEASE_NAME" \
             --notes "Automatic build of OpenCode ${{ needs.runtime.outputs.version }} (OpenCode server ${{ needs.runtime.outputs.tag }}, commit ${{ needs.runtime.outputs.commit }}).
 
-          The APK (~70 MB) downloads its Linux runtime (~300 MB) from this release on first launch, so the install stays light and the server updates without reinstalling the app.
+          The APK (~90 MB) downloads its Linux runtime (~240 MB) from this release on first launch, so the install stays light and the server updates without reinstalling the app.
 
           - \`opencode-*.apk\` — the signed Android app (arm64)
           - \`opencode-runtime.tgz\` — the Linux runtime the app downloads on first launch

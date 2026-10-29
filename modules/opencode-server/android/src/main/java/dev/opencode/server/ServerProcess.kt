@@ -144,8 +144,8 @@ class ServerProcess(private val paths: Paths) {
     return when {
       "bad system call" in lower || "sigsys" in lower || "seccomp" in lower ->
         "Android stopped the process over a system call. Turn on compatibility mode in settings and try again."
-      "address already in use" in lower || "eaddrinuse" in lower ->
-        "The server port is already in use. Restarting the server picks the next free one."
+      portWasBusy() ->
+        "The server port is already in use. The next free port is picked automatically."
       else -> tail.lines().filter { it.isNotBlank() }.takeLast(6).joinToString("\n").ifEmpty { "The server did not answer in time" }
     }
   }
@@ -154,13 +154,23 @@ class ServerProcess(private val paths: Paths) {
   fun portWasBusy(): Boolean {
     val lower = attemptLog().lowercase()
 
-    return "address already in use" in lower || "eaddrinuse" in lower
+    return BUSY_PORT_MARKERS.any { it in lower }
   }
 
   /** What the current attempt printed, so an earlier attempt in the same log cannot be mistaken for it. */
   private fun attemptLog(): String = ServerLog.since(paths.serverLog, logMark, 6 * 1024)
 
   companion object {
+    // How "this port is taken" looks in the logs of the Go, Node and Bun
+    // servers alike, so a bind race is never mistaken for a real failure.
+    private val BUSY_PORT_MARKERS = listOf(
+      "address already in use", // Go: "listen tcp :4096: bind: address already in use"; POSIX text
+      "eaddrinuse",             // Node: "EADDRINUSE: listen EADDRINUSE 0.0.0.0:4096"
+      "os error 98",            // Bun/Rust: "Address already in use (os error 98)"
+      "errno: -98",             // Node's numeric form of EADDRINUSE
+      "errno=98",               // strace-style rendering
+    )
+
     fun basicCredential(password: String): String =
       android.util.Base64.encodeToString(":$password".toByteArray(Charsets.UTF_8), android.util.Base64.NO_WRAP)
   }

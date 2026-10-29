@@ -9,7 +9,7 @@ const { withAndroidManifest, withAppBuildGradle, withDangerousMod, withGradlePro
 // resource shrinking, which Play's "Improve your app's memory and performance
 // with R8 optimization" check expects. AGP 9+ enables it by default.
 function applyGradleProperties(items) {
-  const overrides = new Set(['org.gradle.jvmargs', 'android.r8.optimizedResourceShrinking']);
+  const overrides = new Set(['org.gradle.jvmargs', 'android.r8.optimizedResourceShrinking', 'expo.useLegacyPackaging']);
   return [
     ...items.filter((item) => !(item.type === 'property' && overrides.has(item.key))),
     {
@@ -20,6 +20,19 @@ function applyGradleProperties(items) {
     {
       type: 'property',
       key: 'android.r8.optimizedResourceShrinking',
+      value: 'true',
+    },
+    // The local Linux runtime exec()s libproot.so straight out of the app's
+    // nativeLibraryDir. The Expo template defaults this to false, which keeps
+    // .so files inside the APK: they exist for the dynamic linker, but not as
+    // real files on disk, so spawning the server dies with ENOENT ("error=2").
+    // True (legacy packaging) stores the libraries compressed in the APK and
+    // has the installer extract them into nativeLibraryDir — the only
+    // sanctioned executable location an app owns, the route Termux takes.
+    // Also a size win: ~148 MB of uncompressed libraries shrink on the way.
+    {
+      type: 'property',
+      key: 'expo.useLegacyPackaging',
       value: 'true',
     },
   ];
@@ -50,6 +63,14 @@ function withAndroidAppConfig(
   const withManifest = withAndroidManifest(withGradle, (config) => {
     const application = config.modResults.manifest.application?.[0];
     if (application) application.$['android:usesCleartextTraffic'] = 'true';
+    // The local Linux runtime exec()s libproot.so straight out of the app's
+    // nativeLibraryDir. Default modern packaging keeps .so files inside the
+    // APK (extractNativeLibs=false): they exist for the dynamic linker, but
+    // not as real files on disk, so spawning the server dies with ENOENT
+    // ("error=2"). Forcing extraction makes the installer unpack every native
+    // library into nativeLibraryDir, which is the only sanctioned executable
+    // location an app owns — the same route Termux takes for its binaries.
+    if (application) application.$['android:extractNativeLibs'] = 'true';
     if (application && !isFossVariant) {
       application.activity ??= [];
       if (!application.activity.some((item) => item.$?.['android:name'] === MLKIT_SCANNER_ACTIVITY)) {
@@ -83,6 +104,11 @@ function withAndroidAppConfig(
     }).contents;
     return config;
   });
+
+  // The Gradle half of extractNativeLibs lives in applyGradleProperties: the
+  // Expo template's own packagingOptions block turns
+  // expo.useLegacyPackaging=true into compressed, installer-extracted
+  // native libraries, so the server module can execute them.
 
   if (isDevelopmentVariant) return withActivity;
 

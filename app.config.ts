@@ -97,7 +97,9 @@ const config: ExpoConfig = {
   userInterfaceStyle: 'automatic',
   android: {
     package: androidPackage,
-    versionCode: 200,
+    // Bumped for the native-library extraction fix (libproot.so now unpacks
+    // into nativeLibraryDir, which unblocks the local server start).
+    versionCode: 201,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: "#131010"
@@ -111,7 +113,7 @@ const config: ExpoConfig = {
   },
   ios: {
     bundleIdentifier: iosBundleIdentifierOverride ?? (isDevelopmentVariant ? 'dev.opencode.mobile.dev' : 'dev.opencode.mobile'),
-    buildNumber: '200',
+    buildNumber: '201',
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
       NSPhotoLibraryUsageDescription: 'Allow OpenCode to access photos you choose to attach to chat messages.',

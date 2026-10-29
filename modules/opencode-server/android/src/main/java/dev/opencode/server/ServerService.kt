@@ -175,15 +175,25 @@ class ServerService : Service() {
 
       server.stop()
 
-      // Someone took the port between the check and the bind; move to the next free one.
+      // Someone took the port between the check and the bind; move to the
+      // next free one. The shift count only guards a pathological run of
+      // races: every candidate is probed for availability first, so the
+      // server keeps walking upward until it actually connects.
       if (server.portWasBusy() && shifts < MAX_PORT_SHIFTS) {
         val next = pickPort(port)
 
         if (next != null) {
-          ServerLog.w("service", "port $port was taken during startup, moving to $next")
+          val previous = port
+
+          ServerLog.w("service", "port $previous was taken during startup, moving to $next")
           shifts++
           port = next
           prefs.port = port
+
+          // Tell the UI right away: the address row on the setup screen follows
+          // the published port, and a busy port would otherwise look like a hang
+          // while the next one is being tried.
+          ServerState.publish(Phase.STARTING, "Port $previous is busy, trying $next...", null, port)
 
           continue
         }
@@ -336,7 +346,7 @@ class ServerService : Service() {
     const val NOTIFICATION_ID = 0x0CDE
 
     /** How many times a startup may move to the next port after a bind race. */
-    const val MAX_PORT_SHIFTS = 8
+    const val MAX_PORT_SHIFTS = 64
 
     const val ACTION_START = "dev.opencode.server.START"
     const val ACTION_STOP = "dev.opencode.server.STOP"
