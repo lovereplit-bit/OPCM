@@ -38,7 +38,7 @@ docker build --platform linux/arm64 --pull \
   -t "$tag" "$ctx"
 
 # Smoke test inside the image before it is archived.
-docker run --rm --platform linux/arm64 "$tag" sh -c 'opencode --version && node --version && python3 --version && git --version && rg --version | head -1 && uv --version && test -x /usr/local/bin/preview'
+docker run --rm --platform linux/arm64 "$tag" sh -c 'opencode --version && node --version && python3 --version && git --version && rg --version | head -1 && uv --version && test -x /usr/local/bin/opencode'
 
 cid="$(docker create --platform linux/arm64 "$tag" /bin/true)"
 docker export "$cid" | gzip -6 >"$out/rootfs.tgz"
