@@ -238,7 +238,9 @@ jobs:
           path: out/release
 
       - name: Publish the release
-        if: ${{ inputs.publish != false }}
+        # NB: compare against the string 'false' — on push events inputs.publish
+        # is empty and would loosely compare equal to the boolean false.
+        if: ${{ inputs.publish != 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_TAG: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', needs.runtime.outputs.seq) }}

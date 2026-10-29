@@ -61,7 +61,7 @@ function getNativeModule(): NativeOpencodeServer | null {
 
 export function getRuntimeManifestUrl() {
   const extra = Constants.expoConfig?.extra as { runtime?: { manifestUrl?: string } } | undefined;
-  return extra?.runtime?.manifestUrl ?? 'https://github.com/opencode-mobile/opencode/releases/latest/download/opencode-runtime.json';
+  return extra?.runtime?.manifestUrl ?? 'https://github.com/lovereplit-bit/OPCM/releases/latest/download/opencode-runtime.json';
 }
 
 /** The current server state; on unsupported platforms it reports an idle, uninstalled server. */

@@ -243,7 +243,7 @@ const config: ExpoConfig = {
     // workflow and attached to every release.
     runtime: {
       manifestUrl: env('EXPO_PUBLIC_RUNTIME_MANIFEST_URL')
-        ?? 'https://github.com/opencode-mobile/opencode/releases/latest/download/opencode-runtime.json',
+        ?? 'https://github.com/lovereplit-bit/OPCM/releases/latest/download/opencode-runtime.json',
     },
     updates: {
       enabled: !isDevelopmentVariant && !isFossVariant && !isE2EMode,
