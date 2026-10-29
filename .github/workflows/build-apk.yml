@@ -1,0 +1,264 @@
+name: Build APK
+
+# Builds the OpenCode Android app and its Linux runtime, signs the APK with
+# the keystore committed in android-signing/, and publishes everything as a
+# GitHub release the app itself downloads its runtime from.
+#
+#   - every push to main publishes a fresh build;
+#   - push a tag such as v2.0.0, or run the workflow by hand from the Actions
+#     tab (with or without publishing);
+#   - the arm64 job runs on GitHub's free arm64 runners for public repos.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: "OpenCode release tag to bundle (empty: the latest published release)"
+        required: false
+        default: ""
+      publish:
+        description: "Publish a release with the APK and the runtime"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  runtime:
+    name: Linux runtime (arm64)
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 90
+    outputs:
+      tag: ${{ steps.up.outputs.tag }}
+      version: ${{ steps.up.outputs.version }}
+      commit: ${{ steps.up.outputs.commit }}
+      seq: ${{ steps.seq.outputs.seq }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Resolve the OpenCode release
+        id: up
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED: ${{ inputs.upstream_ref }}
+        run: |
+          repo="$(jq -r .repo upstream.json)"
+          echo "UPSTREAM_REPO=$repo" >> "$GITHUB_ENV"
+          echo "repo=$repo" >> "$GITHUB_OUTPUT"
+          req="$REQUESTED"
+          if [ -n "$req" ] && ! [[ "$req" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.]+)?$ ]]; then
+            echo "::warning::Requested ref '$req' is not a valid version tag; using latest release of pinned major instead."
+            req=""
+          fi
+          UPSTREAM_REPO="$repo" PINNED_MAJOR="$(jq -r .major upstream.json)" PINNED_TAG="$(jq -r '.pin // ""' upstream.json)" bash runtime/resolve-upstream.sh "$req"
+
+      - name: Fetch the OpenCode sources
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.up.outputs.repo }}
+          ref: ${{ steps.up.outputs.commit }}
+          path: upstream-src
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: upstream-src/package.json
+
+      - name: Node version that upstream builds with
+        id: node
+        run: |
+          v="$(grep -oE 'NODE_VERSION = "[0-9.]+"' upstream-src/packages/cli/script/build-node.ts | grep -oE '[0-9.]+' | head -1)"
+          echo "version=${v:-26.4.0}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.node.outputs.version }}
+
+      - name: Build the OpenCode server
+        run: SRC_DIR="$PWD/upstream-src" bash runtime/build-opencode.sh "${{ steps.up.outputs.tag }}" out/server
+
+      - name: Check the server against what the app needs
+        run: bash runtime/contract-test.sh out/server/opencode "${{ steps.up.outputs.version }}"
+
+      - name: Launcher libraries (proot)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq patchelf dpkg-dev
+          bash runtime/fetch-proot.sh out/jniLibs/arm64-v8a
+
+      - name: Build date
+        id: seq
+        run: echo "seq=$(date +%s)" >> "$GITHUB_OUTPUT"
+
+      # The arm64 runner runs Docker natively, so no QEMU step is needed.
+      - name: Linux userland archive
+        run: bash runtime/build-rootfs.sh out/server/opencode out/assets "${{ steps.up.outputs.version }}-${{ steps.seq.outputs.seq }}"
+
+      - name: Runtime manifest
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          stamp="$(cat out/assets/rootfs.stamp)"
+          sha="$(sha256sum out/assets/rootfs.tgz | cut -d' ' -f1)"
+          size="$(stat -c %s out/assets/rootfs.tgz)"
+          jq -n \
+            --arg version "$stamp" --arg sha256 "$sha" --argjson size "$size" \
+            --arg url "https://github.com/$REPO/releases/latest/download/opencode-runtime.tgz" \
+            '{version: $version, sha256: $sha256, size: $size, url: $url}' \
+            > out/assets/opencode-runtime.json
+          cat out/assets/opencode-runtime.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-archive
+          path: out/assets/rootfs.tgz
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 3
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-manifest
+          path: out/assets/opencode-runtime.json
+          if-no-files-found: error
+          retention-days: 3
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jnilibs
+          path: out/jniLibs/arm64-v8a/*
+          if-no-files-found: error
+          retention-days: 3
+
+  apk:
+    name: Android APK
+    needs: runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: android-actions/setup-android@v4
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Install CMake and NDK
+        run: |
+          set -eo pipefail
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          for pkg in 'cmake;3.22.1' 'ndk;27.1.12297006'; do
+            for attempt in 1 2 3; do
+              if sdkmanager --install "$pkg" </dev/null; then
+                break
+              fi
+              rm -rf "$SDK_ROOT/.temp"
+              case "$pkg" in
+                ndk\;*) rm -rf "$SDK_ROOT/ndk/27.1.12297006" ;;
+              esac
+              if [ "$attempt" -eq 3 ]; then
+                echo "::error::Failed to install $pkg after 3 attempts"
+                exit 1
+              fi
+              sleep $((attempt * 5))
+            done
+          done
+        shell: bash
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Place the proot launcher libraries
+        uses: actions/download-artifact@v4
+        with:
+          name: jnilibs
+          path: modules/opencode-server/android/src/main/jniLibs/arm64-v8a
+
+      - name: Type-check
+        run: npm run typecheck
+
+      # The runtime manifest URL is baked into the app so a fresh install
+      # knows where to download its Linux runtime from: this repository's
+      # latest release.
+      - name: Build the signed APK
+        env:
+          EXPO_PUBLIC_RUNTIME_MANIFEST_URL: https://github.com/${{ github.repository }}/releases/latest/download/opencode-runtime.json
+        run: node ./scripts/build-android-release.mjs
+
+      - name: Collect the APK
+        run: |
+          mkdir -p out/apk
+          cp android/app/build/outputs/apk/release/app-release.apk out/apk/opencode-${{ needs.runtime.outputs.version }}.apk
+          ls -l out/apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: out/apk/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Download the runtime for the release
+        uses: actions/download-artifact@v4
+        with:
+          name: runtime-archive
+          path: out/release
+
+      - name: Download the runtime manifest for the release
+        uses: actions/download-artifact@v4
+        with:
+          name: runtime-manifest
+          path: out/release
+
+      - name: Publish the release
+        if: ${{ inputs.publish != false }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_TAG: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', needs.runtime.outputs.seq) }}
+          RELEASE_NAME: ${{ github.ref_type == 'tag' && github.ref_name || format('OpenCode build {0}', needs.runtime.outputs.seq) }}
+        run: |
+          set -eo pipefail
+          # A rolling build tag is reused on the next push; drop the old
+          # release so the tag can move. Real version tags are never touched.
+          if [ "$RUN_TAG" != "${{ github.ref_name }}" ] || [ "${{ github.ref_type }}" != "tag" ]; then
+            gh release view "$RUN_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 && \
+              gh release delete "$RUN_TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
+          fi
+          gh release create "$RUN_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$RELEASE_NAME" \
+            --notes "Automatic build of OpenCode ${{ needs.runtime.outputs.version }} (OpenCode server ${{ needs.runtime.outputs.tag }}, commit ${{ needs.runtime.outputs.commit }}).
+
+          The APK (~70 MB) downloads its Linux runtime (~300 MB) from this release on first launch, so the install stays light and the server updates without reinstalling the app.
+
+          - \`opencode-*.apk\` — the signed Android app (arm64)
+          - \`opencode-runtime.tgz\` — the Linux runtime the app downloads on first launch
+          - \`opencode-runtime.json\` — the runtime manifest (version, size, sha256)" \
+            out/apk/*.apk out/release/opencode-runtime.tgz out/release/opencode-runtime.json

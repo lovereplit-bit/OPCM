@@ -1,0 +1,115 @@
+{
+  "welcome": {
+    "title": "OpenCode",
+    "subtitle": "Your OpenCode projects, wherever you are.",
+    "body": "OpenCode brings your OpenCode server to your phone. Chat with coding agents, follow their work, and review changes across your projects.",
+    "start": "Continue",
+    "points": {
+      "server": {
+        "title": "Your server does the work",
+        "description": "Models and tasks run on your OpenCode server. This app keeps you connected to them."
+      },
+      "project": {
+        "title": "Projects and conversations",
+        "description": "Projects keep chats, files, and changes together."
+      },
+      "optional": {
+        "title": "Voice and task updates",
+        "description": "Voice input and completion notifications help you keep up with work on the go."
+      }
+    }
+  },
+  "connect": {
+    "skip": "Skip"
+  },
+  "project": {
+    "title": "Choose a project",
+    "subtitle": "Pick a project to start in, or add a folder on the server.",
+    "continue": "Continuer",
+    "skip": "Skip",
+    "empty": "This server did not report any projects. Add a directory on the server to get started.",
+    "loading": "Loading projects…"
+  },
+  "permissions": {
+    "title": "Permissions",
+    "subtitle": "Optional. OpenCode only asks when you choose to enable something.",
+    "skip": "Skip",
+    "continue": "Continue",
+    "notifications": {
+      "title": "Notifications",
+      "body": "Allow OpenCode to notify you when a task finishes while the app is in the background.",
+      "unsupported": "Notifications are not available on this platform.",
+      "enable": "Enable notifications",
+      "battery": "Review battery / background settings"
+    },
+    "voice": {
+      "title": "Voice input",
+      "body": "Microphone access lets you dictate prompts instead of typing them.",
+      "unsupported": "Voice input is not available on this device.",
+      "enable": "Enable voice input",
+      "deniedHint": "You can still turn voice input on later from Settings › Voice."
+    },
+    "checking": "Vérification…"
+  },
+  "ready": {
+    "title": "You're ready",
+    "subtitle": "Review your setup and start coding.",
+    "server": "Server",
+    "project": "Project",
+    "projectMissing": "No project selected",
+    "footnote": "Vous pouvez modifier ces paramètres à tout moment.",
+    "start": "Start coding",
+    "done": "Done",
+    "serverMissing": "Non connecté",
+    "providers": "Fournisseurs",
+    "enabledModels": "Modèles activés"
+  },
+  "settingsAssistant": {
+    "summary": "Vérifier les autorisations, la connexion, les fournisseurs, le projet, la voix et les préférences"
+  },
+  "reviewSetup": "Revoir la configuration",
+  "stepIndicator": "Étape {{step}} sur {{totalSteps}}",
+  "general": {
+    "title": "Paramètres généraux",
+    "subtitle": "Adaptez OpenCode à vos préférences.",
+    "defaultModel": "Modèle par défaut"
+  },
+  "voice": {
+    "title": "Voix et réponses",
+    "subtitle": "Choisissez comment parler et écouter les réponses.",
+    "input": "Saisie vocale",
+    "playback": "Réponses vocales",
+    "responses": "Style de réponse",
+    "autoPlay": "Lire les réponses à voix haute"
+  },
+  "setup": {
+    "title": "Configuration du serveur",
+    "subtitle": "L'application crée son propre localhost, mot de passe et pseudo — vous ne saisissez rien.",
+    "otherServer": "Autre serveur",
+    "retry": "Réessayer",
+    "status": {
+      "preparing": "Préparation…",
+      "downloading": "Téléchargement de l'environnement Linux",
+      "installing": "Décompression de l'environnement Linux",
+      "starting": "Démarrage du serveur",
+      "running": "Le serveur fonctionne",
+      "failed": "Cela n'a pas fonctionné",
+      "failedConnect": "Impossible de se connecter au serveur"
+    },
+    "progress": "{{percent}} %",
+    "hint": "Le premier lancement télécharge et décompresse l'environnement. Cela prend quelques minutes.",
+    "identity": {
+      "nick": "Pseudo",
+      "address": "Adresse",
+      "password": "Mot de passe",
+      "automatic": "créé automatiquement",
+      "footnote": "Le pseudo et le mot de passe ont été créés par l'application et stockés sur cet appareil."
+    },
+    "showLogs": "Afficher les journaux",
+    "logsTitle": "Journaux",
+    "logsEmpty": "Le journal est vide.",
+    "errors": {
+      "connect": "Impossible de se connecter au serveur local."
+    }
+  }
+}

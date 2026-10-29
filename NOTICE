@@ -1,0 +1,25 @@
+OpenCode Android bundles and downloads third-party software. This file says what and under which terms; it is not legal
+advice. If you distribute an APK you built, you take on the obligations below for that APK.
+
+Original code in this repository: MIT (see LICENSE).
+
+OpenCode (https://github.com/anomalyco/opencode): MIT. The server, its web interface and its CLI are built from upstream
+sources by the GitHub Actions workflows and are part of every APK and every over-the-air update.
+
+proot, libtalloc and the proot loader: the launcher that runs the Linux userland without root. They are taken from the
+Termux package repository (https://packages.termux.dev) while the APK is built, renamed (libproot.so, libproot-loader.so,
+libtalloc.so) and bundled unmodified apart from the library names. proot is GPL-2.0-or-later and libtalloc is LGPL-3.0-or-later.
+Sources: https://github.com/proot-me/proot, https://github.com/termux/proot, https://github.com/termux/termux-packages and
+https://www.samba.org/ftp/talloc/. A GPL notice must accompany a distributed APK; this file is that notice, and the
+source locations above are where the corresponding source can be obtained.
+
+Ubuntu 24.04 userland (https://ubuntu.com): the root filesystem archive inside the APK is made from the official Ubuntu
+image and contains many packages under their own licenses (GPL, LGPL, MIT, BSD, Apache-2.0 and others). Their license
+texts are inside the filesystem under /usr/share/doc/*/copyright, and sources are available from https://archive.ubuntu.com.
+
+Added on top of Ubuntu while the archive is built: Node.js (MIT, https://nodejs.org), uv and uvx (MIT or Apache-2.0,
+https://github.com/astral-sh/uv), ripgrep (MIT or Unlicense), git (GPL-2.0), Python (PSF-2.0).
+
+Android platform libraries are used under their own terms and are not redistributed.
+
+If you do not want to carry GPL obligations, keep your APK private: do not publish the releases of your fork.

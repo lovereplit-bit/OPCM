@@ -1,0 +1,889 @@
+{
+  "screen": {
+    "categories": {
+      "connection": "कनेक्शन",
+      "ai": "AI और प्रदाता",
+      "notifications": "सूचनाएँ",
+      "voice": "आवाज़ और ऑडियो",
+      "advanced": "उन्नत",
+      "support": "सहायता",
+      "permissions": "स्वीकृतियाँ",
+      "subscription": "सदस्यता",
+      "cloudLink": "Cloud Link",
+      "extensions": "Extensions",
+      "responses": "प्रतिक्रियाएँ",
+      "appearance": "दिखावट",
+      "chat": "चैट और जवाब",
+      "about": "जानकारी और सहायता"
+    },
+    "summaries": {
+      "configuredCount": "{{value}} कॉन्फ़िगर किए गए",
+      "replyPlaybackOn": "उत्तर प्लेबैक चालू",
+      "replyPlaybackOff": "उत्तर प्लेबैक बंद",
+      "support": "ऐप को रेट करें, फ़ीडबैक भेजें, सहायता पाएँ",
+      "permissions": "{{value}} सहेजे गए",
+      "extensions": "MCPs, plugins, skills and commands",
+      "responses": "प्रतिक्रिया सीमा और अगले कदम",
+      "voiceSystem": "सिस्टम आवाज़ · {{phrase}}",
+      "voiceLocal": "डिवाइस पर · {{phrase}}",
+      "responsesOn": "{{scope}} · अगले कदम चालू",
+      "responsesOff": "{{scope}} · अगले कदम बंद",
+      "appearance": "थीम, रंग और इंटरफ़ेस का घनत्व",
+      "diagnostics": "कनेक्शन की स्थिति और समस्या निवारण"
+    },
+    "groups": {
+      "app": "ऐप की प्राथमिकताएँ",
+      "connections": "कनेक्शन",
+      "server": "चुना गया सर्वर"
+    },
+    "intro": "ऐप को अपनी पसंद के अनुसार बनाएँ और कनेक्शन प्रबंधित करें।",
+    "search": {
+      "placeholder": "सेटिंग खोजें",
+      "clear": "खोज साफ़ करें",
+      "empty": "कोई सेटिंग नहीं मिली। कोई दूसरा शब्द आज़माएँ।",
+      "results": "मिली सेटिंग: {{count}}"
+    },
+    "keywords": {
+      "appearance": "डिस्प्ले थीम रंग गहरा हल्का कॉम्पैक्ट घनत्व",
+      "responses": "चैट संदेश टेक्स्ट फ़ॉन्ट आकार जवाब शैली निर्देश जोड़ें कतार बबल",
+      "voice": "आवाज़ ऑडियो ध्वनि माइक्रोफ़ोन इनपुट प्लेबैक भाषा वेक फ़्रेज़",
+      "notifications": "सूचनाएँ अलर्ट बैटरी विजेट",
+      "language": "भाषा अनुवाद इंटरफ़ेस",
+      "support": "मदद फ़ीडबैक सहायता अपडेट संस्करण सेटअप सहायक",
+      "connection": "कनेक्शन सर्वर पता पासवर्ड क्रेडेंशियल फिर कनेक्ट QR",
+      "cloud-link": "दूरस्थ कनेक्शन Cloud Link सदस्यता कंप्यूटर सेवाएँ",
+      "ai": "AI प्रदाता खाते मॉडल प्रमाणीकरण वर्गीकरण रूटिंग",
+      "extensions": "एक्सटेंशन MCP प्लगइन कौशल कमांड",
+      "permissions": "अनुमतियाँ स्वीकृतियाँ सहेजे नियम अपने आप अनुमति",
+      "advanced": "निदान नेटवर्क कनेक्शन रीयलटाइम पोलिंग त्रुटियाँ उपयोग"
+    }
+  },
+  "support": {
+    "title": "सहायता",
+    "description": "Google Play पर OpenCode को रेट करें, सुधार का फ़ीडबैक भेजें, या सहायता पृष्ठ से सहायता पाएँ।",
+    "rate": "Play Store पर रेट करें",
+    "feedback": "हमें फ़ीडबैक दें",
+    "openSupport": "सहायता पृष्ठ खोलें"
+  },
+  "connection": {
+    "currentConnection": "वर्तमान कनेक्शन",
+    "noServerUrl": "कोई सर्वर URL सेट नहीं",
+    "notSavedYet": "अभी तक सहेजा नहीं गया। बाद के लिए इसे रखने हेतु एक कनेक्शन जोड़ें।",
+    "lastChecked": "अंतिम जाँच {{time}}",
+    "serverUrlValue": "सर्वर URL: {{url}}",
+    "usernameValue": "उपयोगकर्ता नाम: {{username}}",
+    "usernameEmpty": "(कोई नहीं)",
+    "addConnection": "कनेक्शन जोड़ें",
+    "editConnection": "कनेक्शन संपादित करें",
+    "addDescription": "URL और पासवर्ड दोबारा टाइप किए बिना सर्वर के बीच स्विच करने के लिए कनेक्शन जोड़ें।",
+    "saveAndConnect": "सहेजें और कनेक्ट करें",
+    "deleteTitle": "कनेक्शन हटाएँ",
+    "deleteMessage": "सहेजे गए कनेक्शन से \"{{name}}\" निकालें?",
+    "deleteWebConfirm": "कनेक्शन हटाएँ\n\n{{message}}",
+    "fields": {
+      "serverUrl": "सर्वर URL",
+      "username": "उपयोगकर्ता नाम",
+      "password": "पासवर्ड"
+    },
+    "errors": {
+      "serverUrl": "सर्वर URL दर्ज करें।",
+      "invalidUrl": "पूरा सर्वर URL दर्ज करें, जैसे http://192.168.1.10:4096।",
+      "save": "यह कनेक्शन सहेजा नहीं जा सका।",
+      "headerName": "मान्य हेडर नाम दर्ज करें।",
+      "headerValue": "हेडर मान में पंक्ति विराम नहीं हो सकते।",
+      "headerDuplicate": "हर हेडर नाम का उपयोग केवल एक बार किया जा सकता है।",
+      "headerReserved": "यह हेडर ऐप द्वारा प्रबंधित है और इसे ओवरराइड नहीं किया जा सकता।",
+      "headerLimit": "अधिकतम 10 कस्टम हेडर का उपयोग करें।",
+      "generic": "OpenCode से संवाद करते समय कुछ गलत हो गया।",
+      "tunnelStarting": "Cloudflare टनल अभी शुरू हो रहा है (त्रुटि 1033)। थोड़ी देर बाद पुनः प्रयास करें।",
+      "notApi": "{{url}} पर सर्वर ने OpenCode API प्रतिक्रिया नहीं दी।{{apiHint}}{{versionHint}}",
+      "endpointNotFound": "{{url}} पर OpenCode एंडपॉइंट नहीं मिला।{{apiHint}}{{versionHint}}",
+      "webPage": "{{url}} पर सर्वर ने OpenCode API के बजाय वेब पेज लौटाया।{{apiHint}}{{versionHint}}",
+      "apiHint": " यदि यह पता वेब UI परोसता है, तो इसके बजाय इसका API बेस URL उपयोग करें, आमतौर पर {{url}}/api.",
+      "versionHint": " यह ऐप OpenCode 1.x और 2.x सर्वर का समर्थन करता है; API बेस URL जाँचें।"
+    },
+    "setup": {
+      "step": "चरण {{step}} / 2",
+      "addressTitle": "सर्वर का पता",
+      "detailsTitle": "कनेक्शन का विवरण",
+      "addressHint": "अपने OpenCode सर्वर से जुड़ें।",
+      "continue": "जारी रखें",
+      "change": "बदलें",
+      "detected": "OpenCode {{version}} मिला",
+      "identify": "सर्वर की पहचान के लिए क्रेडेंशियल दर्ज करें।",
+      "customUsername": "कस्टम उपयोगकर्ता नाम",
+      "passwordHint": "सर्वर का पासवर्ड दर्ज करें।",
+      "optionalName": "नाम (वैकल्पिक)",
+      "nameHint": "सर्वर का IP या डोमेन इस्तेमाल करने के लिए खाली छोड़ें।",
+      "showPassword": "पासवर्ड दिखाएँ",
+      "hidePassword": "पासवर्ड छिपाएँ",
+      "scan": "स्थानीय QR कोड स्कैन करें",
+      "pairCommand": "अपने कंप्यूटर पर opencode pair चलाएँ।",
+      "sameNetwork": "दोनों डिवाइस एक ही नेटवर्क पर रखें।",
+      "scanAutomatic": "अपने आप सहेजने और जुड़ने के लिए स्कैन करें।",
+      "scanAgain": "दोबारा स्कैन करें",
+      "unreachable": "सर्वर तक नहीं पहुँच सके। पता और नेटवर्क जाँचकर फिर कोशिश करें।",
+      "credentialsRejected": "क्रेडेंशियल अस्वीकार हुए। पासवर्ड और उपयोगकर्ता नाम जाँचें या नया QR कोड स्कैन करें।",
+      "pairingErrors": {
+        "invalid": "यह OpenCode पेयरिंग कोड नहीं है। opencode pair चलाएँ और दोबारा स्कैन करें।",
+        "expired": "यह कोड समाप्त हो गया है या पहले इस्तेमाल हो चुका है। opencode pair फिर चलाएँ।",
+        "unreachable": "सर्वर तक नहीं पहुँच सके। दोनों डिवाइस एक ही नेटवर्क पर हैं यह जाँचें, या पता खुद दर्ज करें।",
+        "loopback": "इस कोड में केवल localhost का पता है। कंप्यूटर पर opencode service set hostname 0.0.0.0 चलाएँ, फिर opencode service start और opencode pair चलाएँ।"
+      }
+    },
+    "headers": {
+      "title": "कस्टम हेडर",
+      "add": "हेडर जोड़ें",
+      "name": "हेडर नाम",
+      "value": "मान",
+      "remove": "हेडर हटाएँ",
+      "hint": "इस सर्वर पर हर अनुरोध के साथ भेजा जाता है। मान इस डिवाइस पर सुरक्षित रूप से संग्रहीत होते हैं।",
+      "showValues": "मान दिखाएँ",
+      "hideValues": "मान छिपाएँ"
+    },
+    "reconnectSuccess": "{{url}} से कनेक्ट हो गया।"
+  },
+  "providers": {
+    "accounts": "Accounts",
+    "addAnotherAccount": "Add another account",
+    "removeAccount": "Remove account",
+    "selectMethod": "Select login method",
+    "apiKey": "API कुंजी",
+    "pasteApiKey": "अपनी API कुंजी पेस्ट करें",
+    "chooseModels": "चुनें कि चैट में कौन-से कॉन्फ़िगर किए गए मॉडल दिखें। चैट में आपके द्वारा चुना गया अंतिम मॉडल नई चैट के लिए चयनित रहता है।",
+    "configuredProviders": "कॉन्फ़िगर किए गए प्रदाता",
+    "addProvider": "प्रदाता जोड़ें",
+    "connectFirst": "प्रदाता लोड करने के लिए पहले कनेक्ट करें।",
+    "configureAtLeastOne": "डिफ़ॉल्ट चुनने के लिए कम से कम एक प्रदाता कॉन्फ़िगर करें।",
+    "selectedCount": "{{total}} में से {{selected}} चयनित",
+    "reasoningSupported": "तर्क समर्थित",
+    "standardModel": "मानक मॉडल",
+    "noModels": "आपके कॉन्फ़िगर किए गए प्रदाताओं के लिए कोई मॉडल नहीं मिला।",
+    "configuredSuccess": "{{provider}} सफलतापूर्वक कॉन्फ़िगर किया गया।",
+    "signInFinished": "{{provider}} साइन-इन पूरा हुआ। प्रदाता स्थिति रीफ़्रेश कर दी गई है।",
+    "couldNotConfigure": "प्रदाता कॉन्फ़िगर नहीं किया जा सका।",
+    "couldNotRemove": "प्रदाता क्रेडेंशियल निकाले नहीं जा सके।",
+    "credentialsRemoved": "{{provider}} क्रेडेंशियल निकाल दिए गए।",
+    "removeTitle": "{{provider}} निकालें?",
+    "removeMessage": "संग्रहीत क्रेडेंशियल और प्रदाता कॉन्फ़िगरेशन निकाल दिए जाएँगे।",
+    "signInTitle": "प्रदाता साइन-इन पूरा करें",
+    "authorizationCode": "प्राधिकरण कोड",
+    "complete": "पूरा करें",
+    "continue": "जारी रखें",
+    "cancelSetup": "प्रदाता सेटअप रद्द करें",
+    "configureProvider": "{{provider}} कॉन्फ़िगर करें",
+    "oauthHint": "यह आपके ब्राउज़र में प्रदाता साइन-इन प्रक्रिया खोलता है।",
+    "signInPendingHint": "अपने ब्राउज़र में साइन-इन पूरा करें। यह स्क्रीन अपने आप अपडेट होती है।",
+    "pairingCode": "पेयरिंग कोड",
+    "openLink": "लिंक खोलें",
+    "copyLink": "लिंक कॉपी करें",
+    "authorizationCodeHint": "साइन-इन करने के बाद, दिखाया गया कोड कॉपी करें और यहाँ पेस्ट करें।",
+    "setupUnavailable": "इस प्रदाता के सेटअप विवरण अभी उपलब्ध नहीं हैं।",
+    "couldNotComplete": "साइन-इन पूरा नहीं किया जा सका।",
+    "removeCredentials": "{{provider}} के क्रेडेंशियल हटाएँ",
+    "promptDelivery": {
+      "label": "काम के दौरान भेजे गए संदेश",
+      "steer": {
+        "label": "निर्देश दें",
+        "description": "मौजूदा उत्तर के अगले चरण में संदेश लागू करें।"
+      },
+      "queue": {
+        "label": "जोड़ें",
+        "description": "संदेश को अगले संवाद के लिए कतार में रखें।"
+      }
+    }
+  },
+  "providerCopy": {
+    "openai": {
+      "label": "OpenAI",
+      "description": "OpenAI के GPT मॉडल, जिनमें नवीनतम तर्क और मल्टीमॉडल विकल्प शामिल हैं।"
+    },
+    "anthropic": {
+      "label": "Anthropic",
+      "description": "Anthropic के Claude मॉडल कोडिंग, विश्लेषण और लंबे-संदर्भ कार्य के लिए।"
+    },
+    "github-copilot": {
+      "label": "GitHub Copilot",
+      "description": "साइन इन करने और समर्थित फ़ाउंडेशन मॉडल सक्षम करने के लिए अपनी GitHub Copilot पहुँच का उपयोग करें।"
+    },
+    "google": {
+      "label": "Google",
+      "description": "Google के Gemini मॉडल मल्टीमॉडल और बड़े-संदर्भ कार्यों के लिए।"
+    },
+    "groq": {
+      "label": "Groq",
+      "description": "समर्थित ओपन और फ़्रंटियर मॉडल के लिए तेज़ होस्टेड अनुमान।"
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "description": "एक खाते से कई प्रदाताओं और मॉडल परिवारों में अनुरोध रूट करें।"
+    },
+    "mistral": {
+      "label": "Mistral",
+      "description": "सामान्य-उद्देश्य और कोडिंग कार्यभार के लिए Mistral AI होस्टेड मॉडल।"
+    },
+    "xai": {
+      "label": "xAI",
+      "description": "xAI के Grok मॉडल।"
+    },
+    "azure": {
+      "label": "Azure OpenAI",
+      "description": "Azure के माध्यम से तैनात OpenAI-संगत मॉडल।"
+    }
+  },
+  "notifications": {
+    "status": {
+      "checking": "जाँच हो रही है",
+      "enabled": "सक्षम",
+      "needsSetup": "सेटअप आवश्यक"
+    },
+    "background": {
+      "checking": "जाँच हो रही है",
+      "ready": "तैयार",
+      "limited": "सीमित"
+    },
+    "summary": {
+      "enabled": "सूचनाएँ सक्षम",
+      "off": "सूचनाएँ बंद",
+      "background": "पृष्ठभूमि {{status}}"
+    },
+    "enable": "सूचनाएँ सक्षम करें",
+    "settings": "सूचना सेटिंग्स",
+    "appSettings": "ऐप सेटिंग्स",
+    "appSettingsDescription": "इस ऐप के लिए सिस्टम सेटिंग्स की समीक्षा करें।",
+    "batteryOptimization": "बैटरी अनुकूलन",
+    "batteryOptimizationDescription": "ऐप को पृष्ठभूमि में अधिक विश्वसनीय रूप से चलने दें।",
+    "batterySaver": "बैटरी सेवर",
+    "batterySaverDescription": "बैटरी सेवर अनुस्मारक विलंबित कर सकता है।",
+    "refreshStatus": "स्थिति रीफ़्रेश करें",
+    "enabledFeedback": "इस डिवाइस पर सूचनाएँ सक्षम हैं।",
+    "disabledFeedback": "सूचनाएँ अभी भी अक्षम हैं। उन्हें मैन्युअल रूप से सक्षम करने के लिए सिस्टम सेटिंग्स खोलें।"
+  },
+  "voice": {
+    "onDeviceInput": {
+      "title": "डिवाइस पर पहचान को प्राथमिकता दें",
+      "description": "स्थानीय पहचान को प्राथमिकता दें; ज़रूरत पड़ने पर क्लाउड का उपयोग करें।"
+    },
+    "autoPlay": {
+      "title": "सहायक उत्तर स्वतः चलाएँ",
+      "description": "चैट प्रतिक्रियाएँ पढ़ें। कन्वर्सेशन मोड हमेशा पढ़ता है।"
+    },
+    "workingSound": {
+      "title": "कार्य ध्वनि",
+      "description": "सहायक के अभी उत्तर पर काम करते समय एक शांत लूप चलाएँ।"
+    },
+    "wakePhrase": {
+      "label": "वेक वाक्यांश",
+      "helper": "कन्वर्सेशन मोड इस वाक्यांश को सुनने के बाद ही संदेश भेजता है। दो या अधिक शब्द सबसे अच्छे काम करते हैं।"
+    },
+    "modelDownloads": {
+      "timeout": "डाउनलोड का समय समाप्त हो गया। कनेक्शन रुक गया — Wi‑Fi या बेहतर सिग्नल पर फिर से कोशिश करें।",
+      "offline": "डाउनलोड सर्वर तक नहीं पहुँचा जा सका। अपना इंटरनेट कनेक्शन जाँचें और फिर से कोशिश करें।",
+      "server": "डाउनलोड सर्वर फ़ाइल नहीं दे सका। बाद में फिर से कोशिश करें।",
+      "storage": "यह मॉडल इंस्टॉल करने के लिए पर्याप्त खाली जगह नहीं है।",
+      "incomplete": "डाउनलोड पूरा नहीं हुआ। फिर से कोशिश करें।",
+      "integrity": "डाउनलोड की गई फ़ाइल खराब है। फिर से कोशिश करें।",
+      "unknown": "मॉडल डाउनलोड नहीं हो सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।",
+      "installFailed": "मॉडल इंस्टॉल नहीं हो सका। फिर से कोशिश करें।"
+    },
+    "localWake": {
+      "title": "डिवाइस पर आवाज़",
+      "description": "स्थानीय वेक-वर्ड मॉडल और वैकल्पिक आवाज़ जाँच चलाएँ। {{size}} के प्रीट्रेन्ड मॉडल डाउनलोड करता है; उपलब्ध न होने पर फ्रेज़ गेट पर लौटता है।",
+      "statusMissing": "मॉडल इंस्टॉल नहीं हैं",
+      "statusInstalling": "इंस्टॉल हो रहा है…",
+      "statusReady": "मॉडल इंस्टॉल हैं",
+      "statusUnsupported": "इस बिल्ड में समर्थित नहीं",
+      "statusError": "इंस्टॉलेशन विफल",
+      "install": "मॉडल इंस्टॉल करें ({{size}})",
+      "remove": "मॉडल हटाएँ",
+      "phraseLabel": "वेक वाक्यांश",
+      "phraseHelper": "वेक डिटेक्टर इन अंग्रेज़ी वाक्यांशों का समर्थन करता है। चुना गया कमांड मॉडल कमांड की भाषा तय करता है; किसी ट्रेनिंग की ज़रूरत नहीं।",
+      "speakerVerification": "मेरी आवाज़ जाँचें",
+      "speakerVerificationDescription": "जब वाक्यांश पंजीकृत आवाज़ से न कहा जाए तो उसे अस्वीकार करें।",
+      "enroll": "आवाज़ पंजीकृत करें",
+      "reEnroll": "फिर से रिकॉर्ड करें",
+      "removeVoice": "आवाज़ हटाएँ",
+      "enrolled": "आवाज़ प्रोफ़ाइल पंजीकृत है।",
+      "notEnrolled": "अभी कोई आवाज़ प्रोफ़ाइल नहीं है।",
+      "recording": "रिकॉर्डिंग… लगभग दस सेकंड स्वाभाविक रूप से बोलें।",
+      "saving": "आवाज़ प्रोफ़ाइल बन रही है…",
+      "unsupportedHint": "इस बिल्ड में स्थानीय नेटिव वॉइस रनटाइम शामिल नहीं है।",
+      "commandModelLabel": "कमांड पहचान मॉडल",
+      "commandModelHelper": "कमांड के लिए डिवाइस पर चलने वाला मॉडल चुनें। बहुभाषी मॉडल अधिक जगह लेते हैं।",
+      "fallback": "फ़ॉलबैक: सिस्टम फ्रेज़ गेट “{{phrase}}”।",
+      "baseModels": "बेस पैक",
+      "voiceProfile": "वॉइस प्रोफ़ाइल",
+      "enrollRequiresModels": "पहले मॉडल इंस्टॉल करें, फिर अपनी आवाज़ नामांकित करें।",
+      "installBase": "बेस पैक इंस्टॉल करें ({{size}})",
+      "installCommand": "कमांड मॉडल इंस्टॉल करें ({{size}})"
+    },
+    "speechLocale": {
+      "label": "वाक् लोकेल",
+      "helper": "आवाज़ इनपुट और प्लेबैक के लिए सिस्टम की डिफ़ॉल्ट भाषा उपयोग करने हेतु खाली छोड़ें।"
+    },
+    "responseScope": {
+      "label": "उत्तर का दायरा",
+      "brief": {
+        "label": "संक्षिप्त",
+        "description": "स्वाभाविक बातचीत के लिए छोटे, सीमित उत्तर।"
+      },
+      "balanced": {
+        "label": "संतुलित",
+        "description": "उपयोगी होने पर थोड़े अधिक संदर्भ के साथ संक्षिप्त उत्तर।"
+      },
+      "detailed": {
+        "label": "विस्तृत",
+        "description": "लंबी व्याख्याएँ और अधिक सहायक विवरण।"
+      }
+    },
+    "nextActions": {
+      "title": "सरल अगली कार्रवाइयाँ",
+      "description": "जब कोई स्पष्ट अगला कदम हो तो उत्तरों को एक छोटी सिफ़ारिश के साथ समाप्त करें।"
+    },
+    "speechRate": {
+      "label": "बोलने की गति"
+    },
+    "workingSoundVariant": {
+      "label": "कार्य ध्वनि",
+      "soft": {
+        "label": "कोमल घंटी",
+        "description": "कोमल स्पंदन के साथ गर्म स्तरित स्वर।"
+      },
+      "glass": {
+        "label": "काँच स्वर",
+        "description": "अधिक चमकीला, हल्का परिवेशी लूप।"
+      }
+    },
+    "workingSoundVolume": {
+      "label": "कार्य ध्वनि वॉल्यूम"
+    },
+    "voiceSelect": {
+      "label": "सिस्टम आवाज़",
+      "automatic": "स्वचालित (सर्वोत्तम उपलब्ध)",
+      "enhanced": "उन्नत · {{language}}"
+    },
+    "enhancedVoices": "सबसे स्वाभाविक सिस्टम आवाज़ के लिए डिवाइस की टेक्स्ट-टू-स्पीच सेटिंग्स में उन्नत या प्रीमियम आवाज़ें इंस्टॉल करें।",
+    "playbackEngine": {
+      "label": "प्लेबैक इंजन",
+      "systemDescription": "डिवाइस की अंतर्निहित आवाज़ का उपयोग करता है। हमेशा उपलब्ध।",
+      "localDescription": "डाउनलोड की गई न्यूरल आवाज़ का उपयोग करता है। नीचे एक मॉडल चुनें।"
+    },
+    "localTts": {
+      "title": "डिवाइस पर प्लेबैक",
+      "description": "मॉडल केवल तब डाउनलोड होते हैं जब आप उन्हें चुनते हैं। सिस्टम आवाज़ हमेशा उपलब्ध रहती है।",
+      "piper": "कॉम्पैक्ट",
+      "kokoro": "प्राकृतिक",
+      "piperDescription": "तेज़ और हल्का",
+      "kokoroDescription": "सबसे प्राकृतिक अंग्रेज़ी, बड़ा डाउनलोड",
+      "download": "डाउनलोड करें ({{size}})",
+      "installing": "इंस्टॉल हो रहा है…",
+      "installed": "इंस्टॉल हो गया",
+      "notInstalled": "इंस्टॉल नहीं है",
+      "use": "उपयोग करें",
+      "preview": "पूर्वावलोकन",
+      "speaker": "आवाज़",
+      "storage": "डिवाइस आवाज़ों द्वारा {{size}} उपयोग में",
+      "downloadHint": "डाउनलोड सत्यापित होकर इस डिवाइस पर संग्रहीत होते हैं।",
+      "japaneseUnavailable": "जापानी के लिए सिस्टम आवाज़ का उपयोग होता है क्योंकि कोई Piper मॉडल उपलब्ध नहीं है।",
+      "fallbackToSystem": "डिवाइस पर आवाज़ उपलब्ध नहीं है। सिस्टम आवाज़ का उपयोग किया जा रहा है।",
+      "languageMismatch": "यह मॉडल {{language}} बोलता है। वाक् लोकेल मिलाएँ, अन्यथा प्लेबैक सिस्टम आवाज़ का उपयोग करेगा।",
+      "installFirst": "पहले डिवाइस पर एक मॉडल चुनें और इंस्टॉल करें।"
+    },
+    "footer": "Android समय-समय पर पृष्ठभूमि में चल रहे सेशन जाँच सकता है और पूर्णता सूचना पोस्ट कर सकता है। पृष्ठभूमि वाक् और निरंतर माइक्रोफ़ोन कैप्चर समर्थित नहीं हैं।",
+    "check": {
+      "title": "वॉइस जाँच",
+      "permission": "माइक्रोफ़ोन और वाक् पहुँच",
+      "recognition": "वाक् पहचान",
+      "onDevice": "सिस्टम की डिवाइस पर पहचान",
+      "restricted": "डिवाइस नीति द्वारा प्रतिबंधित",
+      "restrictedHint": "इस डिवाइस पर वाक् पहचान प्रतिबंधित है। अपने डिवाइस प्रशासक से संपर्क करें।",
+      "unavailableHint": "डिवाइस सेटिंग्स में Siri और डिक्टेशन चालू करें, फिर दोबारा जाँचें।",
+      "deniedHint": "पहुँच अस्वीकार कर दी गई। इसे मैन्युअल रूप से चालू करने के लिए सेटिंग्स खोलें।",
+      "enable": "वॉइस इनपुट चालू करें",
+      "recheck": "फिर से जाँचें",
+      "test": "प्लेबैक परखें",
+      "testPhrase": "वॉइस प्लेबैक काम कर रहा है।",
+      "testFailed": "वॉइस प्लेबैक विफल रहा। चुनी गई आवाज़ और डिवाइस वॉल्यूम जाँचें।",
+      "allowed": "अनुमत",
+      "available": "उपलब्ध"
+    },
+    "mode": {
+      "label": "वॉइस इनपुट",
+      "system": "सिस्टम",
+      "local": "डिवाइस पर",
+      "systemDescription": "फ़ोन के स्पीच रिकग्नाइज़र का उपयोग करता है। यह विक्रेता के क्लाउड का उपयोग कर सकता है।",
+      "localDescription": "डाउनलोड किए गए मॉडल का उपयोग करता है। ऑडियो डिवाइस पर रहता है।"
+    },
+    "playback": {
+      "title": "प्लेबैक",
+      "helper": "सिस्टम और डिवाइस पर आवाज़ दोनों पर लागू होता है।"
+    },
+    "readInterim": {
+      "title": "प्रगति अपडेट पढ़ें",
+      "description": "“अभी कर रहा हूँ…” जैसे अपडेट पढ़ें; अंतिम प्रतिक्रिया हमेशा।"
+    }
+  },
+  "diagnostics": {
+    "title": "सर्वर निदान",
+    "server": "सर्वर",
+    "openCodeVersion": "OpenCode {{version}}",
+    "healthUnavailable": "हेल्थ एंडपॉइंट अनुपलब्ध",
+    "healthy": "स्वस्थ",
+    "realtimeUpdates": "रीयलटाइम अपडेट",
+    "eventStreamConnected": "ग्लोबल इवेंट स्ट्रीम कनेक्टेड",
+    "pollingFallback": "पोलिंग फ़ॉलबैक सक्रिय",
+    "subsystems": "उपप्रणालियाँ",
+    "subsystemsMcp": "MCP {{value}}",
+    "notAvailable": "लागू नहीं",
+    "refresh": "निदान रीफ़्रेश करें",
+    "networkUsage": "नेटवर्क उपयोग",
+    "networkUsageValue": "{{requests}} अनुरोध · आज ज्ञात प्रतिक्रिया आकार {{size}}",
+    "networkUsageReset": "रीसेट",
+    "lastError": "अंतिम ऐप त्रुटि",
+    "lastErrorValue": "{{message}} · {{time}}",
+    "lastErrorNone": "कोई ऐप त्रुटि दर्ज नहीं",
+    "lastErrorFatal": "घातक",
+    "lastErrorHandled": "संभाली गई",
+    "network": "नेटवर्क",
+    "networkValue": "{{type}} · {{state}}{{generation}}",
+    "networkOnline": "ऑनलाइन",
+    "networkOffline": "ऑफ़लाइन",
+    "networkConstrained": "सीमित",
+    "networkNormal": "सामान्य",
+    "reconnect": "स्वचालित पुनः कनेक्शन",
+    "reconnectValue": "प्रयास {{attempt}} / {{max}}",
+    "requestLatency": "अनुरोध विलंबता",
+    "requestLatencyValue": "p50 {{p50}} ms · p95 {{p95}} ms · {{failed}} विफल · {{retries}} पुनः प्रयास"
+  },
+  "mcp": {
+    "title": "MCP सर्वर",
+    "couldNotUpdate": "MCP सर्वर अपडेट नहीं किए जा सके।",
+    "configurationUnavailable": "कॉन्फ़िगरेशन विवरण अनुपलब्ध",
+    "invalidCommand": "स्थानीय कमांड को JSON स्ट्रिंग ऐरे के रूप में दर्ज करें।",
+    "local": "स्थानीय",
+    "remote": "रिमोट",
+    "serverName": "सर्वर नाम",
+    "commandArguments": "कमांड तर्क (JSON)",
+    "url": "URL",
+    "addLocalServer": "स्थानीय सर्वर जोड़ें",
+    "addRemoteServer": "रिमोट सर्वर जोड़ें",
+    "noServers": "कोई MCP सर्वर कॉन्फ़िगर नहीं है।",
+    "statusConfigured": "कॉन्फ़िगर किया गया",
+    "statusDisabled": "अक्षम",
+    "oauth": "OAuth"
+  },
+  "language": {
+    "title": "भाषा",
+    "description": "सिस्टम भाषा उपयोग करें या ऐप इंटरफ़ेस के लिए एक चुनें।"
+  },
+  "appearance": {
+    "theme": {
+      "label": "थीम मोड",
+      "description": "हल्का या गहरा चुनें, या सिस्टम सेटिंग का पालन करें।",
+      "system": "सिस्टम का पालन करें",
+      "light": "हल्का",
+      "dark": "गहरा"
+    },
+    "accent": {
+      "label": "थीम",
+      "description": "रंग थीम चुनें। यह पूरे ऐप में सतहों, एक्सेंट और चैट बुलबुले बदलती है।",
+      "green": "हरा",
+      "blue": "नीला",
+      "red": "लाल",
+      "purple": "बैंगनी",
+      "pink": "गुलाबी",
+      "gray": "ग्रे"
+    },
+    "chatTextSize": "चैट टेक्स्ट का आकार",
+    "chatTextSizeDescription": "चैट संदेशों का टेक्स्ट आकार बदलें। छोटा टेक्स्ट एक बार में अधिक बातचीत दिखाता है।",
+    "flatThread": {
+      "title": "सपाट बातचीत",
+      "description": "संदेशों को बबल के बिना पूरी चौड़ाई में दिखाएँ ताकि स्क्रीन पर अधिक बातचीत दिखे।"
+    },
+    "slimInterface": {
+      "title": "स्लिम इंटरफ़ेस",
+      "description": "चैट, टर्मिनल और प्रोजेक्ट में बटन, स्पेसिंग और हेडर छोटे करें ताकि स्क्रीन पर अधिक टेक्स्ट आए।"
+    }
+  },
+  "connect": {
+    "entry": "Pair with Cloud Link",
+    "title": "Cloud Link",
+    "description": "Scan your machine’s connector QR code or open its pairing link. Manual connections remain available.",
+    "pairingLink": "Pairing deep link",
+    "openLink": "Open pairing link",
+    "machines": "Your machines",
+    "refreshMachines": "Refresh machines",
+    "noMachines": "No machines registered for this user.",
+    "revoke": "Revoke machine",
+    "revokeConfirm": "Delete this machine for every device? Its public tunnel will be deleted.",
+    "forget": "Forget locally",
+    "forgetConfirm": "Remove this connection and its credentials from this device? Other devices will keep access.",
+    "expiresAt": "Credentials expire: {{date}}",
+    "savedConnection": "Connection saved: {{name}}",
+    "manage": "Manage Cloud Link",
+    "cameraLoading": "Opening camera",
+    "cameraUnavailable": "Camera unavailable. Open the connector deep link instead.",
+    "progress": {
+      "idle": "Loading…",
+      "claiming": "Claiming pairing…",
+      "saving": "Saving credentials securely…",
+      "connecting": "Connecting to the machine…",
+      "waitingForApproval": "अपने कंप्यूटर पर इस कनेक्शन की पुष्टि करें।",
+      "delayed": "अभी तक स्वीकृति नहीं मिली। अपने कंप्यूटर पर स्वीकृति दें या नया QR कोड स्कैन करें।",
+      "paired": "Loading…",
+      "catalog": "Loading store subscriptions…",
+      "purchasing": "Waiting for the store…",
+      "pending": "Waiting for purchase approval…",
+      "restoring": "Restoring purchases…",
+      "verifying": "Verifying subscription…",
+      "savingSession": "Saving the Cloud Link session securely…",
+      "finalizing": "Finalizing the store transaction…"
+    },
+    "subscriptionActive": "Your Cloud Link subscription is active.",
+    "restore": "Restore purchases",
+    "accessUnavailable": "Access unavailable. Purchase or Restore to reactivate this machine.",
+    "scanHint": "कनेक्ट करने के लिए अपने कंप्यूटर का QR कोड स्कैन करें।",
+    "scanNewQr": "अपने कंप्यूटर पर नया QR कोड स्कैन करें",
+    "scanLocal": "QR कोड स्कैन करें",
+    "scanLocalHint": "एक ही नेटवर्क पर कंप्यूटर से कनेक्ट करें।",
+    "manual": "मैन्युअल",
+    "manualHint": "अपने सर्वर का URL और क्रेडेंशियल दर्ज करें।",
+    "nativeOnly": "Cloud Link iOS और Android ऐप में उपलब्ध है।",
+    "benefits": "QR कोड से कनेक्ट करें, Cloud Link के ज़रिए अपने कंप्यूटर तक दूर से पहुँचें और खरीदारी बहाल करें से दूसरे डिवाइस पर अपनी मशीनें वापस पाएँ।",
+    "subscribe": "सदस्यता लें",
+    "options": "कनेक्शन विकल्प",
+    "learnMore": "Cloud Link के बारे में और जानें",
+    "onboarding": {
+      "step": "{{total}} में से {{step}}",
+      "step1": {
+        "title": "आपका कंप्यूटर।\nकहीं से भी।",
+        "subtitle": "अपने फ़ोन से कंप्यूटर पर OpenCode इस्तेमाल करें।",
+        "action": "शुरू करें"
+      },
+      "step2": {
+        "title": "अपना कंप्यूटर\nसेट अप करें",
+        "subtitle": "अपने कंप्यूटर पर Cloud Link डाउनलोड करें।",
+        "action": "Cloud Link चल रहा है"
+      },
+      "step3": {
+        "title": "Cloud Link\nसक्रिय करें",
+        "subtitle": "इस ऐप को इंटरनेट के ज़रिए कंप्यूटर से जोड़ने के लिए सदस्यता लें।",
+        "action": "सदस्यता लें और आगे बढ़ें"
+      },
+      "step4": {
+        "title": "अपना कंप्यूटर\nपेयर करें",
+        "subtitle": "अपने कंप्यूटर पर Cloud Link में दिखाया गया QR कोड स्कैन करें।",
+        "action": "QR कोड स्कैन करें"
+      },
+      "explanation": "Cloud Link आपके डिवाइस इंटरनेट के ज़रिए जोड़ता है। कंप्यूटर चालू रखें और Cloud Link चलने दें।",
+      "instruction1": "कंप्यूटर पर इंस्टॉल करें",
+      "instruction2": "इस ऐप में सदस्यता लें",
+      "instruction3": "पेयर करने के लिए स्कैन करें",
+      "openOnComputer": "अपने कंप्यूटर पर खोलें:",
+      "copySetupUrl": "कंप्यूटर सेटअप URL कॉपी करें",
+      "copied": "सेटअप URL कॉपी किया गया",
+      "copyError": "URL कॉपी नहीं हो सका। कंप्यूटर पर opencodecloud.link खोलें।",
+      "downloadHint": "Cloud Link डाउनलोड करके खोलें और उसका पेयरिंग QR कोड स्क्रीन पर रखें।",
+      "remote": "इंटरनेट के ज़रिए कनेक्ट करें",
+      "pair": "अपने कंप्यूटर को इस ऐप से पेयर करें",
+      "billing": "बिलिंग आपके ऐप स्टोर द्वारा संभाली जाती है।",
+      "checkoutHint": "खरीद की पुष्टि के लिए आपका ऐप स्टोर खोलता है।",
+      "approveHint": "फिर अपने कंप्यूटर पर कनेक्शन को मंज़ूरी दें।",
+      "usePairingLink": "पेयरिंग लिंक इस्तेमाल करें"
+    }
+  },
+  "editor": {
+    "title": "एडिटर"
+  },
+  "general": {
+    "title": "सामान्य",
+    "resetOnboarding": "सेटअप की समीक्षा करें"
+  },
+  "autoUpdate": {
+    "title": "अपडेट की जाँच",
+    "enable": {
+      "title": "अपडेट के लिए जाँचें",
+      "description": "स्टोर पर उपलब्ध होते ही नए संस्करण सुझाएँ।"
+    },
+    "checkPeriod": {
+      "label": "जाँच अवधि",
+      "available": {
+        "label": "उपलब्ध होने पर",
+        "description": "स्टोर द्वारा बताते ही नया संस्करण दिखाएँ।"
+      },
+      "daily": {
+        "label": "प्रतिदिन",
+        "description": "दिन में अधिकतम एक बार नए संस्करण की जाँच करें।"
+      },
+      "weekly": {
+        "label": "साप्ताहिक",
+        "description": "सप्ताह में अधिकतम एक बार नए संस्करण की जाँच करें।"
+      }
+    }
+  },
+  "permissions": {
+    "title": "सहेजी गई अनुमतियाँ",
+    "description": "“हमेशा अनुमति दें” से बनी नियम। एक हटाने पर सर्वर फिर पूछेगा।",
+    "empty": "कोई सहेजी गई अनुमति नहीं।",
+    "remove": "हटाएं",
+    "removeTitle": "सहेजी गई अनुमति हटाएं",
+    "removeMessage": "{{resource}} को स्वतः अनुमति देना बंद करें?",
+    "refresh": "रीफ़्रेश करें"
+  },
+  "subscription": {
+    "inactive": "कोई सक्रिय सदस्यता नहीं",
+    "accessThrough": "{{date}} तक पहुँच",
+    "description": "अपनी OpenCode मशीनों तक रिमोट पहुँच।",
+    "manage": "सदस्यता प्रबंधित करें",
+    "opensApple": "App Store की सदस्यताएँ खोलता है",
+    "opensGoogle": "Google Play खोलता है",
+    "restoreDescription": "मौजूदा खरीदारी पुनर्स्थापित करें",
+    "machines": "मशीनें",
+    "machinesDescription": "कनेक्ट की गई मशीनें देखें और प्रबंधित करें"
+  },
+  "services": {
+    "title": "उजागर सेवाएँ",
+    "description": "अपने कनेक्टर द्वारा टनल के ज़रिए उजागर की जाने वाली सेवाओं को जोड़ें, बदलें और हटाएँ। बदलाव तुरंत लागू होते हैं।",
+    "add": "सेवा जोड़ें",
+    "addTitle": "नई सेवा",
+    "editTitle": "सेवा संपादित करें",
+    "empty": "अभी कोई सेवा उजागर नहीं है।",
+    "capacity": "आप अधिकतम {{max}} सेवाएँ उजागर कर सकते हैं।",
+    "saveFailed": "यह सेवा सहेजी नहीं जा सकी।",
+    "removed": "{{name}} हटाया गया।",
+    "removeFailed": "यह सेवा हटाई नहीं जा सकी।",
+    "removeTitle": "{{name}} हटाएँ?",
+    "removeMessage": "कनेक्टर इस पथ को तुरंत रूट करना बंद कर देगा।",
+    "removeConfirm": "{{name}} हटाएँ? कनेक्टर इस पथ को तुरंत रूट करना बंद कर देगा।",
+    "copyLink": "लिंक कॉपी करें",
+    "linkCopied": "सेवा लिंक कॉपी हो गया।",
+    "linkUnavailable": "इस सेवा के लिए लिंक नहीं बनाया जा सका।",
+    "machine": "मशीन",
+    "notActive": "{{name}} की सेवाएँ — यह आपका सक्रिय कनेक्शन नहीं है।",
+    "useMachine": "इस मशीन पर स्विच करें",
+    "noMachine": "इसकी उजागर सेवाओं को प्रबंधित करने के लिए कोई Cloud Link मशीन कनेक्ट करें।",
+    "credentialsExpired": "इस मशीन के लिए Cloud Link पहुँच समाप्त हो गई है या अनुपलब्ध है। सेवाओं को प्रबंधित करने के लिए दोबारा कनेक्ट करें।",
+    "reconnectFailed": "इस मशीन को दोबारा कनेक्ट नहीं किया जा सका।",
+    "unavailableService": "यह सेवा अब कनेक्टर पर नहीं है।",
+    "unavailableServiceHint": "वापस जाएँ और उजागर सेवाओं की सूची रीफ़्रेश करें।",
+    "legacyConnector": "यह डेस्कटॉप कनेक्टर अभी समर्पित सेवा पोर्ट नहीं जानता। पोर्ट रूट पर ऐप्स देने और पोर्ट चुनने के लिए इसे अपडेट करें।",
+    "unknownConnector": "यह डेस्कटॉप कनेक्टर ऐप की अपेक्षा से पुराना है। समर्पित पोर्ट और रूट सेवाओं के लिए इसे अपडेट करें।",
+    "enabledHint": "इस पथ का ट्रैफ़िक टनल से रूट करें।",
+    "rootPathHint": "पूरे पोर्ट रूट पर सेवा देने के लिए पथ खाली छोड़ें — यह उन ऐप्स के लिए है जो पूर्ण URL इस्तेमाल करते हैं।",
+    "portOccupied": "उपयोग में",
+    "portShared": "साझा",
+    "stripPrefixHint": "फ़ॉरवर्ड करने से पहले मेल खाता पथ प्रीफ़िक्स हटाएँ।",
+    "fields": {
+      "id": "ID",
+      "name": "नाम",
+      "port": "पोर्ट",
+      "path": "पथ",
+      "target": "लक्ष्य",
+      "access": "पहुँच",
+      "enabled": "सक्षम",
+      "stripPrefix": "पथ प्रीफ़िक्स हटाएँ"
+    },
+    "access": {
+      "private": "निजी",
+      "public": "सार्वजनिक"
+    },
+    "errors": {
+      "required": "यह फ़ील्ड आवश्यक है।",
+      "idFormat": "1-32 छोटे अक्षर, अंक या हाइफ़न इस्तेमाल करें।",
+      "nameLength": "64 अक्षर या कम इस्तेमाल करें।",
+      "pathRoot": "पथ सर्वर रूट नहीं हो सकता।",
+      "pathReserved": "/_cloudlink प्रीफ़िक्स आरक्षित है।",
+      "pathFormat": "/test/api जैसा पथ इस्तेमाल करें, बिना क्वेरी, फ़्रैगमेंट या एन्कोडिंग के।",
+      "portRequired": "सेवा पोर्ट चुनें।",
+      "portInvalid": "अपने कनेक्टर के सेवा पोर्ट में से एक चुनें।",
+      "portInUse": "यह पोर्ट पहले से किसी अन्य सेवा द्वारा उपयोग में है।",
+      "portPathInUse": "यह पोर्ट और पथ पहले से किसी अन्य सेवा द्वारा उपयोग में हैं।",
+      "targetFormat": "127.0.0.1:3000 जैसा पता इस्तेमाल करें।",
+      "targetLoopback": "लक्ष्य लूपबैक होना चाहिए (127.0.0.1 या ::1)।",
+      "targetReserved": "यह पोर्ट उजागर सेवाओं के लिए आरक्षित है।",
+      "targetPort": "1024 से 65535 के बीच गैर-विशेषाधिकार पोर्ट इस्तेमाल करें।"
+    }
+  },
+  "extensions": {
+    "title": "Extensions",
+    "description": "Manage MCP servers, plugins, skills and slash commands for this server.",
+    "scope": {
+      "project": "Project",
+      "general": "General"
+    },
+    "scopeDescription": {
+      "project": "These extensions apply only to {{project}}.",
+      "general": "These extensions apply to every project on this server."
+    },
+    "safety": {
+      "writable": "Writable. Changes are backed up and replaced atomically.",
+      "readOnly": "Read-only",
+      "target": "Config file: {{path}}",
+      "backup": "Last backup: {{path}}",
+      "restore": "Restore last backup",
+      "restoreMessage": "Restore the last saved configuration? The current file is backed up first."
+    },
+    "tabs": {
+      "mcp": "MCPs",
+      "plugins": "Plugins",
+      "skills": "Skills",
+      "commands": "Commands"
+    },
+    "shared": "Shared with all projects",
+    "sharedHint": "Shared items are managed in the scope that defines them.",
+    "removeTitle": "Remove extension",
+    "saving": "Saving and waiting for the server to reload…",
+    "unavailable": "Extension management is unavailable for this server.",
+    "mcp": {
+      "addTitle": "Add MCP server",
+      "add": "Add MCP server",
+      "empty": "No MCP servers in this scope.",
+      "runtime": "Runtime-only MCP server",
+      "configured": "Configured",
+      "removeMessage": "Remove MCP server \"{{name}}\" from this scope?"
+    },
+    "plugins": {
+      "addTitle": "Add plugin",
+      "package": "Package or local plugin path",
+      "warning": "Plugins execute code on the server. Only add packages you trust.",
+      "add": "Add plugin",
+      "empty": "No plugins in this scope.",
+      "outdated": "Update available",
+      "removeMessage": "Remove plugin \"{{name}}\" from this scope?"
+    },
+    "skills": {
+      "addTitle": "Add skill",
+      "editTitle": "Edit {{name}}",
+      "id": "Skill ID",
+      "name": "Name",
+      "descriptionLabel": "Description",
+      "instructions": "Instructions",
+      "fileContent": "SKILL.md content",
+      "autoinvokeOn": "Discoverable by the model",
+      "autoinvokeOff": "Hidden from the model by default",
+      "add": "Create skill",
+      "empty": "No skills in this scope.",
+      "removeMessage": "Move skill \"{{name}}\" to the extension trash?"
+    },
+    "commands": {
+      "addTitle": "Add slash command",
+      "editTitle": "Edit /{{name}}",
+      "name": "Command name",
+      "descriptionLabel": "Description",
+      "template": "Template",
+      "templateHint": "Use $ARGUMENTS or $1, $2 for arguments. Shell blocks in templates run on the server.",
+      "empty": "No commands in this scope.",
+      "removeMessage": "Remove command \"/{{name}}\" from this scope?"
+    },
+    "generalConfirmTitle": "Edit global configuration",
+    "generalConfirmMessage": "This changes the configuration for every project on this server. A backup is created first.\n\n{{path}}",
+    "generalConfirmAction": "Continue"
+  },
+  "modelRouting": {
+    "title": "Auto model routing",
+    "description": "Classify each prompt and choose a model by complexity. Routing is skipped when the classifier is unavailable.",
+    "enable": {
+      "title": "Enable auto-routing",
+      "description": "Choose a model for each prompt based on its complexity.",
+      "unavailable": "Set up a classifier below before enabling routing."
+    },
+    "classifier": {
+      "label": "Classifier",
+      "local": {
+        "label": "On-device model",
+        "description": "Runs on this phone. The model is downloaded once."
+      },
+      "server": {
+        "label": "OpenCode classifier",
+        "description": "Calls a model through OpenCode before sending the prompt."
+      }
+    },
+    "local": {
+      "statusLabel": "On-device model",
+      "status": {
+        "unsupported": "Not supported on this platform",
+        "installing": "Downloading",
+        "ready": "Ready",
+        "missing": "Not installed",
+        "error": "Install failed"
+      },
+      "installed": "Installed ({{size}})",
+      "remove": "Remove model",
+      "download": "Download model ({{size}})",
+      "license": "{{model}} · {{license}}. The model runs only on this device."
+    },
+    "server": {
+      "modelLabel": "Classifier model",
+      "cheapest": "Cheapest available",
+      "check": "Check classifier",
+      "status": {
+        "unknown": "Not checked. Check the classifier to enable routing.",
+        "checking": "Checking the classifier...",
+        "available": "Classifier available.",
+        "unsupported": "This server does not expose the classifier endpoint.",
+        "unavailable": "Classifier unavailable. Check the connection and retry.",
+        "auth": "Sign in to this server before using the classifier."
+      }
+    },
+    "tiers": {
+      "simple": {
+        "label": "Simple model"
+      },
+      "standard": {
+        "label": "Standard model"
+      },
+      "complex": {
+        "label": "Complex model"
+      },
+      "automatic": "Automatic",
+      "automaticDescription": "Choose from the enabled models",
+      "automaticValue": "Automatic · {{model}}",
+      "unavailable": "Unavailable"
+    },
+    "protect": {
+      "title": "Protect long chats",
+      "description": "Avoid downgrading models on long conversations where prompt-cache savings may be larger."
+    }
+  },
+  "localServer": {
+    "title": "स्थानीय सर्वर",
+    "description": "OpenCode सर्वर इस फ़ोन पर Linux वातावरण में चलता है।",
+    "summary": {
+      "running": "चल रहा है · 127.0.0.1:{{port}}",
+      "starting": "शुरू हो रहा है…",
+      "downloading": "वातावरण डाउनलोड हो रहा है…",
+      "installing": "वातावरण अनपैक हो रहा है…",
+      "failed": "विफल",
+      "stopped": "रुका हुआ",
+      "unsupported": "इस प्लेटफ़ॉर्म पर अनुपलब्ध"
+    },
+    "identity": {
+      "nick": "निक",
+      "address": "पता",
+      "password": "पासवर्ड स्वतः बनाया गया और डिवाइस पर रहता है"
+    },
+    "restart": "सर्वर पुनः आरंभ करें",
+    "stop": "सर्वर रोकें",
+    "logs": "लॉग दिखाएँ",
+    "logsTitle": "सर्वर लॉग",
+    "logsEmpty": "लॉग खाली है।",
+    "apiKey": {
+      "title": "व्यक्तिगत OpenCode API कुंजी",
+      "description": "वैकल्पिक। कुंजी के साथ सर्वर अनाम लेन की जगह आपके कोटा से अनुरोध भेजता है।",
+      "placeholder": "अपनी API कुंजी चिपकाएँ",
+      "saved": "API कुंजी सहेजी गई। लागू करने के लिए सर्वर पुनः आरंभ करें।",
+      "removed": "API कुंजी हटा दी गई। लागू करने के लिए सर्वर पुनः आरंभ करें।"
+    },
+    "compat": {
+      "title": "संगतता मोड",
+      "description": "अगर Android सिस्टम कॉल पर सर्वर रोक दे तो चालू करें।"
+    },
+    "runtime": {
+      "title": "Linux वातावरण",
+      "version": "संस्करण: {{version}}",
+      "downloading": "वातावरण डाउनलोड हो रहा है…",
+      "installing": "वातावरण अनपैक हो रहा है…",
+      "progress": "{{percent}}%"
+    }
+  }
+}

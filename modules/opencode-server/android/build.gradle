@@ -1,0 +1,28 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'dev.opencode.server'
+version = '2.0.0'
+
+android {
+  namespace 'dev.opencode.server'
+
+  defaultConfig {
+    versionName '2.0.0'
+    // The proot launcher ships as native libraries (libproot.so & friends) in
+    // src/main/jniLibs/arm64-v8a. They are fetched from the Termux package
+    // repository by runtime/fetch-proot.sh (CI runs it before the Gradle
+    // build); a local build without them still compiles, the module then
+    // reports that the runtime cannot start.
+    ndk {
+      abiFilters 'arm64-v8a'
+    }
+  }
+}
+
+dependencies {
+  implementation 'androidx.core:core-ktx:1.17.0'
+  implementation 'com.facebook.react:react-android'
+}

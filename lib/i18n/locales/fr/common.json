@@ -1,0 +1,83 @@
+{
+  "tabs": {
+    "chat": "Chat",
+    "terminal": "Terminal",
+    "projects": "Projets",
+    "settings": "Réglages"
+  },
+  "actions": {
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "done": "Terminé",
+    "retry": "Réessayer",
+    "delete": "Supprimer",
+    "dismiss": "Ignorer",
+    "refresh": "Actualiser",
+    "remove": "Retirer",
+    "open": "Ouvrir",
+    "copy": "Copier",
+    "connect": "Se connecter",
+    "reconnect": "Se reconnecter",
+    "disconnect": "Se déconnecter",
+    "edit": "Modifier",
+    "stop": "Arrêter",
+    "closeWithName": "Fermer {{title}}",
+    "openSettings": "Ouvrir les réglages"
+  },
+  "select": {
+    "chooseOption": "Choisis une option"
+  },
+  "labels": {
+    "connected": "Connecté",
+    "enabled": "Activé",
+    "off": "Désactivé",
+    "active": "Actif",
+    "unavailable": "Indisponible",
+    "unknown": "Inconnu",
+    "none": "Aucun",
+    "notSet": "non défini",
+    "systemDefault": "Valeur par défaut du système"
+  },
+  "updates": {
+    "available": "Mise à jour disponible",
+    "ready": "Mise à jour prête",
+    "later": "Plus tard",
+    "failed": "Impossible de mettre à jour. Réessayez plus tard.",
+    "opening": "Ouverture de la mise à jour…",
+    "installing": "Installation de la mise à jour…",
+    "readyDescription": "Redémarrez l’application pour l’installer.",
+    "availableDescription": "Installez la dernière version depuis l’App Store.",
+    "restart": "Redémarrer et installer",
+    "openStore": "Ouvrir l’App Store"
+  },
+  "servers": {
+    "allServers": "Tous les serveurs",
+    "allProjects": "Tous les projets",
+    "server": "Serveur",
+    "projectContext": "Contexte du projet",
+    "serverSettings": "Paramètres du serveur",
+    "appSettings": "Paramètres de l’application",
+    "forServer": "Les modifications s’appliquent à {{name}}",
+    "searchProjects": "Rechercher des projets",
+    "lastSynced": "Derniers projets synchronisés",
+    "newTerminalHint": "Choisissez où démarrer ce terminal.",
+    "workingDirectory": "Répertoire de travail",
+    "chatUnchanged": "Votre chat reste sur {{name}}.",
+    "pending": "En attente ({{count}})",
+    "savedRules": "Règles enregistrées ({{count}})",
+    "onlyThisServer": "Pour ce serveur uniquement",
+    "appDiagnostics": "Diagnostic de l’application · Tous les serveurs",
+    "discardDrafts": "Les brouillons de chat et de l’éditeur non enregistrés sur ce serveur seront supprimés.",
+    "status": {
+      "idle": "Déconnecté",
+      "connecting": "Connexion en cours",
+      "connected": "Connecté",
+      "error": "Indisponible"
+    },
+    "appSettingsSummary": "Éditeur, paramètres généraux et mises à jour",
+    "serverToolsSummary": "Serveurs MCP et diagnostic"
+  }
+}

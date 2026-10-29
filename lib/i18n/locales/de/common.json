@@ -1,0 +1,83 @@
+{
+  "tabs": {
+    "chat": "Chat",
+    "terminal": "Terminal",
+    "projects": "Projekte",
+    "settings": "Einstellungen"
+  },
+  "actions": {
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "done": "Fertig",
+    "retry": "Erneut versuchen",
+    "delete": "Löschen",
+    "dismiss": "Verwerfen",
+    "refresh": "Aktualisieren",
+    "remove": "Entfernen",
+    "open": "Öffnen",
+    "copy": "Kopieren",
+    "connect": "Verbinden",
+    "reconnect": "Neu verbinden",
+    "disconnect": "Trennen",
+    "edit": "Bearbeiten",
+    "stop": "Stopp",
+    "closeWithName": "{{title}} schließen",
+    "openSettings": "Einstellungen öffnen"
+  },
+  "select": {
+    "chooseOption": "Wähle eine Option"
+  },
+  "labels": {
+    "connected": "Verbunden",
+    "enabled": "Aktiviert",
+    "off": "Aus",
+    "active": "Aktiv",
+    "unavailable": "Nicht verfügbar",
+    "unknown": "Unbekannt",
+    "none": "Keine",
+    "notSet": "nicht festgelegt",
+    "systemDefault": "Systemstandard"
+  },
+  "updates": {
+    "available": "Update verfügbar",
+    "ready": "Update bereit",
+    "later": "Später",
+    "failed": "Aktualisierung fehlgeschlagen. Versuche es später erneut.",
+    "opening": "Update wird geöffnet…",
+    "installing": "Update wird installiert…",
+    "readyDescription": "Starte die App zur Installation neu.",
+    "availableDescription": "Installiere die neueste Version über den App Store.",
+    "restart": "Neu starten & installieren",
+    "openStore": "App Store öffnen"
+  },
+  "servers": {
+    "allServers": "Alle Server",
+    "allProjects": "Alle Projekte",
+    "server": "Server",
+    "projectContext": "Projektkontext",
+    "serverSettings": "Servereinstellungen",
+    "appSettings": "App-Einstellungen",
+    "forServer": "Änderungen gelten für {{name}}",
+    "searchProjects": "Projekte suchen",
+    "lastSynced": "Zuletzt synchronisierte Projekte",
+    "newTerminalHint": "Wähle, wo dieses Terminal startet.",
+    "workingDirectory": "Arbeitsverzeichnis",
+    "chatUnchanged": "Dein Chat bleibt auf {{name}}.",
+    "pending": "Ausstehend ({{count}})",
+    "savedRules": "Gespeicherte Regeln ({{count}})",
+    "onlyThisServer": "Nur für diesen Server",
+    "appDiagnostics": "App-Diagnose · Alle Server",
+    "discardDrafts": "Nicht gespeicherte Chat- und Editorentwürfe auf diesem Server werden verworfen.",
+    "status": {
+      "idle": "Getrennt",
+      "connecting": "Verbindung wird hergestellt",
+      "connected": "Verbunden",
+      "error": "Nicht verfügbar"
+    },
+    "appSettingsSummary": "Editor, allgemeine Einstellungen und Updates",
+    "serverToolsSummary": "MCP-Server und Diagnose"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "tabs": {
+    "chat": "チャット",
+    "terminal": "ターミナル",
+    "projects": "プロジェクト",
+    "settings": "設定"
+  },
+  "actions": {
+    "cancel": "キャンセル",
+    "save": "保存",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "done": "完了",
+    "retry": "再試行",
+    "delete": "削除",
+    "dismiss": "閉じる",
+    "refresh": "更新",
+    "remove": "削除",
+    "open": "開く",
+    "copy": "コピー",
+    "connect": "接続",
+    "reconnect": "再接続",
+    "disconnect": "切断",
+    "edit": "編集",
+    "stop": "停止",
+    "closeWithName": "{{title}}を閉じる",
+    "openSettings": "設定を開く"
+  },
+  "select": {
+    "chooseOption": "オプションを選択"
+  },
+  "labels": {
+    "connected": "接続済み",
+    "enabled": "有効",
+    "off": "オフ",
+    "active": "アクティブ",
+    "unavailable": "利用不可",
+    "unknown": "不明",
+    "none": "なし",
+    "notSet": "未設定",
+    "systemDefault": "システム既定"
+  },
+  "updates": {
+    "available": "アップデートがあります",
+    "ready": "アップデートの準備完了",
+    "later": "後で",
+    "failed": "更新できませんでした。後でもう一度お試しください。",
+    "opening": "アップデートを開いています…",
+    "installing": "アップデートをインストールしています…",
+    "readyDescription": "アプリを再起動してインストールします。",
+    "availableDescription": "App Storeから最新バージョンをインストールしてください。",
+    "restart": "再起動してインストール",
+    "openStore": "App Storeを開く"
+  },
+  "servers": {
+    "allServers": "すべてのサーバー",
+    "allProjects": "すべてのプロジェクト",
+    "server": "サーバー",
+    "projectContext": "プロジェクトのコンテキスト",
+    "serverSettings": "サーバー設定",
+    "appSettings": "アプリ設定",
+    "forServer": "変更は {{name}} に適用されます",
+    "searchProjects": "プロジェクトを検索",
+    "lastSynced": "最後に同期したプロジェクトを表示中",
+    "newTerminalHint": "このターミナルの起動先を選択します。",
+    "workingDirectory": "作業ディレクトリ",
+    "chatUnchanged": "チャットは {{name}} のままです。",
+    "pending": "保留中 ({{count}})",
+    "savedRules": "保存済みルール ({{count}})",
+    "onlyThisServer": "このサーバーのみ",
+    "appDiagnostics": "アプリ診断 · すべてのサーバー",
+    "discardDrafts": "このサーバーの未保存のチャットとエディターの下書きは破棄されます。",
+    "status": {
+      "idle": "未接続",
+      "connecting": "接続中",
+      "connected": "接続済み",
+      "error": "利用不可"
+    },
+    "appSettingsSummary": "エディター、一般設定、更新",
+    "serverToolsSummary": "MCPサーバーと診断"
+  }
+}

@@ -1,0 +1,889 @@
+{
+  "screen": {
+    "categories": {
+      "connection": "Connexion",
+      "ai": "IA et fournisseurs",
+      "notifications": "Notifications",
+      "voice": "Voix et audio",
+      "advanced": "Avancé",
+      "support": "Assistance",
+      "permissions": "Approbations",
+      "subscription": "Abonnement",
+      "cloudLink": "Cloud Link",
+      "extensions": "Extensions",
+      "responses": "Réponses",
+      "appearance": "Apparence",
+      "chat": "Chat et réponses",
+      "about": "À propos et aide"
+    },
+    "summaries": {
+      "configuredCount": "{{value}} configurés",
+      "replyPlaybackOn": "Lecture des réponses activée",
+      "replyPlaybackOff": "Lecture des réponses désactivée",
+      "support": "Notez l'app, envoyez vos retours, obtenez de l'aide",
+      "permissions": "{{value}} enregistrées",
+      "extensions": "MCPs, plugins, skills and commands",
+      "responses": "Portée et prochaines étapes",
+      "voiceSystem": "Voix système · {{phrase}}",
+      "voiceLocal": "Sur l’appareil · {{phrase}}",
+      "responsesOn": "{{scope}} · prochaines étapes activées",
+      "responsesOff": "{{scope}} · prochaines étapes désactivées",
+      "appearance": "Thème, couleur et densité de l’interface",
+      "diagnostics": "État de la connexion et dépannage"
+    },
+    "groups": {
+      "app": "Préférences de l’app",
+      "connections": "Connexions",
+      "server": "Serveur sélectionné"
+    },
+    "intro": "Personnalisez l’app et gérez vos connexions.",
+    "search": {
+      "placeholder": "Rechercher un réglage",
+      "clear": "Effacer la recherche",
+      "empty": "Aucun réglage correspondant. Essayez un autre mot.",
+      "results": "Réglages trouvés : {{count}}"
+    },
+    "keywords": {
+      "appearance": "affichage thème couleur sombre clair compact densité",
+      "responses": "chat messages texte police taille réponses style orienter ajouter file bulles",
+      "voice": "voix audio parole son microphone entrée lecture langue phrase activation",
+      "notifications": "notifications alertes batterie widgets",
+      "language": "langue traduction interface",
+      "support": "aide commentaires assistance mises à jour version assistant configuration",
+      "connection": "connexions serveur adresse mot de passe identifiants reconnecter QR",
+      "cloud-link": "connexion distante Cloud Link abonnement ordinateurs services",
+      "ai": "IA fournisseurs comptes modèles authentification classificateur routage",
+      "extensions": "extensions MCP plugins compétences commandes",
+      "permissions": "permissions approbations règles enregistrées autoriser automatique",
+      "advanced": "diagnostic réseau connexion temps réel interrogation erreurs utilisation"
+    }
+  },
+  "support": {
+    "title": "Assistance",
+    "description": "Notez OpenCode sur Google Play, envoyez des suggestions d'amélioration ou obtenez de l'aide sur la page d'assistance.",
+    "rate": "Noter sur Play Store",
+    "feedback": "Donnez votre avis",
+    "openSupport": "Ouvrir la page d'assistance"
+  },
+  "connection": {
+    "currentConnection": "Connexion actuelle",
+    "noServerUrl": "Aucune URL de serveur définie",
+    "notSavedYet": "Pas encore enregistrée. Ajoute une connexion pour la conserver.",
+    "lastChecked": "Dernière vérification {{time}}",
+    "serverUrlValue": "URL du serveur : {{url}}",
+    "usernameValue": "Nom d'utilisateur : {{username}}",
+    "usernameEmpty": "(aucun)",
+    "addConnection": "Ajouter une connexion",
+    "editConnection": "Modifier la connexion",
+    "addDescription": "Ajoute des connexions pour passer d'un serveur à l'autre sans ressaisir l'URL et le mot de passe.",
+    "saveAndConnect": "Enregistrer et se connecter",
+    "deleteTitle": "Supprimer la connexion",
+    "deleteMessage": "Retirer « {{name}} » des connexions enregistrées ?",
+    "deleteWebConfirm": "Supprimer la connexion\n\n{{message}}",
+    "fields": {
+      "serverUrl": "URL du serveur",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe"
+    },
+    "errors": {
+      "serverUrl": "Saisis l'URL du serveur.",
+      "invalidUrl": "Saisis une URL de serveur complète, comme http://192.168.1.10:4096.",
+      "save": "Impossible d'enregistrer cette connexion.",
+      "headerName": "Saisissez un nom d'en-tête valide.",
+      "headerValue": "Les valeurs d'en-tête ne peuvent pas contenir de sauts de ligne.",
+      "headerDuplicate": "Chaque nom d'en-tête ne peut être utilisé qu'une fois.",
+      "headerReserved": "Cet en-tête est géré par l'application et ne peut pas être remplacé.",
+      "headerLimit": "Utilisez au maximum 10 en-têtes personnalisés.",
+      "generic": "Une erreur est survenue lors de la communication avec OpenCode.",
+      "tunnelStarting": "Le tunnel Cloudflare démarre encore (erreur 1033). Réessayez bientôt.",
+      "notApi": "Le serveur à {{url}} n'a pas renvoyé de réponse de l'API OpenCode.{{apiHint}}{{versionHint}}",
+      "endpointNotFound": "Point de terminaison OpenCode introuvable à {{url}}.{{apiHint}}{{versionHint}}",
+      "webPage": "Le serveur à {{url}} a renvoyé une page web au lieu de l'API OpenCode.{{apiHint}}{{versionHint}}",
+      "apiHint": " Si cette adresse sert une interface web, utilisez plutôt son URL de base d'API, généralement {{url}}/api.",
+      "versionHint": " Cette application prend en charge les serveurs OpenCode 1.x et 2.x ; vérifiez l'URL de base de l'API."
+    },
+    "setup": {
+      "step": "Étape {{step}} sur 2",
+      "addressTitle": "Adresse du serveur",
+      "detailsTitle": "Détails de connexion",
+      "addressHint": "Connectez-vous à votre serveur OpenCode.",
+      "continue": "Continuer",
+      "change": "Modifier",
+      "detected": "OpenCode {{version}} détecté",
+      "identify": "Saisissez les identifiants pour identifier le serveur.",
+      "customUsername": "Nom d’utilisateur personnalisé",
+      "passwordHint": "Saisissez le mot de passe du serveur.",
+      "optionalName": "Nom (facultatif)",
+      "nameHint": "Laissez vide pour utiliser l’IP ou le domaine du serveur.",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "scan": "Scanner le QR local",
+      "pairCommand": "Sur votre ordinateur, exécutez opencode pair.",
+      "sameNetwork": "Gardez les deux appareils sur le même réseau.",
+      "scanAutomatic": "Scannez pour enregistrer et vous connecter automatiquement.",
+      "scanAgain": "Scanner à nouveau",
+      "unreachable": "Serveur inaccessible. Vérifiez l’adresse et le réseau, puis réessayez.",
+      "credentialsRejected": "Identifiants refusés. Vérifiez le mot de passe et le nom d’utilisateur ou scannez un nouveau QR.",
+      "pairingErrors": {
+        "invalid": "Ce code n’est pas un code d’appairage OpenCode. Exécutez opencode pair et scannez à nouveau.",
+        "expired": "Ce code a expiré ou a déjà été utilisé. Exécutez à nouveau opencode pair.",
+        "unreachable": "Serveur inaccessible. Vérifiez que les appareils sont sur le même réseau ou saisissez l’adresse manuellement.",
+        "loopback": "Ce code contient uniquement une adresse localhost. Exécutez opencode service set hostname 0.0.0.0, puis opencode service start et opencode pair sur votre ordinateur."
+      }
+    },
+    "headers": {
+      "title": "En-têtes personnalisés",
+      "add": "Ajouter un en-tête",
+      "name": "Nom de l'en-tête",
+      "value": "Valeur",
+      "remove": "Supprimer l'en-tête",
+      "hint": "Envoyé avec chaque requête vers ce serveur. Les valeurs sont stockées en sécurité sur cet appareil.",
+      "showValues": "Afficher les valeurs",
+      "hideValues": "Masquer les valeurs"
+    },
+    "reconnectSuccess": "Connecté à {{url}}."
+  },
+  "providers": {
+    "accounts": "Accounts",
+    "addAnotherAccount": "Add another account",
+    "removeAccount": "Remove account",
+    "selectMethod": "Select login method",
+    "apiKey": "Clé API",
+    "pasteApiKey": "Colle ta clé API",
+    "chooseModels": "Choisis les modèles configurés à afficher dans le chat. Le dernier modèle choisi dans le chat reste sélectionné pour les nouveaux chats.",
+    "configuredProviders": "Fournisseurs configurés",
+    "addProvider": "Ajouter un fournisseur",
+    "connectFirst": "Connecte-toi d'abord pour charger les fournisseurs.",
+    "configureAtLeastOne": "Configure au moins un fournisseur pour choisir les valeurs par défaut.",
+    "selectedCount": "{{selected}} sur {{total}} sélectionnés",
+    "reasoningSupported": "Raisonnement pris en charge",
+    "standardModel": "Modèle standard",
+    "noModels": "Aucun modèle trouvé pour tes fournisseurs configurés.",
+    "configuredSuccess": "{{provider}} a été configuré avec succès.",
+    "signInFinished": "Connexion à {{provider}} terminée. L'état du fournisseur a été actualisé.",
+    "couldNotConfigure": "Impossible de configurer le fournisseur.",
+    "couldNotRemove": "Impossible de supprimer les identifiants du fournisseur.",
+    "credentialsRemoved": "Les identifiants de {{provider}} ont été supprimés.",
+    "removeTitle": "Retirer {{provider}} ?",
+    "removeMessage": "Les identifiants enregistrés et la configuration du fournisseur seront supprimés.",
+    "signInTitle": "Terminer la connexion au fournisseur",
+    "authorizationCode": "Code d'autorisation",
+    "complete": "Terminer",
+    "continue": "Continuer",
+    "cancelSetup": "Annuler la configuration du fournisseur",
+    "configureProvider": "Configurer {{provider}}",
+    "oauthHint": "Cela ouvre le flux de connexion du fournisseur dans ton navigateur.",
+    "signInPendingHint": "Termine la connexion dans ton navigateur. Cet écran se met à jour automatiquement.",
+    "pairingCode": "Code d'appairage",
+    "openLink": "Ouvrir le lien",
+    "copyLink": "Copier le lien",
+    "authorizationCodeHint": "Après t'être connecté, copie le code affiché et colle-le ici.",
+    "setupUnavailable": "Les détails de configuration de ce fournisseur sont indisponibles pour le moment.",
+    "couldNotComplete": "Impossible de terminer la connexion.",
+    "removeCredentials": "Supprimer les identifiants de {{provider}}",
+    "promptDelivery": {
+      "label": "Messages envoyés pendant une tâche",
+      "steer": {
+        "label": "Orienter",
+        "description": "Appliquer le message à la prochaine étape de la réponse en cours."
+      },
+      "queue": {
+        "label": "Ajouter",
+        "description": "Mettre le message en attente pour un prochain tour."
+      }
+    }
+  },
+  "providerCopy": {
+    "openai": {
+      "label": "OpenAI",
+      "description": "Modèles GPT d'OpenAI, y compris les options de raisonnement et multimodales les plus récentes."
+    },
+    "anthropic": {
+      "label": "Anthropic",
+      "description": "Modèles Claude d'Anthropic pour le code, l'analyse et le travail sur de longs contextes."
+    },
+    "github-copilot": {
+      "label": "GitHub Copilot",
+      "description": "Utilise ton accès GitHub Copilot pour te connecter et activer les modèles de base pris en charge."
+    },
+    "google": {
+      "label": "Google",
+      "description": "Modèles Gemini de Google pour les tâches multimodales et à grand contexte."
+    },
+    "groq": {
+      "label": "Groq",
+      "description": "Inférence hébergée rapide pour les modèles ouverts et de pointe pris en charge."
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "description": "Achemine les requêtes vers plusieurs fournisseurs et familles de modèles depuis un seul compte."
+    },
+    "mistral": {
+      "label": "Mistral",
+      "description": "Modèles hébergés de Mistral AI pour les charges de travail générales et de code."
+    },
+    "xai": {
+      "label": "xAI",
+      "description": "Modèles Grok de xAI."
+    },
+    "azure": {
+      "label": "Azure OpenAI",
+      "description": "Modèles compatibles OpenAI déployés via Azure."
+    }
+  },
+  "notifications": {
+    "status": {
+      "checking": "Vérification",
+      "enabled": "Activées",
+      "needsSetup": "Configuration requise"
+    },
+    "background": {
+      "checking": "Vérification",
+      "ready": "Prêt",
+      "limited": "Limité"
+    },
+    "summary": {
+      "enabled": "Notifications activées",
+      "off": "Notifications désactivées",
+      "background": "Arrière-plan {{status}}"
+    },
+    "enable": "Activer les notifications",
+    "settings": "Réglages des notifications",
+    "appSettings": "Réglages de l'app",
+    "appSettingsDescription": "Consulte les réglages système de cette app.",
+    "batteryOptimization": "Optimisation de la batterie",
+    "batteryOptimizationDescription": "Permets à l'app de fonctionner plus fiablement en arrière-plan.",
+    "batterySaver": "Économiseur de batterie",
+    "batterySaverDescription": "L'économiseur de batterie peut retarder les rappels.",
+    "refreshStatus": "Actualiser l'état",
+    "enabledFeedback": "Les notifications sont activées sur cet appareil.",
+    "disabledFeedback": "Les notifications sont toujours désactivées. Ouvre les réglages système pour les activer manuellement."
+  },
+  "voice": {
+    "onDeviceInput": {
+      "title": "Privilégier la reconnaissance sur l’appareil",
+      "description": "Privilégiez la reconnaissance locale ; utilisez le cloud si nécessaire."
+    },
+    "autoPlay": {
+      "title": "Lecture automatique des réponses de l'assistant",
+      "description": "Lire les réponses du chat. Le mode conversation lit toujours."
+    },
+    "workingSound": {
+      "title": "Son de travail",
+      "description": "Joue une boucle apaisante pendant que l'assistant prépare encore une réponse."
+    },
+    "wakePhrase": {
+      "label": "Phrase d’activation",
+      "helper": "Le mode conversation n’envoie un message qu’après avoir entendu cette phrase. Deux mots ou plus fonctionnent mieux."
+    },
+    "modelDownloads": {
+      "timeout": "Le téléchargement a expiré. La connexion s'est bloquée ; réessayez en Wi-Fi ou avec un meilleur signal.",
+      "offline": "Impossible de joindre le serveur de téléchargement. Vérifiez votre connexion internet et réessayez.",
+      "server": "Le serveur de téléchargement n'a pas pu fournir le fichier. Réessayez plus tard.",
+      "storage": "Espace libre insuffisant pour installer ce modèle.",
+      "incomplete": "Le téléchargement ne s'est pas terminé. Réessayez.",
+      "integrity": "Le fichier téléchargé est endommagé. Réessayez.",
+      "unknown": "Impossible de télécharger le modèle. Vérifiez votre connexion et réessayez.",
+      "installFailed": "Le modèle n'a pas pu être installé. Réessayez."
+    },
+    "localWake": {
+      "title": "Voix sur l’appareil",
+      "description": "Exécute un modèle local et une vérification vocale optionnelle. Télécharge {{size}} de modèles préentraînés ; revient à la phrase système si indisponible.",
+      "statusMissing": "Modèles non installés",
+      "statusInstalling": "Installation…",
+      "statusReady": "Modèles installés",
+      "statusUnsupported": "Non pris en charge dans cette version",
+      "statusError": "Échec de l’installation",
+      "install": "Installer les modèles ({{size}})",
+      "remove": "Supprimer les modèles",
+      "phraseLabel": "Phrase d’activation",
+      "phraseHelper": "Le détecteur de mot d’activation prend en charge ces phrases anglaises. Le modèle de commandes choisi détermine la langue des commandes ; aucun entraînement n’est nécessaire.",
+      "speakerVerification": "Vérifier ma voix",
+      "speakerVerificationDescription": "Refuser la phrase lorsqu’elle n’est pas prononcée par la voix enregistrée.",
+      "enroll": "Enregistrer la voix",
+      "reEnroll": "Enregistrer à nouveau",
+      "removeVoice": "Supprimer la voix",
+      "enrolled": "Profil vocal enregistré.",
+      "notEnrolled": "Aucun profil vocal pour le moment.",
+      "recording": "Enregistrement… parlez naturellement pendant une dizaine de secondes.",
+      "saving": "Création du profil vocal…",
+      "unsupportedHint": "Cette version n’inclut pas le moteur vocal local natif.",
+      "commandModelLabel": "Modèle de reconnaissance des commandes",
+      "commandModelHelper": "Choisissez le modèle local utilisé pour les commandes. Les modèles multilingues sont plus volumineux.",
+      "fallback": "Repli : phrase système « {{phrase}} ».",
+      "baseModels": "Pack de base",
+      "voiceProfile": "Profil vocal",
+      "enrollRequiresModels": "Installez d’abord les modèles, puis enregistrez votre voix.",
+      "installBase": "Installer le pack de base ({{size}})",
+      "installCommand": "Installer le modèle de commandes ({{size}})"
+    },
+    "speechLocale": {
+      "label": "Langue de la synthèse vocale",
+      "helper": "Laisse vide pour utiliser la langue par défaut du système pour la saisie et la lecture vocales."
+    },
+    "responseScope": {
+      "label": "Étendue des réponses",
+      "brief": {
+        "label": "Bref",
+        "description": "Réponses courtes et ciblées pour un échange naturel."
+      },
+      "balanced": {
+        "label": "Équilibré",
+        "description": "Réponses concises avec un peu plus de contexte quand c'est utile."
+      },
+      "detailed": {
+        "label": "Détaillé",
+        "description": "Explications plus longues et davantage de détails."
+      }
+    },
+    "nextActions": {
+      "title": "Actions suivantes simples",
+      "description": "Termine les réponses par une courte recommandation quand la prochaine étape est claire."
+    },
+    "speechRate": {
+      "label": "Débit de parole"
+    },
+    "workingSoundVariant": {
+      "label": "Son de travail",
+      "soft": {
+        "label": "Carillon doux",
+        "description": "Tonalité chaude et superposée avec une pulsation légère."
+      },
+      "glass": {
+        "label": "Tonalité cristalline",
+        "description": "Boucle d'ambiance plus claire et plus légère."
+      }
+    },
+    "workingSoundVolume": {
+      "label": "Volume du son de travail"
+    },
+    "voiceSelect": {
+      "label": "Voix du système",
+      "automatic": "Automatique (meilleure disponible)",
+      "enhanced": "Améliorée · {{language}}"
+    },
+    "enhancedVoices": "Installez des voix améliorées ou premium dans les réglages de synthèse vocale de l'appareil pour obtenir la voix système la plus naturelle.",
+    "playbackEngine": {
+      "label": "Moteur de lecture",
+      "systemDescription": "Utilise la voix intégrée de l'appareil. Toujours disponible.",
+      "localDescription": "Utilise une voix neuronale téléchargée. Choisissez un modèle ci-dessous."
+    },
+    "localTts": {
+      "title": "Lecture sur l'appareil",
+      "description": "Les modèles ne sont téléchargés que lorsque vous les choisissez. La voix du système reste toujours disponible.",
+      "piper": "Compacte",
+      "kokoro": "Naturelle",
+      "piperDescription": "Rapide et légère",
+      "kokoroDescription": "Anglais le plus naturel, téléchargement plus important",
+      "download": "Télécharger ({{size}})",
+      "installing": "Installation…",
+      "installed": "Installé",
+      "notInstalled": "Non installé",
+      "use": "Utiliser",
+      "preview": "Aperçu",
+      "speaker": "Voix",
+      "storage": "{{size}} utilisés par les voix sur l'appareil",
+      "downloadHint": "Les téléchargements sont vérifiés et stockés sur cet appareil.",
+      "japaneseUnavailable": "Le japonais utilise la voix du système car aucun modèle Piper n'est disponible.",
+      "fallbackToSystem": "La voix sur l'appareil est indisponible. La voix du système est utilisée.",
+      "languageMismatch": "Ce modèle parle {{language}}. Réglez la locale vocale en conséquence, sinon la voix du système sera utilisée.",
+      "installFirst": "Choisissez et installez d'abord un modèle sur l'appareil."
+    },
+    "footer": "Android peut vérifier périodiquement les sessions en cours en arrière-plan et publier une notification de fin. La parole en arrière-plan et la capture continue du microphone ne sont pas prises en charge.",
+    "check": {
+      "title": "Vérification vocale",
+      "permission": "Accès au micro et à la parole",
+      "recognition": "Reconnaissance vocale",
+      "onDevice": "Reconnaissance système sur l’appareil",
+      "restricted": "Restreint par la stratégie de l'appareil",
+      "restrictedHint": "La reconnaissance vocale est restreinte sur cet appareil. Contactez l'administrateur de l'appareil.",
+      "unavailableHint": "Activez Siri et Dictée dans les réglages de l'appareil, puis vérifiez à nouveau.",
+      "deniedHint": "L'accès a été refusé. Ouvrez les réglages pour l'activer manuellement.",
+      "enable": "Activer la saisie vocale",
+      "recheck": "Revérifier la voix",
+      "test": "Tester la lecture",
+      "testPhrase": "La lecture vocale fonctionne.",
+      "testFailed": "La lecture vocale a échoué. Vérifiez la voix sélectionnée et le volume de l'appareil.",
+      "allowed": "Autorisé",
+      "available": "Disponible"
+    },
+    "mode": {
+      "label": "Entrée vocale",
+      "system": "Système",
+      "local": "Sur l’appareil",
+      "systemDescription": "Utilise la reconnaissance vocale du téléphone. Elle peut passer par le cloud du fabricant.",
+      "localDescription": "Utilise des modèles téléchargés. L’audio reste sur l’appareil."
+    },
+    "playback": {
+      "title": "Lecture",
+      "helper": "S’applique à la voix système et à la voix sur l’appareil."
+    },
+    "readInterim": {
+      "title": "Lire les mises à jour de progression",
+      "description": "Lire les messages comme « Je m’en occupe… » ; la réponse finale toujours."
+    }
+  },
+  "diagnostics": {
+    "title": "Diagnostics du serveur",
+    "server": "Serveur",
+    "openCodeVersion": "OpenCode {{version}}",
+    "healthUnavailable": "Point de contrôle d'état indisponible",
+    "healthy": "Opérationnel",
+    "realtimeUpdates": "Mises à jour en temps réel",
+    "eventStreamConnected": "Flux d'événements global connecté",
+    "pollingFallback": "Repli par interrogation actif",
+    "subsystems": "Sous-systèmes",
+    "subsystemsMcp": "MCP {{value}}",
+    "notAvailable": "n/d",
+    "refresh": "Actualiser les diagnostics",
+    "networkUsage": "Utilisation réseau",
+    "networkUsageValue": "{{requests}} requêtes · {{size}} de réponses de taille connue aujourd’hui",
+    "networkUsageReset": "Réinitialiser",
+    "lastError": "Dernière erreur de l'app",
+    "lastErrorValue": "{{message}} · {{time}}",
+    "lastErrorNone": "Aucune erreur enregistrée",
+    "lastErrorFatal": "Fatale",
+    "lastErrorHandled": "Gérée",
+    "network": "Réseau",
+    "networkValue": "{{type}} · {{state}}{{generation}}",
+    "networkOnline": "en ligne",
+    "networkOffline": "hors ligne",
+    "networkConstrained": "restreint",
+    "networkNormal": "normal",
+    "reconnect": "Reconnexion automatique",
+    "reconnectValue": "Tentative {{attempt}} sur {{max}}",
+    "requestLatency": "Latence des requêtes",
+    "requestLatencyValue": "p50 {{p50}} ms · p95 {{p95}} ms · {{failed}} échouées · {{retries}} réessayées"
+  },
+  "mcp": {
+    "title": "Serveurs MCP",
+    "couldNotUpdate": "Impossible de mettre à jour les serveurs MCP.",
+    "configurationUnavailable": "Détails de configuration indisponibles",
+    "invalidCommand": "Saisis la commande locale sous forme de tableau JSON de chaînes.",
+    "local": "Local",
+    "remote": "Distant",
+    "serverName": "Nom du serveur",
+    "commandArguments": "Arguments de la commande (JSON)",
+    "url": "URL",
+    "addLocalServer": "Ajouter un serveur local",
+    "addRemoteServer": "Ajouter un serveur distant",
+    "noServers": "Aucun serveur MCP configuré.",
+    "statusConfigured": "configuré",
+    "statusDisabled": "désactivé",
+    "oauth": "OAuth"
+  },
+  "language": {
+    "title": "Langue",
+    "description": "Utilise la langue du système ou choisis-en une pour l'interface de l'app."
+  },
+  "appearance": {
+    "theme": {
+      "label": "Mode du thème",
+      "description": "Choisissez clair ou sombre, ou suivez le réglage du système.",
+      "system": "Suivre le système",
+      "light": "Clair",
+      "dark": "Sombre"
+    },
+    "accent": {
+      "label": "Thème",
+      "description": "Choisissez un thème de couleur. Il modifie les surfaces, les accents et les bulles de chat dans toute l'application.",
+      "green": "Vert",
+      "blue": "Bleu",
+      "red": "Rouge",
+      "purple": "Violet",
+      "pink": "Rose",
+      "gray": "Gris"
+    },
+    "chatTextSize": "Taille du texte des messages",
+    "chatTextSizeDescription": "Ajustez la taille du texte des messages. Une taille plus petite permet d’afficher davantage de conversation à la fois.",
+    "flatThread": {
+      "title": "Conversation à plat",
+      "description": "Affiche les messages sur toute la largeur sans bulles pour afficher davantage de conversation à l'écran."
+    },
+    "slimInterface": {
+      "title": "Interface compacte",
+      "description": "Réduit les boutons, les espacements et les en-têtes dans le chat, le terminal et le projet pour afficher plus de texte à l'écran."
+    }
+  },
+  "connect": {
+    "entry": "Pair with Cloud Link",
+    "title": "Cloud Link",
+    "description": "Scan your machine’s connector QR code or open its pairing link. Manual connections remain available.",
+    "pairingLink": "Pairing deep link",
+    "openLink": "Open pairing link",
+    "machines": "Your machines",
+    "refreshMachines": "Refresh machines",
+    "noMachines": "No machines registered for this user.",
+    "revoke": "Revoke machine",
+    "revokeConfirm": "Delete this machine for every device? Its public tunnel will be deleted.",
+    "forget": "Forget locally",
+    "forgetConfirm": "Remove this connection and its credentials from this device? Other devices will keep access.",
+    "expiresAt": "Credentials expire: {{date}}",
+    "savedConnection": "Connection saved: {{name}}",
+    "manage": "Manage Cloud Link",
+    "cameraLoading": "Opening camera",
+    "cameraUnavailable": "Camera unavailable. Open the connector deep link instead.",
+    "progress": {
+      "idle": "Loading…",
+      "claiming": "Claiming pairing…",
+      "saving": "Saving credentials securely…",
+      "connecting": "Connecting to the machine…",
+      "waitingForApproval": "Confirmez cette connexion sur votre ordinateur.",
+      "delayed": "Aucune approbation pour le moment. Approuvez sur votre ordinateur ou scannez un nouveau code QR.",
+      "paired": "Loading…",
+      "catalog": "Loading store subscriptions…",
+      "purchasing": "Waiting for the store…",
+      "pending": "Waiting for purchase approval…",
+      "restoring": "Restoring purchases…",
+      "verifying": "Verifying subscription…",
+      "savingSession": "Saving the Cloud Link session securely…",
+      "finalizing": "Finalizing the store transaction…"
+    },
+    "subscriptionActive": "Your Cloud Link subscription is active.",
+    "restore": "Restore purchases",
+    "accessUnavailable": "Access unavailable. Purchase or Restore to reactivate this machine.",
+    "scanHint": "Scannez le code QR de votre ordinateur pour vous connecter.",
+    "scanNewQr": "Scannez le nouveau code QR sur votre ordinateur",
+    "scanLocal": "Scanner le code QR",
+    "scanLocalHint": "Se connecter à un ordinateur sur le même réseau.",
+    "manual": "Manuel",
+    "manualHint": "Saisissez l’URL de votre serveur et vos identifiants.",
+    "nativeOnly": "Cloud Link est disponible dans l’application iOS et Android.",
+    "benefits": "Connectez-vous avec un code QR, accédez à votre ordinateur à distance via Cloud Link et retrouvez vos machines sur un autre appareil avec Restaurer les achats.",
+    "subscribe": "S’abonner",
+    "options": "Options de connexion",
+    "learnMore": "En savoir plus sur Cloud Link",
+    "onboarding": {
+      "step": "{{step}} sur {{total}}",
+      "step1": {
+        "title": "Votre ordinateur.\nPartout.",
+        "subtitle": "Utilisez OpenCode sur votre ordinateur depuis votre téléphone.",
+        "action": "Commencer"
+      },
+      "step2": {
+        "title": "Configurez votre\nordinateur",
+        "subtitle": "Téléchargez Cloud Link sur votre ordinateur.",
+        "action": "Cloud Link est ouvert"
+      },
+      "step3": {
+        "title": "Activez\nCloud Link",
+        "subtitle": "Abonnez-vous pour connecter cette app à votre ordinateur par internet.",
+        "action": "S’abonner et continuer"
+      },
+      "step4": {
+        "title": "Associez votre\nordinateur",
+        "subtitle": "Scannez le code QR affiché dans Cloud Link sur votre ordinateur.",
+        "action": "Scanner le code QR"
+      },
+      "explanation": "Cloud Link connecte vos appareils par internet. Gardez votre ordinateur allumé et Cloud Link ouvert.",
+      "instruction1": "Installez sur votre ordinateur",
+      "instruction2": "Abonnez-vous dans cette app",
+      "instruction3": "Scannez pour associer",
+      "openOnComputer": "Sur votre ordinateur, ouvrez :",
+      "copySetupUrl": "Copier l’URL de configuration de l’ordinateur",
+      "copied": "URL de configuration copiée",
+      "copyError": "Impossible de copier l’URL. Ouvrez opencodecloud.link sur votre ordinateur.",
+      "downloadHint": "Téléchargez et ouvrez Cloud Link, puis gardez son code QR d’association à l’écran.",
+      "remote": "Connexion par internet",
+      "pair": "Associez votre ordinateur à cette app",
+      "billing": "La facturation est gérée par votre boutique d’applications.",
+      "checkoutHint": "Ouvre votre boutique d’applications pour confirmer l’achat.",
+      "approveHint": "Puis approuvez la connexion sur votre ordinateur.",
+      "usePairingLink": "Utiliser un lien d’association"
+    }
+  },
+  "editor": {
+    "title": "Éditeur"
+  },
+  "general": {
+    "title": "Général",
+    "resetOnboarding": "Revoir la configuration"
+  },
+  "autoUpdate": {
+    "title": "Recherche de mises à jour",
+    "enable": {
+      "title": "Rechercher des mises à jour",
+      "description": "Proposer les nouvelles versions dès qu’elles sont disponibles sur la boutique."
+    },
+    "checkPeriod": {
+      "label": "Fréquence de recherche",
+      "available": {
+        "label": "Dès que disponible",
+        "description": "Afficher une nouvelle version dès que la boutique la signale."
+      },
+      "daily": {
+        "label": "Quotidienne",
+        "description": "Rechercher une nouvelle version au plus une fois par jour."
+      },
+      "weekly": {
+        "label": "Hebdomadaire",
+        "description": "Rechercher une nouvelle version au plus une fois par semaine."
+      }
+    }
+  },
+  "permissions": {
+    "title": "Autorisations enregistrées",
+    "description": "Règles créées par « Toujours autoriser ». En supprimer une force le serveur à redemander.",
+    "empty": "Aucune autorisation enregistrée.",
+    "remove": "Supprimer",
+    "removeTitle": "Supprimer l’autorisation enregistrée",
+    "removeMessage": "Ne plus autoriser automatiquement {{resource}} ?",
+    "refresh": "Actualiser"
+  },
+  "subscription": {
+    "inactive": "Aucun abonnement actif",
+    "accessThrough": "Accès jusqu’au {{date}}",
+    "description": "Accès à distance à vos machines OpenCode.",
+    "manage": "Gérer l’abonnement",
+    "opensApple": "Ouvre les abonnements de l’App Store",
+    "opensGoogle": "Ouvre Google Play",
+    "restoreDescription": "Récupérer un achat existant",
+    "machines": "Machines",
+    "machinesDescription": "Voir et gérer les machines connectées"
+  },
+  "services": {
+    "title": "Services exposés",
+    "description": "Ajoutez, remplacez et supprimez les services exposés par votre connecteur via le tunnel. Les modifications s'appliquent immédiatement.",
+    "add": "Ajouter un service",
+    "addTitle": "Nouveau service",
+    "editTitle": "Modifier le service",
+    "empty": "Aucun service exposé pour l'instant.",
+    "capacity": "Vous pouvez exposer jusqu'à {{max}} services.",
+    "saveFailed": "Impossible d'enregistrer ce service.",
+    "removed": "{{name}} supprimé.",
+    "removeFailed": "Impossible de supprimer ce service.",
+    "removeTitle": "Supprimer {{name}} ?",
+    "removeMessage": "Le connecteur cesse immédiatement de router ce chemin.",
+    "removeConfirm": "Supprimer {{name}} ? Le connecteur cesse immédiatement de router ce chemin.",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien du service copié.",
+    "linkUnavailable": "Impossible de créer un lien pour ce service.",
+    "machine": "Machine",
+    "notActive": "Services pour {{name}} — ce n'est pas votre connexion active.",
+    "useMachine": "Basculer sur cette machine",
+    "noMachine": "Connectez une machine Cloud Link pour gérer ses services exposés.",
+    "credentialsExpired": "L'accès Cloud Link de cette machine a expiré ou est absent. Reconnectez-la pour gérer ses services.",
+    "reconnectFailed": "Impossible de reconnecter cette machine.",
+    "unavailableService": "Ce service n'existe plus sur le connecteur.",
+    "unavailableServiceHint": "Revenez en arrière et actualisez la liste des services exposés.",
+    "legacyConnector": "Ce connecteur de bureau ne prend pas encore en charge les ports dédiés. Mettez-le à jour pour servir des apps à la racine du port et choisir les ports.",
+    "unknownConnector": "Ce connecteur de bureau est plus ancien que prévu par l'app. Mettez-le à jour pour utiliser des ports dédiés et des services racine.",
+    "enabledHint": "Acheminer le trafic de ce chemin via le tunnel.",
+    "rootPathHint": "Laissez le chemin vide pour servir toute la racine du port — utile pour les apps avec des URL absolues.",
+    "portOccupied": "utilisé",
+    "portShared": "partagé",
+    "stripPrefixHint": "Retirer le préfixe de chemin correspondant avant le transfert.",
+    "fields": {
+      "id": "ID",
+      "name": "Nom",
+      "port": "Port",
+      "path": "Chemin",
+      "target": "Cible",
+      "access": "Accès",
+      "enabled": "Activé",
+      "stripPrefix": "Retirer le préfixe"
+    },
+    "access": {
+      "private": "Privé",
+      "public": "Public"
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "idFormat": "Utilisez 1 à 32 lettres minuscules, chiffres ou tirets.",
+      "nameLength": "Utilisez 64 caractères maximum.",
+      "pathRoot": "Le chemin ne peut pas être la racine du serveur.",
+      "pathReserved": "Le préfixe /_cloudlink est réservé.",
+      "pathFormat": "Utilisez un chemin comme /test/api sans requête, fragment ni encodage.",
+      "portRequired": "Choisissez un port de service.",
+      "portInvalid": "Choisissez l'un des ports de service de votre connecteur.",
+      "portInUse": "Ce port est déjà utilisé par un autre service.",
+      "portPathInUse": "Ce port et ce chemin sont déjà utilisés par un autre service.",
+      "targetFormat": "Utilisez une adresse comme 127.0.0.1:3000.",
+      "targetLoopback": "La cible doit être en loopback (127.0.0.1 ou ::1).",
+      "targetReserved": "Ce port est réservé aux services exposés.",
+      "targetPort": "Utilisez un port non privilégié entre 1024 et 65535."
+    }
+  },
+  "extensions": {
+    "title": "Extensions",
+    "description": "Manage MCP servers, plugins, skills and slash commands for this server.",
+    "scope": {
+      "project": "Project",
+      "general": "General"
+    },
+    "scopeDescription": {
+      "project": "These extensions apply only to {{project}}.",
+      "general": "These extensions apply to every project on this server."
+    },
+    "safety": {
+      "writable": "Writable. Changes are backed up and replaced atomically.",
+      "readOnly": "Read-only",
+      "target": "Config file: {{path}}",
+      "backup": "Last backup: {{path}}",
+      "restore": "Restore last backup",
+      "restoreMessage": "Restore the last saved configuration? The current file is backed up first."
+    },
+    "tabs": {
+      "mcp": "MCPs",
+      "plugins": "Plugins",
+      "skills": "Skills",
+      "commands": "Commands"
+    },
+    "shared": "Shared with all projects",
+    "sharedHint": "Shared items are managed in the scope that defines them.",
+    "removeTitle": "Remove extension",
+    "saving": "Saving and waiting for the server to reload…",
+    "unavailable": "Extension management is unavailable for this server.",
+    "mcp": {
+      "addTitle": "Add MCP server",
+      "add": "Add MCP server",
+      "empty": "No MCP servers in this scope.",
+      "runtime": "Runtime-only MCP server",
+      "configured": "Configured",
+      "removeMessage": "Remove MCP server \"{{name}}\" from this scope?"
+    },
+    "plugins": {
+      "addTitle": "Add plugin",
+      "package": "Package or local plugin path",
+      "warning": "Plugins execute code on the server. Only add packages you trust.",
+      "add": "Add plugin",
+      "empty": "No plugins in this scope.",
+      "outdated": "Update available",
+      "removeMessage": "Remove plugin \"{{name}}\" from this scope?"
+    },
+    "skills": {
+      "addTitle": "Add skill",
+      "editTitle": "Edit {{name}}",
+      "id": "Skill ID",
+      "name": "Name",
+      "descriptionLabel": "Description",
+      "instructions": "Instructions",
+      "fileContent": "SKILL.md content",
+      "autoinvokeOn": "Discoverable by the model",
+      "autoinvokeOff": "Hidden from the model by default",
+      "add": "Create skill",
+      "empty": "No skills in this scope.",
+      "removeMessage": "Move skill \"{{name}}\" to the extension trash?"
+    },
+    "commands": {
+      "addTitle": "Add slash command",
+      "editTitle": "Edit /{{name}}",
+      "name": "Command name",
+      "descriptionLabel": "Description",
+      "template": "Template",
+      "templateHint": "Use $ARGUMENTS or $1, $2 for arguments. Shell blocks in templates run on the server.",
+      "empty": "No commands in this scope.",
+      "removeMessage": "Remove command \"/{{name}}\" from this scope?"
+    },
+    "generalConfirmTitle": "Edit global configuration",
+    "generalConfirmMessage": "This changes the configuration for every project on this server. A backup is created first.\n\n{{path}}",
+    "generalConfirmAction": "Continue"
+  },
+  "modelRouting": {
+    "title": "Auto model routing",
+    "description": "Classify each prompt and choose a model by complexity. Routing is skipped when the classifier is unavailable.",
+    "enable": {
+      "title": "Enable auto-routing",
+      "description": "Choose a model for each prompt based on its complexity.",
+      "unavailable": "Set up a classifier below before enabling routing."
+    },
+    "classifier": {
+      "label": "Classifier",
+      "local": {
+        "label": "On-device model",
+        "description": "Runs on this phone. The model is downloaded once."
+      },
+      "server": {
+        "label": "OpenCode classifier",
+        "description": "Calls a model through OpenCode before sending the prompt."
+      }
+    },
+    "local": {
+      "statusLabel": "On-device model",
+      "status": {
+        "unsupported": "Not supported on this platform",
+        "installing": "Downloading",
+        "ready": "Ready",
+        "missing": "Not installed",
+        "error": "Install failed"
+      },
+      "installed": "Installed ({{size}})",
+      "remove": "Remove model",
+      "download": "Download model ({{size}})",
+      "license": "{{model}} · {{license}}. The model runs only on this device."
+    },
+    "server": {
+      "modelLabel": "Classifier model",
+      "cheapest": "Cheapest available",
+      "check": "Check classifier",
+      "status": {
+        "unknown": "Not checked. Check the classifier to enable routing.",
+        "checking": "Checking the classifier...",
+        "available": "Classifier available.",
+        "unsupported": "This server does not expose the classifier endpoint.",
+        "unavailable": "Classifier unavailable. Check the connection and retry.",
+        "auth": "Sign in to this server before using the classifier."
+      }
+    },
+    "tiers": {
+      "simple": {
+        "label": "Simple model"
+      },
+      "standard": {
+        "label": "Standard model"
+      },
+      "complex": {
+        "label": "Complex model"
+      },
+      "automatic": "Automatic",
+      "automaticDescription": "Choose from the enabled models",
+      "automaticValue": "Automatic · {{model}}",
+      "unavailable": "Unavailable"
+    },
+    "protect": {
+      "title": "Protect long chats",
+      "description": "Avoid downgrading models on long conversations where prompt-cache savings may be larger."
+    }
+  },
+  "localServer": {
+    "title": "Serveur local",
+    "description": "Le serveur OpenCode tourne sur ce téléphone dans un environnement Linux.",
+    "summary": {
+      "running": "En marche · 127.0.0.1:{{port}}",
+      "starting": "Démarre…",
+      "downloading": "Téléchargement de l'environnement…",
+      "installing": "Décompression de l'environnement…",
+      "failed": "Erreur",
+      "stopped": "Arrêté",
+      "unsupported": "Indisponible sur cette plateforme"
+    },
+    "identity": {
+      "nick": "Pseudo",
+      "address": "Adresse",
+      "password": "Le mot de passe a été créé automatiquement et reste sur l'appareil"
+    },
+    "restart": "Redémarrer le serveur",
+    "stop": "Arrêter le serveur",
+    "logs": "Afficher les journaux",
+    "logsTitle": "Journaux du serveur",
+    "logsEmpty": "Le journal est vide.",
+    "apiKey": {
+      "title": "Clé API OpenCode personnelle",
+      "description": "Facultatif. Avec une clé, le serveur envoie les requêtes sous votre quota au lieu de la voie anonyme.",
+      "placeholder": "Collez votre clé API",
+      "saved": "Clé enregistrée. Redémarrez le serveur pour l'appliquer.",
+      "removed": "Clé supprimée. Redémarrez le serveur pour l'appliquer."
+    },
+    "compat": {
+      "title": "Mode de compatibilité",
+      "description": "Activez si Android arrête le serveur sur un appel système."
+    },
+    "runtime": {
+      "title": "Environnement Linux",
+      "version": "Version : {{version}}",
+      "downloading": "Téléchargement de l'environnement…",
+      "installing": "Décompression de l'environnement…",
+      "progress": "{{percent}} %"
+    }
+  }
+}

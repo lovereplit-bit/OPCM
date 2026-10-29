@@ -1,0 +1,225 @@
+import { useCallback, useEffect, useMemo, useState, type PropsWithChildren } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { getProfilePassword, loadConnectionProfiles, findProfileByConnectionScope, type ConnectionProfile } from '@/lib/connection-profiles';
+import { getProfileHeaders } from '@/lib/connection-headers';
+import { getConnectionScope, getConnectionUiScope } from '@/lib/connection-scope';
+import { defaultConnectionSettings } from '@/lib/opencode/client';
+import type { ConnectionContextValue, SessionDeepLinkTarget } from '@/providers/opencode-provider-types';
+import { defaultChatPreferences } from '@/providers/opencode-preferences';
+import { CURRENT_ONBOARDING_VERSION, isOnboardingComplete } from '@/providers/onboarding-state';
+import { useOpencodeProviderState } from '@/providers/use-opencode-provider-state';
+import { useOpencodePersistence } from '@/providers/use-opencode-persistence';
+import { useWorkspaceConnections, serverPreferences } from '@/providers/use-workspace-connections';
+import { WorkspaceActionsContext, WorkspaceContext, WorkspacePresentationContext, type WorkspaceRegistry } from '@/providers/workspace-context';
+import { WorkspaceRuntime } from '@/providers/workspace-runtime';
+import { workspaceKey, type SharedWorkspaceState, type WorkspaceTarget, type WorkspaceValues, type ConnectionRecord, type WorkspaceCatalog } from '@/providers/workspace-types';
+import { useConnectState } from '@/providers/use-connect-state';
+import { useConnectionProfiles } from '@/providers/use-connection-profiles';
+import { useServicesState } from '@/providers/use-services-state';
+import { useShareState } from '@/providers/use-share-state';
+import { useAppUpdates } from '@/providers/use-app-updates';
+import { OpencodeProviderTree } from '@/providers/opencode-provider-tree';
+import { useWorkspaceAutoApprove } from '@/providers/use-workspace-auto-approve';
+import { clearWorkspacePresentation, hasWorkspaceDrafts } from '@/providers/workspace-presentation';
+import { projectClosedValues } from '@/providers/workspace-projection';
+import { librarySessions } from '@/providers/workspace-library';
+import { WorkspaceNative } from '@/providers/workspace-native';
+import { useWorkspaceValues, type WorkspaceValueOverrides } from '@/providers/use-workspace-values';
+import { useNetworkStatus } from '@/providers/use-network-status';
+
+export function WorkspaceProvider({ children }: PropsWithChildren) {
+  const shell = useOpencodeProviderState();
+  // One NetInfo owner for every retained project. See use-network-status.ts:
+  // configure() is process-global and resets listeners.
+  const network = useNetworkStatus();
+  const { isHydrated } = useOpencodePersistence({ ...shell, defaultChatPreferences, defaultSettings: defaultConnectionSettings });
+  const [presentation] = useState(() => new Map<string, unknown>());
+  const [catalogs, setCatalogs] = useState<Record<string, WorkspaceCatalog>>({});
+  const publishCatalog = useCallback((connectionId: string, catalog: WorkspaceCatalog) => {
+    setCatalogs((current) => current[connectionId] === catalog ? current : { ...current, [connectionId]: catalog });
+  }, []);
+  const onboardingCompleted = isOnboardingComplete(shell.onboardingVersion);
+  const manager = useWorkspaceConnections(shell, isHydrated);
+  useWorkspaceAutoApprove(manager);
+  const { updateSettings: updateWorkspaceSettings, retry, change, removeConnection: removeWorkspaceConnection, connectedWorkspace, isEnabled } = manager;
+  const { setFavoriteSessions, setLastSessionByConnection, setProjectPathsByConnection, setSettings, setActiveProjectPath, setChatPreferences } = shell;
+  const { connections, focus, snapshots, ensure, resolveKey, switchConnection, activate, navigate, openExternalSession, disconnect } = manager;
+  const selectedRuntime = focus ? snapshots[resolveKey(focus)] : undefined;
+  const [retainedRuntime, setRetainedRuntime] = useState(selectedRuntime);
+  if (selectedRuntime && retainedRuntime !== selectedRuntime) setRetainedRuntime(selectedRuntime);
+  const current = selectedRuntime ?? retainedRuntime;
+  const settings = current?.values.connectionValue.settings ?? shell.settings;
+  const settingsConnectionId = focus?.connectionId
+    ?? (current ? getConnectionUiScope(current.values.connectionValue.settings) : undefined);
+  const updateSettings = useCallback<ConnectionContextValue['updateSettings']>((patch) => {
+    if (settingsConnectionId) updateWorkspaceSettings(settingsConnectionId, { ...settings, ...patch });
+  }, [settingsConnectionId, updateWorkspaceSettings, settings]);
+  const disconnectProfile = useCallback(async (profile: ConnectionProfile) => disconnect(getConnectionUiScope(profile)), [disconnect]);
+  const isActiveProfile = useCallback((profile: ConnectionProfile) => isEnabled(getConnectionUiScope(profile)), [isEnabled]);
+  const profileRefreshed = useCallback((previous: ConnectionProfile, next: ConnectionProfile) => {
+    const oldScope = getConnectionScope(previous), newScope = getConnectionScope(next);
+    setFavoriteSessions((items) => items.map((entry) => entry.connectionScope === oldScope ? { ...entry, connectionScope: newScope } : entry));
+    setLastSessionByConnection((value) => ({ ...value, [newScope]: { ...value[oldScope], ...value[newScope] } }));
+    setProjectPathsByConnection((value) => ({ ...value, [newScope]: value[newScope] ?? value[oldScope] ?? [] }));
+  }, [setFavoriteSessions, setLastSessionByConnection, setProjectPathsByConnection]);
+  const beforeProfileRefresh = useCallback(async () => {}, []);
+  const connectSetup = useConnectState({ controlPlaneUrl: shell.controlPlaneUrl, setControlPlaneUrl: shell.setControlPlaneUrl,
+    switchConnection, disconnect: disconnectProfile, isHydrated, activeMachineId: settings.connect?.machineId,
+    beforeProfileRefresh, onProfileRefreshed: profileRefreshed, isActiveProfile });
+  const profileSaved = useCallback((profile: ConnectionProfile, secrets: { password: string; headers: Record<string, string> }, previous?: ConnectionProfile) => {
+    const id = getConnectionUiScope(previous ?? profile);
+    change((current) => current.map((entry) => entry.id === id ? { ...entry, name: profile.name } : entry));
+    updateWorkspaceSettings(id, { serverUrl: profile.serverUrl, username: profile.username, connect: profile.connect, password: secrets.password, headers: secrets.headers, directory: '' });
+  }, [change, updateWorkspaceSettings]);
+  const removeConnection = useCallback(async (id: string) => {
+    await removeWorkspaceConnection(id);
+    clearWorkspacePresentation(presentation, id);
+    setCatalogs((current) => {
+      if (!(id in current)) return current;
+      const next = { ...current };
+      delete next[id];
+      return next;
+    });
+  }, [removeWorkspaceConnection, presentation]);
+  const profileRemoved = useCallback(async (profile: ConnectionProfile) => removeConnection(getConnectionUiScope(profile)), [removeConnection]);
+  const connectionProfiles = useConnectionProfiles({ settings, switchConnection, updateSettings, profileSnapshot: connectSetup.profiles, onSaved: profileSaved, onRemoved: profileRemoved });
+  const { servicesValue } = useServicesState({ settings, connectSetup, scopeGenerationRef: shell.scopeGenerationRef });
+  const [terminalTarget, setTerminalTarget] = useState<WorkspaceTarget>();
+  const [inspectionTarget, setInspectionTarget] = useState<WorkspaceTarget>();
+  const selectTerminalTarget = useCallback(async (target: WorkspaceTarget) => { await ensure(target); setTerminalTarget(target); }, [ensure]);
+  const inspect = useCallback(async (target: WorkspaceTarget) => { await ensure(target); setInspectionTarget(target); }, [ensure]);
+  const openSession = useCallback(async (target: SessionDeepLinkTarget, signal?: AbortSignal) => {
+    try {
+      let entry: Pick<ConnectionRecord, 'id' | 'projects' | 'enabled'> | undefined = target.connectionScope ? connections.find((value) => getConnectionScope(value.settings) === target.connectionScope) : connections.find((value) => value.id === focus?.connectionId);
+      if (!entry && target.connectionScope) {
+        const profile = findProfileByConnectionScope(await loadConnectionProfiles(), target.connectionScope);
+        if (!profile) throw new Error('The saved connection for this session is not available.');
+        const [password, headers] = await Promise.all([getProfilePassword(profile.id), getProfileHeaders(profile.id)]);
+        if (signal?.aborted) throw new Error('This session link was cancelled.');
+        await switchConnection({ serverUrl: profile.serverUrl, username: profile.username, connect: profile.connect, password, headers }, profile.modelPreferences, false);
+        entry = { id: getConnectionUiScope(profile), projects: [''], enabled: true };
+      }
+      if (!entry) throw new Error('The saved connection for this session is not available.');
+      if (!entry.enabled) await retry(entry.id);
+      await openExternalSession({ connectionId: entry.id, projectPath: target.projectPath ?? entry.projects[0] ?? '', sessionId: target.sessionId }, signal);
+      return { ok: true };
+    } catch (reason) { return { ok: false, error: reason instanceof Error ? reason.message : 'Could not open this chat.' }; }
+  }, [connections, focus?.connectionId, openExternalSession, retry, switchConnection]);
+  // In-app library navigation. The session id came from rendered data, so this
+  // resolves the owning connection locally and never validates against a
+  // server list. Cross-server favorites still switch and connect the target.
+  const openSessionInProject = useCallback(async (projectPath: string, sessionId: string, targetConnectionScope: string) => {
+    const entry = connections.find((item) => getConnectionScope(item.settings) === targetConnectionScope);
+    if (!entry) {
+      // A favorite can outlive its workspace registration. That is an external
+      // target rather than a rendered row, so resolve it through the saved
+      // profile path instead of failing locally.
+      const opened = await openSession({ projectPath, sessionId, connectionScope: targetConnectionScope });
+      if (!opened.ok) throw new Error(opened.error);
+      return;
+    }
+    if (!entry.enabled) await retry(entry.id);
+    await navigate({ connectionId: entry.id, projectPath, sessionId });
+  }, [connections, navigate, openSession, retry]);
+  const createChat = useCallback(async (target: WorkspaceTarget) => {
+    if (!target.projectPath) throw new Error('Choose a project before creating a chat.');
+    const runtime = await connectedWorkspace(target);
+    const session = await runtime.values.currentSessionValue.createSession();
+    await runtime.values.currentSessionValue.openSession(session.id);
+    await activate(target);
+    return session;
+  }, [activate, connectedWorkspace]);
+  const refreshTargets = useCallback(async () => {
+    await Promise.all(Object.values(catalogs).map((catalog) => catalog.refresh()));
+  }, [catalogs]);
+  const shareTargets = useMemo(() => librarySessions(connections, snapshots, focus)
+    .filter((row) => row.connected && (!shell.chatPreferences.hideSubagentChats || !row.session.parentID))
+    .map((row) => ({ connectionScope: getConnectionScope(connections.find((entry) => entry.id === row.connectionId)!.settings),
+      projectPath: row.projectPath, sessionId: row.sessionId, title: `${row.serverName} · ${row.session.title}` })), [connections, snapshots, focus, shell.chatPreferences.hideSubagentChats]);
+  const sharedInput = useShareState({ hydrated: isHydrated, connectionScope: getConnectionScope(settings),
+    projectPath: focus ? current?.values.projectsValue.activeProjectPath : undefined,
+    currentSessionId: focus ? current?.values.currentSessionValue.currentSessionId : undefined,
+    availableTargets: shareTargets,
+    createAt: async (target) => {
+      const entry = connections.find((item) => getConnectionScope(item.settings) === target.connectionScope);
+      if (!entry) throw new Error('This server is no longer available.');
+      const workspace = await connectedWorkspace({ connectionId: entry.id, projectPath: target.projectPath });
+      return workspace.values.currentSessionValue.createSession();
+    },
+    sessions: current?.catalogSessions ?? [], hideSubagentChats: shell.chatPreferences.hideSubagentChats, refreshTargets,
+    createSession: async () => { if (!current) throw new Error('Choose a workspace.'); return current.values.currentSessionValue.createSession(); }, openSession });
+  const shared = useMemo<SharedWorkspaceState>(() => ({
+    controlPlaneUrl: shell.controlPlaneUrl, setControlPlaneUrl: shell.setControlPlaneUrl,
+    onboardingVersion: shell.onboardingVersion, setOnboardingVersion: shell.setOnboardingVersion,
+    onboardingActive: shell.onboardingActive, setOnboardingActive: shell.setOnboardingActive,
+    lastSessionByConnection: shell.lastSessionByConnection, setLastSessionByConnection: shell.setLastSessionByConnection,
+    favoriteSessions: shell.favoriteSessions, setFavoriteSessions: shell.setFavoriteSessions,
+    projectPathsByConnectionRef: shell.projectPathsByConnectionRef,
+    projectPathsByConnection: shell.projectPathsByConnection, setProjectPathsByConnection: shell.setProjectPathsByConnection,
+  }), [shell.controlPlaneUrl, shell.setControlPlaneUrl, shell.onboardingVersion, shell.setOnboardingVersion,
+    shell.onboardingActive, shell.setOnboardingActive, shell.lastSessionByConnection, shell.setLastSessionByConnection,
+    shell.favoriteSessions, shell.setFavoriteSessions, shell.projectPathsByConnection, shell.setProjectPathsByConnection, shell.projectPathsByConnectionRef]);
+  const workspaceOverrides = useMemo<WorkspaceValueOverrides>(() => ({
+    isHydrated,
+    onboardingCompleted,
+    onboardingActive: shell.onboardingActive,
+    connectionProfiles,
+    connectSetup,
+    servicesValue,
+    sharedInput,
+    projectPathsByConnection: shell.projectPathsByConnection,
+    retry,
+    activate,
+    switchConnection,
+    openSession,
+    openSessionInProject,
+  }), [activate, connectionProfiles, connectSetup, isHydrated, onboardingCompleted, openSession, openSessionInProject, retry, servicesValue, sharedInput, shell.onboardingActive, shell.projectPathsByConnection, switchConnection]);
+  const focusedValues = useWorkspaceValues(current?.values, workspaceOverrides);
+  const valuesFor = useCallback((target?: WorkspaceTarget): WorkspaceValues | undefined => {
+    const snapshot = target ? snapshots[resolveKey(target)] : current;
+    if (!snapshot) return undefined;
+    let values = snapshot.values;
+    const path = values.projectsValue.activeProjectPath;
+    const opened = shell.projectPathsByConnection[getConnectionScope(values.connectionValue.settings)];
+    if (opened && path && !opened.includes(path)) values = projectClosedValues(values);
+    const id = getConnectionUiScope(values.connectionValue.settings);
+    return { ...values,
+      onboardingValue: { ...values.onboardingValue, isHydrated, onboardingCompleted, onboardingActive: shell.onboardingActive },
+      connectionValue: { ...values.connectionValue, connect: () => retry(id), switchConnection, connectionProfiles, connectSetup, services: servicesValue },
+      projectsValue: { ...values.projectsValue, selectProject: (projectPath) => { void activate({ connectionId: id, projectPath }); } },
+      currentSessionValue: { ...values.currentSessionValue, openDeepLinkSession: openSession },
+      sessionLibraryValue: { ...values.sessionLibraryValue, openSessionInProject: (projectPath, sessionId, connectionScope) => openSessionInProject(projectPath, sessionId, connectionScope ?? getConnectionScope(values.connectionValue.settings)) },
+      chatValue: { ...values.chatValue, sharedInput },
+    };
+  }, [activate, retry, connectionProfiles, connectSetup, current, onboardingCompleted, openSession, openSessionInProject, resolveKey, servicesValue, sharedInput, snapshots, switchConnection, shell.projectPathsByConnection, isHydrated, shell.onboardingActive]);
+  const registry = useMemo<WorkspaceRegistry>(() => ({ ...manager, createChat, removeConnection,
+    terminalTarget: connections.some((entry) => entry.id === terminalTarget?.connectionId) ? terminalTarget : undefined, selectTerminalTarget,
+    inspectionTarget: connections.some((entry) => entry.id === inspectionTarget?.connectionId) ? inspectionTarget : undefined, inspect, valuesFor, catalogs }), [manager, createChat, removeConnection, connections, terminalTarget, selectTerminalTarget, inspectionTarget, inspect, valuesFor, catalogs]);
+  const updates = useAppUpdates({ initialized: isHydrated && shell.onboardingVersion >= CURRENT_ONBOARDING_VERSION && !shell.onboardingActive,
+    blocked: Object.values(snapshots).some((runtime) => runtime.busy) || connectSetup.busy || hasWorkspaceDrafts(presentation) });
+  useEffect(() => {
+    if (!current) return;
+    setSettings(current.values.connectionValue.settings);
+    setActiveProjectPath(focus ? current.values.projectsValue.activeProjectPath : undefined);
+    const preferences = serverPreferences(current.values.preferencesValue.chatPreferences);
+    setChatPreferences((previous) => JSON.stringify(serverPreferences(previous)) === JSON.stringify(preferences) ? previous : { ...previous, ...preferences });
+  }, [current, focus, setSettings, setActiveProjectPath, setChatPreferences]);
+  const values = focusedValues;
+  const workspaceActions = useMemo(() => ({ createChat, focus }), [createChat, focus]);
+  return <WorkspacePresentationContext.Provider value={presentation}>
+    <WorkspaceActionsContext.Provider value={workspaceActions}>
+    <WorkspaceContext.Provider value={registry}>
+    {connections.flatMap((entry) => entry.projects.map((path, index) => <WorkspaceRuntime key={workspaceKey({ connectionId: entry.id, projectPath: path })}
+      connection={entry} projectPath={path || undefined} shared={shared} network={network} catalog={catalogs[entry.id]} onCatalog={publishCatalog} defaults={shell.chatPreferences} isHydrated={isHydrated}
+      visible={shell.projectPathsByConnection[getConnectionScope(entry.settings)]?.includes(path || current?.values.projectsValue.activeProjectPath || '') !== false && focus?.connectionId === entry.id && (focus.projectPath === path || current === snapshots[workspaceKey({ connectionId: entry.id, projectPath: path })])}
+      isConnectionOwner={index === 0} connectSetup={connectSetup} connectionProfiles={connectionProfiles} servicesValue={servicesValue}
+      updateSettings={updateWorkspaceSettings} updatePreferences={manager.updatePreferences}
+      publish={manager.publish} forget={manager.forget} />))}
+    {values && current ? <OpencodeProviderTree values={values} updates={updates}>
+      <WorkspaceNative runtime={current} preferences={shell.chatPreferences} ready={isHydrated} active={Boolean(focus)} busy={Object.values(snapshots).some((runtime) => runtime.busy)} />
+      {children}
+    </OpencodeProviderTree> : <View style={{ flex: 1, backgroundColor: '#101212', alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator color="#C3CECB" /></View>}
+    </WorkspaceContext.Provider>
+    </WorkspaceActionsContext.Provider>
+  </WorkspacePresentationContext.Provider>;
+}

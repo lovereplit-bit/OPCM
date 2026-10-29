@@ -1,0 +1,115 @@
+{
+  "welcome": {
+    "title": "OpenCode",
+    "subtitle": "Your OpenCode projects, wherever you are.",
+    "body": "OpenCode brings your OpenCode server to your phone. Chat with coding agents, follow their work, and review changes across your projects.",
+    "start": "Continue",
+    "points": {
+      "server": {
+        "title": "Your server does the work",
+        "description": "Models and tasks run on your OpenCode server. This app keeps you connected to them."
+      },
+      "project": {
+        "title": "Projects and conversations",
+        "description": "Projects keep chats, files, and changes together."
+      },
+      "optional": {
+        "title": "Voice and task updates",
+        "description": "Voice input and completion notifications help you keep up with work on the go."
+      }
+    }
+  },
+  "connect": {
+    "skip": "Skip"
+  },
+  "project": {
+    "title": "Choose a project",
+    "subtitle": "Pick a project to start in, or add a folder on the server.",
+    "continue": "続行",
+    "skip": "Skip",
+    "empty": "This server did not report any projects. Add a directory on the server to get started.",
+    "loading": "Loading projects…"
+  },
+  "permissions": {
+    "title": "Permissions",
+    "subtitle": "Optional. OpenCode only asks when you choose to enable something.",
+    "skip": "Skip",
+    "continue": "Continue",
+    "notifications": {
+      "title": "Notifications",
+      "body": "Allow OpenCode to notify you when a task finishes while the app is in the background.",
+      "unsupported": "Notifications are not available on this platform.",
+      "enable": "Enable notifications",
+      "battery": "Review battery / background settings"
+    },
+    "voice": {
+      "title": "Voice input",
+      "body": "Microphone access lets you dictate prompts instead of typing them.",
+      "unsupported": "Voice input is not available on this device.",
+      "enable": "Enable voice input",
+      "deniedHint": "You can still turn voice input on later from Settings › Voice."
+    },
+    "checking": "確認中…"
+  },
+  "ready": {
+    "title": "You're ready",
+    "subtitle": "Review your setup and start coding.",
+    "server": "Server",
+    "project": "Project",
+    "projectMissing": "No project selected",
+    "footnote": "これらの設定はいつでも変更できます。",
+    "start": "Start coding",
+    "done": "Done",
+    "serverMissing": "未接続",
+    "providers": "プロバイダー",
+    "enabledModels": "有効なモデル"
+  },
+  "settingsAssistant": {
+    "summary": "権限、接続、プロバイダー、プロジェクト、音声、設定を確認"
+  },
+  "reviewSetup": "設定を確認",
+  "stepIndicator": "ステップ {{step}} / {{totalSteps}}",
+  "general": {
+    "title": "一般設定",
+    "subtitle": "OpenCodeを使いやすく設定しましょう。",
+    "defaultModel": "デフォルトモデル"
+  },
+  "voice": {
+    "title": "音声と応答",
+    "subtitle": "話しかけ方と応答の読み上げを設定します。",
+    "input": "音声入力",
+    "playback": "応答の読み上げ",
+    "responses": "応答スタイル",
+    "autoPlay": "応答を自動で読み上げる"
+  },
+  "setup": {
+    "title": "サーバーをセットアップしています",
+    "subtitle": "アプリが localhost・パスワード・ニックネームを自動作成します——手入力は不要です。",
+    "otherServer": "別のサーバー",
+    "retry": "再試行",
+    "status": {
+      "preparing": "準備中…",
+      "downloading": "Linux 環境をダウンロード中",
+      "installing": "Linux 環境を展開中",
+      "starting": "サーバーを起動中",
+      "running": "サーバーが稼働中です",
+      "failed": "うまくいきませんでした",
+      "failedConnect": "サーバーに接続できませんでした"
+    },
+    "progress": "{{percent}}%",
+    "hint": "初回起動時に環境をダウンロードして展開します。数分かかります。",
+    "identity": {
+      "nick": "ニックネーム",
+      "address": "アドレス",
+      "password": "パスワード",
+      "automatic": "自動生成されました",
+      "footnote": "ニックネームとパスワードはアプリが生成し、この端末に保存しました。"
+    },
+    "showLogs": "ログを表示",
+    "logsTitle": "ログ",
+    "logsEmpty": "ログは空です。",
+    "errors": {
+      "connect": "ローカルサーバーに接続できませんでした。"
+    }
+  }
+}

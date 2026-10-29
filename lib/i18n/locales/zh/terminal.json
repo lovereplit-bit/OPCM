@@ -1,0 +1,53 @@
+{
+  "screen": {
+    "connectTitle": "连接到 OpenCode",
+    "chooseProject": "选择项目",
+    "selectProject": "打开终端前请先选择一个项目。",
+    "openProjects": "打开项目",
+    "title": "终端"
+  },
+  "console": {
+    "selectTerminal": "选择终端",
+    "create": "创建终端",
+    "refresh": "刷新终端",
+    "openOrCreate": "打开或创建终端以开始。",
+    "terminateTitle": "终止终端？",
+    "terminateAction": "终止",
+    "new": "新建终端",
+    "interactiveHint": "直接在终端中输入。使用工具栏上的终端按键。",
+    "pasteTitle": "粘贴到终端？",
+    "pasteMessage": "此文本包含多行或控制字符，可能执行命令。是否继续？",
+    "terminateMessage": "{{terminal}}（{{id}}）\n{{server}} / {{project}}",
+    "copied": "已复制到剪贴板"
+  },
+  "sessions": {
+    "title": "终端",
+    "empty": "尚无终端。使用 + 创建一个。",
+    "openLabel": "打开 {{terminal}}"
+  },
+  "errors": {
+    "load": "无法加载终端。",
+    "create": "无法创建终端。",
+    "open": "无法打开终端。",
+    "connect": "无法连接。",
+    "refresh": "无法刷新终端。"
+  },
+  "accessory": {
+    "paste": "粘贴",
+    "copy": "复制",
+    "latest": "最新输出",
+    "input": "终端输入",
+    "more": "更多终端按键",
+    "armed": "已启用",
+    "locked": "已锁定",
+    "off": "关闭"
+  },
+  "status": {
+    "connecting": "连接中",
+    "connected": "已连接",
+    "reconnecting": "重新连接中",
+    "exited": "已退出",
+    "error": "错误",
+    "idle": "空闲"
+  }
+}

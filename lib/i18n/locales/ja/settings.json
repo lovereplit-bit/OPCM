@@ -1,0 +1,889 @@
+{
+  "screen": {
+    "categories": {
+      "connection": "接続",
+      "ai": "AI とプロバイダー",
+      "notifications": "通知",
+      "voice": "音声とオーディオ",
+      "advanced": "詳細設定",
+      "support": "サポート",
+      "permissions": "承認",
+      "subscription": "サブスクリプション",
+      "cloudLink": "Cloud Link",
+      "extensions": "Extensions",
+      "responses": "応答",
+      "appearance": "外観",
+      "chat": "チャットと応答",
+      "about": "アプリ情報とヘルプ"
+    },
+    "summaries": {
+      "configuredCount": "{{value}} 件設定済み",
+      "replyPlaybackOn": "返信の再生オン",
+      "replyPlaybackOff": "返信の再生オフ",
+      "support": "アプリを評価、フィードバック、サポート",
+      "permissions": "{{value}} 件保存済み",
+      "extensions": "MCPs, plugins, skills and commands",
+      "responses": "応答範囲と次のアクション",
+      "voiceSystem": "システム音声 · {{phrase}}",
+      "voiceLocal": "オンデバイス · {{phrase}}",
+      "responsesOn": "{{scope}} · 次のアクション オン",
+      "responsesOff": "{{scope}} · 次のアクション オフ",
+      "appearance": "テーマ、色、インターフェースの密度",
+      "diagnostics": "接続状態とトラブルシューティング"
+    },
+    "groups": {
+      "app": "アプリの設定",
+      "connections": "接続",
+      "server": "選択中のサーバー"
+    },
+    "intro": "アプリを好みに合わせて接続を管理します。",
+    "search": {
+      "placeholder": "設定を検索",
+      "clear": "検索をクリア",
+      "empty": "一致する設定がありません。別の言葉を試してください。",
+      "results": "一致する設定：{{count}} 件"
+    },
+    "keywords": {
+      "appearance": "表示 テーマ 色 ダーク ライト コンパクト 密度",
+      "responses": "チャット メッセージ テキスト フォント サイズ 応答 スタイル 誘導 追加 キュー 吹き出し",
+      "voice": "音声 オーディオ サウンド マイク 入力 再生 言語 ウェイクフレーズ",
+      "notifications": "通知 アラート バッテリー ウィジェット",
+      "language": "言語 翻訳 インターフェース",
+      "support": "ヘルプ フィードバック サポート 更新 バージョン セットアップ",
+      "connection": "接続 サーバー アドレス パスワード 認証情報 再接続 QR",
+      "cloud-link": "リモート接続 Cloud Link サブスクリプション コンピューター サービス",
+      "ai": "AI プロバイダー アカウント モデル 認証 分類器 ルーティング",
+      "extensions": "拡張機能 MCP プラグイン スキル コマンド",
+      "permissions": "権限 承認 保存済みルール 自動許可",
+      "advanced": "診断 ネットワーク 接続 リアルタイム ポーリング エラー 使用量"
+    }
+  },
+  "support": {
+    "title": "サポート",
+    "description": "Google Play で OpenCode を評価したり、改善のフィードバックを送ったり、サポートページでヘルプを得られます。",
+    "rate": "Play Store で評価",
+    "feedback": "フィードバックを送る",
+    "openSupport": "サポートページを開く"
+  },
+  "connection": {
+    "currentConnection": "現在の接続",
+    "noServerUrl": "サーバー URL が設定されていません",
+    "notSavedYet": "まだ保存されていません。接続を追加すると後で利用できます。",
+    "lastChecked": "最終確認 {{time}}",
+    "serverUrlValue": "サーバー URL: {{url}}",
+    "usernameValue": "ユーザー名: {{username}}",
+    "usernameEmpty": "（なし）",
+    "addConnection": "接続を追加",
+    "editConnection": "接続を編集",
+    "addDescription": "接続を追加すると、URL とパスワードを再入力せずにサーバーを切り替えられます。",
+    "saveAndConnect": "保存して接続",
+    "deleteTitle": "接続を削除",
+    "deleteMessage": "保存済みの接続から「{{name}}」を削除しますか？",
+    "deleteWebConfirm": "接続を削除\n\n{{message}}",
+    "fields": {
+      "serverUrl": "サーバー URL",
+      "username": "ユーザー名",
+      "password": "パスワード"
+    },
+    "errors": {
+      "serverUrl": "サーバー URL を入力してください。",
+      "invalidUrl": "http://192.168.1.10:4096 などの完全なサーバー URL を入力してください。",
+      "save": "この接続を保存できませんでした。",
+      "headerName": "有効なヘッダー名を入力してください。",
+      "headerValue": "ヘッダー値に改行は使用できません。",
+      "headerDuplicate": "同じヘッダー名は一度しか使用できません。",
+      "headerReserved": "このヘッダーはアプリが管理しているため上書きできません。",
+      "headerLimit": "カスタムヘッダーは最大 10 個までです。",
+      "generic": "OpenCode との通信中に問題が発生しました。",
+      "tunnelStarting": "Cloudflare トンネルはまだ起動中です (エラー 1033)。しばらくしてから再試行してください。",
+      "notApi": "{{url}} のサーバーは OpenCode API の応答を返しませんでした。{{apiHint}}{{versionHint}}",
+      "endpointNotFound": "{{url}} に OpenCode エンドポイントが見つかりません。{{apiHint}}{{versionHint}}",
+      "webPage": "{{url}} のサーバーは OpenCode API ではなく Web ページを返しました。{{apiHint}}{{versionHint}}",
+      "apiHint": " このアドレスが Web UI を提供している場合は、代わりにその API ベース URL (通常は {{url}}/api) を使用してください。",
+      "versionHint": " このアプリは OpenCode 1.x および 2.x サーバーをサポートしています。API ベース URL を確認してください。"
+    },
+    "setup": {
+      "step": "ステップ {{step}} / 2",
+      "addressTitle": "サーバーアドレス",
+      "detailsTitle": "接続の詳細",
+      "addressHint": "OpenCode サーバーに接続します。",
+      "continue": "続ける",
+      "change": "変更",
+      "detected": "OpenCode {{version}} を検出",
+      "identify": "サーバーを識別するために認証情報を入力してください。",
+      "customUsername": "カスタムユーザー名",
+      "passwordHint": "サーバーのパスワードを入力してください。",
+      "optionalName": "名前（任意）",
+      "nameHint": "空欄の場合はサーバーの IP またはドメインを使用します。",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを隠す",
+      "scan": "ローカル QR コードをスキャン",
+      "pairCommand": "コンピューターで opencode pair を実行してください。",
+      "sameNetwork": "両方のデバイスを同じネットワークに接続してください。",
+      "scanAutomatic": "スキャンすると自動的に保存して接続します。",
+      "scanAgain": "再スキャン",
+      "unreachable": "サーバーに接続できません。アドレスとネットワークを確認して再試行してください。",
+      "credentialsRejected": "認証情報が拒否されました。パスワードとユーザー名を確認するか、新しい QR コードをスキャンしてください。",
+      "pairingErrors": {
+        "invalid": "OpenCode のペアリングコードではありません。opencode pair を実行して再スキャンしてください。",
+        "expired": "このコードは期限切れか使用済みです。opencode pair を再実行してください。",
+        "unreachable": "サーバーに接続できません。両方のデバイスが同じネットワークにあるか確認するか、アドレスを手動で入力してください。",
+        "loopback": "このコードには localhost のアドレスしかありません。コンピューターで opencode service set hostname 0.0.0.0 を実行し、続けて opencode service start と opencode pair を実行してください。"
+      }
+    },
+    "headers": {
+      "title": "カスタムヘッダー",
+      "add": "ヘッダーを追加",
+      "name": "ヘッダー名",
+      "value": "値",
+      "remove": "ヘッダーを削除",
+      "hint": "このサーバーへのすべてのリクエストで送信されます。値はこのデバイスに安全に保存されます。",
+      "showValues": "値を表示",
+      "hideValues": "値を隠す"
+    },
+    "reconnectSuccess": "{{url}} に接続しました。"
+  },
+  "providers": {
+    "accounts": "Accounts",
+    "addAnotherAccount": "Add another account",
+    "removeAccount": "Remove account",
+    "selectMethod": "Select login method",
+    "apiKey": "API キー",
+    "pasteApiKey": "API キーを貼り付け",
+    "chooseModels": "チャットに表示する設定済みモデルを選択します。チャットで最後に選んだモデルが新しいチャットでも選択されたままになります。",
+    "configuredProviders": "設定済みプロバイダー",
+    "addProvider": "プロバイダーを追加",
+    "connectFirst": "まず接続してプロバイダーを読み込んでください。",
+    "configureAtLeastOne": "既定を選択するには、少なくとも1つのプロバイダーを設定してください。",
+    "selectedCount": "{{total}} 件中 {{selected}} 件選択",
+    "reasoningSupported": "推論に対応",
+    "standardModel": "標準モデル",
+    "noModels": "設定済みプロバイダーのモデルが見つかりません。",
+    "configuredSuccess": "{{provider}} の設定が完了しました。",
+    "signInFinished": "{{provider}} のサインインが完了しました。プロバイダーの状態が更新されました。",
+    "couldNotConfigure": "プロバイダーを設定できませんでした。",
+    "couldNotRemove": "プロバイダーの認証情報を削除できませんでした。",
+    "credentialsRemoved": "{{provider}} の認証情報を削除しました。",
+    "removeTitle": "{{provider}}を削除しますか？",
+    "removeMessage": "保存済みの認証情報とプロバイダー設定が削除されます。",
+    "signInTitle": "プロバイダーのサインインを完了",
+    "authorizationCode": "認証コード",
+    "complete": "完了",
+    "continue": "続行",
+    "cancelSetup": "プロバイダーの設定をキャンセル",
+    "configureProvider": "{{provider}}を設定",
+    "oauthHint": "ブラウザーでプロバイダーのサインインフローが開きます。",
+    "signInPendingHint": "ブラウザーでサインインを完了してください。この画面は自動的に更新されます。",
+    "pairingCode": "ペアリングコード",
+    "openLink": "リンクを開く",
+    "copyLink": "リンクをコピー",
+    "authorizationCodeHint": "サインイン後、表示されたコードをコピーしてここに貼り付けてください。",
+    "setupUnavailable": "このプロバイダーの設定詳細は現在利用できません。",
+    "couldNotComplete": "サインインを完了できませんでした。",
+    "removeCredentials": "{{provider}}の認証情報を削除",
+    "promptDelivery": {
+      "label": "作業中に送信するメッセージ",
+      "steer": {
+        "label": "方向修正",
+        "description": "現在の応答の次のステップでメッセージを反映します。"
+      },
+      "queue": {
+        "label": "追加",
+        "description": "メッセージを後のターンに向けてキューに追加します。"
+      }
+    }
+  },
+  "providerCopy": {
+    "openai": {
+      "label": "OpenAI",
+      "description": "OpenAI の GPT モデル。最新の推論やマルチモーダルオプションを含みます。"
+    },
+    "anthropic": {
+      "label": "Anthropic",
+      "description": "コーディング、分析、長いコンテキストの作業向けの Anthropic の Claude モデル。"
+    },
+    "github-copilot": {
+      "label": "GitHub Copilot",
+      "description": "GitHub Copilot のアクセス権でサインインし、対応する基盤モデルを利用できます。"
+    },
+    "google": {
+      "label": "Google",
+      "description": "マルチモーダルおよび大規模コンテキストのタスク向けの Google の Gemini モデル。"
+    },
+    "groq": {
+      "label": "Groq",
+      "description": "対応するオープンおよび最先端モデル向けの高速なホスト型推論。"
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "description": "1つのアカウントから複数のプロバイダーとモデルファミリーにリクエストをルーティングします。"
+    },
+    "mistral": {
+      "label": "Mistral",
+      "description": "汎用およびコーディング作業向けの Mistral AI のホスト型モデル。"
+    },
+    "xai": {
+      "label": "xAI",
+      "description": "xAI の Grok モデル。"
+    },
+    "azure": {
+      "label": "Azure OpenAI",
+      "description": "Azure 経由でデプロイされた OpenAI 互換モデル。"
+    }
+  },
+  "notifications": {
+    "status": {
+      "checking": "確認中",
+      "enabled": "有効",
+      "needsSetup": "セットアップが必要"
+    },
+    "background": {
+      "checking": "確認中",
+      "ready": "準備完了",
+      "limited": "制限あり"
+    },
+    "summary": {
+      "enabled": "通知が有効です",
+      "off": "通知オフ",
+      "background": "バックグラウンド {{status}}"
+    },
+    "enable": "通知を有効にする",
+    "settings": "通知設定",
+    "appSettings": "アプリ設定",
+    "appSettingsDescription": "このアプリのシステム設定を確認します。",
+    "batteryOptimization": "バッテリー最適化",
+    "batteryOptimizationDescription": "アプリがバックグラウンドでより安定して動作できるようにします。",
+    "batterySaver": "バッテリー節約",
+    "batterySaverDescription": "バッテリー節約機能はリマインダーを遅延させる場合があります。",
+    "refreshStatus": "状態を更新",
+    "enabledFeedback": "このデバイスで通知が有効になっています。",
+    "disabledFeedback": "通知はまだ無効です。手動で有効にするにはシステム設定を開いてください。"
+  },
+  "voice": {
+    "onDeviceInput": {
+      "title": "オンデバイス認識を優先",
+      "description": "ローカル認識を優先し、必要な場合のみクラウドを使用します。"
+    },
+    "autoPlay": {
+      "title": "アシスタントの返信を自動再生",
+      "description": "チャットの返信を読み上げます。会話モードは常に読み上げます。"
+    },
+    "workingSound": {
+      "title": "作業中のサウンド",
+      "description": "アシスタントが返信を作成している間、穏やかなループを再生します。"
+    },
+    "wakePhrase": {
+      "label": "ウェイクフレーズ",
+      "helper": "会話モードはこのフレーズを聞き取った後にのみメッセージを送信します。2語以上がおすすめです。"
+    },
+    "modelDownloads": {
+      "timeout": "ダウンロードがタイムアウトしました。接続が止まりました。Wi‑Fi または電波の良い場所でもう一度お試しください。",
+      "offline": "ダウンロードサーバーに接続できませんでした。インターネット接続を確認して、もう一度お試しください。",
+      "server": "ダウンロードサーバーがファイルを提供できませんでした。しばらくしてからもう一度お試しください。",
+      "storage": "このモデルをインストールするための空き容量が足りません。",
+      "incomplete": "ダウンロードが完了しませんでした。もう一度お試しください。",
+      "integrity": "ダウンロードしたファイルが破損しています。もう一度お試しください。",
+      "unknown": "モデルをダウンロードできませんでした。接続を確認して、もう一度お試しください。",
+      "installFailed": "モデルをインストールできませんでした。もう一度お試しください。"
+    },
+    "localWake": {
+      "title": "オンデバイス音声",
+      "description": "ローカルのウェイクワードモデルと任意の声紋チェックを実行します。{{size}} の学習済みモデルをダウンロードし、利用できない場合はフレーズ判定に戻ります。",
+      "statusMissing": "モデル未インストール",
+      "statusInstalling": "インストール中…",
+      "statusReady": "モデルインストール済み",
+      "statusUnsupported": "このビルドでは未対応",
+      "statusError": "インストール失敗",
+      "install": "モデルをインストール ({{size}})",
+      "remove": "モデルを削除",
+      "phraseLabel": "ウェイクフレーズ",
+      "phraseHelper": "ウェイク検出器はこれらの英語フレーズに対応します。コマンドの言語は選択したコマンドモデルが処理します。学習は不要です。",
+      "speakerVerification": "声を確認する",
+      "speakerVerificationDescription": "登録した声ではない場合、ウェイクフレーズを拒否します。",
+      "enroll": "声を登録",
+      "reEnroll": "録音し直す",
+      "removeVoice": "声を削除",
+      "enrolled": "声紋プロファイルを登録済みです。",
+      "notEnrolled": "声紋プロファイルはまだありません。",
+      "recording": "録音中…10秒ほど自然に話してください。",
+      "saving": "声紋プロファイルを作成中…",
+      "unsupportedHint": "このビルドにはネイティブのローカル音声ランタイムが含まれていません。",
+      "commandModelLabel": "コマンド認識モデル",
+      "commandModelHelper": "コマンド用のオンデバイスモデルを選択します。多言語モデルは容量が大きくなります。",
+      "fallback": "フォールバック: システムのフレーズ判定「{{phrase}}」。",
+      "baseModels": "ベースパック",
+      "voiceProfile": "声紋プロファイル",
+      "enrollRequiresModels": "先にモデルをインストールしてから、声を登録してください。",
+      "installBase": "ベースパックをインストール ({{size}})",
+      "installCommand": "コマンドモデルをインストール ({{size}})"
+    },
+    "speechLocale": {
+      "label": "音声ロケール",
+      "helper": "空欄にすると、音声入力と再生にシステムの既定言語を使用します。"
+    },
+    "responseScope": {
+      "label": "応答の範囲",
+      "brief": {
+        "label": "簡潔",
+        "description": "自然なやり取り向けの、短く範囲を絞った回答。"
+      },
+      "balanced": {
+        "label": "バランス",
+        "description": "必要に応じて少し補足を加えた簡潔な回答。"
+      },
+      "detailed": {
+        "label": "詳細",
+        "description": "より長い説明と充実した補足。"
+      }
+    },
+    "nextActions": {
+      "title": "シンプルな次のアクション",
+      "description": "明確な次の一手がある場合、返信の最後に短い提案を付けます。"
+    },
+    "speechRate": {
+      "label": "読み上げ速度"
+    },
+    "workingSoundVariant": {
+      "label": "作業中のサウンド",
+      "soft": {
+        "label": "ソフトチャイム",
+        "description": "穏やかなパルスを伴う温かみのある重ね合わせの音。"
+      },
+      "glass": {
+        "label": "グラストーン",
+        "description": "より明るく軽やかなアンビエントループ。"
+      }
+    },
+    "workingSoundVolume": {
+      "label": "作業中サウンドの音量"
+    },
+    "voiceSelect": {
+      "label": "システム音声",
+      "automatic": "自動（最適な音声）",
+      "enhanced": "拡張 · {{language}}"
+    },
+    "enhancedVoices": "最も自然なシステム音声にするには、端末のテキスト読み上げ設定で拡張またはプレミアム音声をインストールしてください。",
+    "playbackEngine": {
+      "label": "再生エンジン",
+      "systemDescription": "端末の内蔵音声を使用します。常に利用できます。",
+      "localDescription": "ダウンロードしたニューラル音声を使用します。下のモデルを選択してください。"
+    },
+    "localTts": {
+      "title": "オンデバイス再生",
+      "description": "モデルは選択したときだけダウンロードされます。システム音声は常に利用できます。",
+      "piper": "コンパクト",
+      "kokoro": "ナチュラル",
+      "piperDescription": "高速で軽量",
+      "kokoroDescription": "最も自然な英語、ダウンロードは大容量",
+      "download": "ダウンロード（{{size}}）",
+      "installing": "インストール中…",
+      "installed": "インストール済み",
+      "notInstalled": "未インストール",
+      "use": "使用",
+      "preview": "プレビュー",
+      "speaker": "音声",
+      "storage": "オンデバイス音声が {{size}} 使用中",
+      "downloadHint": "ダウンロードは検証され、この端末に保存されます。",
+      "japaneseUnavailable": "日本語は Piper モデルがないため、システム音声を使用します。",
+      "fallbackToSystem": "オンデバイス音声を利用できません。システム音声を使用します。",
+      "languageMismatch": "このモデルは{{language}}を話します。音声ロケールを合わせてください。合わない場合はシステム音声を使用します。",
+      "installFirst": "先にオンデバイスモデルを選択してインストールしてください。"
+    },
+    "footer": "Android はバックグラウンドで実行中のセッションを定期的に確認し、完了通知を表示できます。バックグラウンドでの音声と継続的なマイク取り込みには対応していません。",
+    "check": {
+      "title": "音声チェック",
+      "permission": "マイクと音声のアクセス",
+      "recognition": "音声認識",
+      "onDevice": "システムのオンデバイス認識",
+      "restricted": "デバイスポリシーにより制限",
+      "restrictedHint": "このデバイスでは音声認識が制限されています。デバイス管理者に連絡してください。",
+      "unavailableHint": "デバイスの設定で Siri と音声入力（ディクテーション）を有効にしてから再確認してください。",
+      "deniedHint": "アクセスが拒否されました。設定を開いて手動で有効にしてください。",
+      "enable": "音声入力を有効にする",
+      "recheck": "音声を再確認",
+      "test": "再生をテスト",
+      "testPhrase": "音声の再生は正常です。",
+      "testFailed": "音声の再生に失敗しました。選択した音声とデバイスの音量を確認してください。",
+      "allowed": "許可済み",
+      "available": "利用可能"
+    },
+    "mode": {
+      "label": "音声入力",
+      "system": "システム",
+      "local": "オンデバイス",
+      "systemDescription": "スマートフォンの音声認識を使用します。ベンダーのクラウドを使う場合があります。",
+      "localDescription": "ダウンロードしたモデルを使用します。音声はデバイス上に留まります。"
+    },
+    "playback": {
+      "title": "再生",
+      "helper": "システム音声とオンデバイス音声の両方に適用されます。"
+    },
+    "readInterim": {
+      "title": "進捗メッセージを読み上げる",
+      "description": "「対応中…」などの更新を読み上げ、最終返信は常に読み上げます。"
+    }
+  },
+  "diagnostics": {
+    "title": "サーバー診断",
+    "server": "サーバー",
+    "openCodeVersion": "OpenCode {{version}}",
+    "healthUnavailable": "ヘルスエンドポイントを利用できません",
+    "healthy": "正常",
+    "realtimeUpdates": "リアルタイム更新",
+    "eventStreamConnected": "グローバルイベントストリームに接続済み",
+    "pollingFallback": "ポーリングフォールバックが有効",
+    "subsystems": "サブシステム",
+    "subsystemsMcp": "MCP {{value}}",
+    "notAvailable": "該当なし",
+    "refresh": "診断を更新",
+    "networkUsage": "ネットワーク使用量",
+    "networkUsageValue": "{{requests}} 件のリクエスト · 今日の既知の応答サイズ {{size}}",
+    "networkUsageReset": "リセット",
+    "lastError": "最後のアプリエラー",
+    "lastErrorValue": "{{message}} · {{time}}",
+    "lastErrorNone": "アプリエラーは記録されていません",
+    "lastErrorFatal": "致命的",
+    "lastErrorHandled": "処理済み",
+    "network": "ネットワーク",
+    "networkValue": "{{type}} · {{state}}{{generation}}",
+    "networkOnline": "オンライン",
+    "networkOffline": "オフライン",
+    "networkConstrained": "制限あり",
+    "networkNormal": "通常",
+    "reconnect": "自動再接続",
+    "reconnectValue": "試行 {{attempt}} / {{max}}",
+    "requestLatency": "リクエスト遅延",
+    "requestLatencyValue": "p50 {{p50}} ms · p95 {{p95}} ms · 失敗 {{failed}} · 再試行 {{retries}}"
+  },
+  "mcp": {
+    "title": "MCP サーバー",
+    "couldNotUpdate": "MCP サーバーを更新できませんでした。",
+    "configurationUnavailable": "設定の詳細を利用できません",
+    "invalidCommand": "ローカルコマンドを JSON 文字列配列として入力してください。",
+    "local": "ローカル",
+    "remote": "リモート",
+    "serverName": "サーバー名",
+    "commandArguments": "コマンド引数（JSON）",
+    "url": "URL",
+    "addLocalServer": "ローカルサーバーを追加",
+    "addRemoteServer": "リモートサーバーを追加",
+    "noServers": "MCP サーバーが設定されていません。",
+    "statusConfigured": "設定済み",
+    "statusDisabled": "無効",
+    "oauth": "OAuth"
+  },
+  "language": {
+    "title": "言語",
+    "description": "システム言語を使用するか、アプリインターフェース用に1つ選択します。"
+  },
+  "appearance": {
+    "theme": {
+      "label": "テーマモード",
+      "description": "ライトまたはダークを選択するか、システム設定に従います。",
+      "system": "システムに従う",
+      "light": "ライト",
+      "dark": "ダーク"
+    },
+    "accent": {
+      "label": "テーマ",
+      "description": "カラーテーマを選択します。アプリ全体の背景、アクセント、チャットの吹き出しが変わります。",
+      "green": "グリーン",
+      "blue": "ブルー",
+      "red": "レッド",
+      "purple": "パープル",
+      "pink": "ピンク",
+      "gray": "グレー"
+    },
+    "chatTextSize": "チャットの文字サイズ",
+    "chatTextSizeDescription": "チャットメッセージの文字サイズを調整します。小さくすると、一度により多くの会話を表示できます。",
+    "flatThread": {
+      "title": "フラットな会話",
+      "description": "吹き出しなしでメッセージを全幅表示し、画面により多くの会話を表示します。"
+    },
+    "slimInterface": {
+      "title": "スリム表示",
+      "description": "チャット・ターミナル・プロジェクトのボタン、余白、ヘッダーを小さくし、画面により多くのテキストを表示します。"
+    }
+  },
+  "connect": {
+    "entry": "Pair with Cloud Link",
+    "title": "Cloud Link",
+    "description": "Scan your machine’s connector QR code or open its pairing link. Manual connections remain available.",
+    "pairingLink": "Pairing deep link",
+    "openLink": "Open pairing link",
+    "machines": "Your machines",
+    "refreshMachines": "Refresh machines",
+    "noMachines": "No machines registered for this user.",
+    "revoke": "Revoke machine",
+    "revokeConfirm": "Delete this machine for every device? Its public tunnel will be deleted.",
+    "forget": "Forget locally",
+    "forgetConfirm": "Remove this connection and its credentials from this device? Other devices will keep access.",
+    "expiresAt": "Credentials expire: {{date}}",
+    "savedConnection": "Connection saved: {{name}}",
+    "manage": "Manage Cloud Link",
+    "cameraLoading": "Opening camera",
+    "cameraUnavailable": "Camera unavailable. Open the connector deep link instead.",
+    "progress": {
+      "idle": "Loading…",
+      "claiming": "Claiming pairing…",
+      "saving": "Saving credentials securely…",
+      "connecting": "Connecting to the machine…",
+      "waitingForApproval": "コンピューターでこの接続を承認してください。",
+      "delayed": "まだ承認されていません。コンピューターで承認するか、新しいQRコードをスキャンしてください。",
+      "paired": "Loading…",
+      "catalog": "Loading store subscriptions…",
+      "purchasing": "Waiting for the store…",
+      "pending": "Waiting for purchase approval…",
+      "restoring": "Restoring purchases…",
+      "verifying": "Verifying subscription…",
+      "savingSession": "Saving the Cloud Link session securely…",
+      "finalizing": "Finalizing the store transaction…"
+    },
+    "subscriptionActive": "Your Cloud Link subscription is active.",
+    "restore": "Restore purchases",
+    "accessUnavailable": "Access unavailable. Purchase or Restore to reactivate this machine.",
+    "scanHint": "コンピューターのQRコードをスキャンして接続します。",
+    "scanNewQr": "コンピューターに表示された新しいQRコードをスキャン",
+    "scanLocal": "QRコードをスキャン",
+    "scanLocalHint": "同じネットワーク上のコンピューターに接続します。",
+    "manual": "手動",
+    "manualHint": "サーバーURLと認証情報を入力します。",
+    "nativeOnly": "Cloud LinkはiOSとAndroidアプリで利用できます。",
+    "benefits": "QRコードで接続し、Cloud Linkを通じてコンピューターにリモートアクセスできます。「購入を復元」で別のデバイスからマシンを復元できます。",
+    "subscribe": "登録する",
+    "options": "接続オプション",
+    "learnMore": "Cloud Linkについて詳しく",
+    "onboarding": {
+      "step": "{{total}} ステップ中 {{step}}",
+      "step1": {
+        "title": "あなたのパソコン。\nどこからでも。",
+        "subtitle": "スマートフォンからパソコンの OpenCode を使えます。",
+        "action": "始める"
+      },
+      "step2": {
+        "title": "パソコンを\nセットアップ",
+        "subtitle": "パソコンに Cloud Link をダウンロードしてください。",
+        "action": "Cloud Link を起動しました"
+      },
+      "step3": {
+        "title": "Cloud Link を\n有効にする",
+        "subtitle": "サブスクリプションでこのアプリをインターネット経由でパソコンに接続します。",
+        "action": "登録して続ける"
+      },
+      "step4": {
+        "title": "パソコンを\nペアリング",
+        "subtitle": "パソコンの Cloud Link に表示された QR コードをスキャンしてください。",
+        "action": "QR コードをスキャン"
+      },
+      "explanation": "Cloud Link はインターネット経由でデバイスを接続します。パソコンの電源を入れ、Cloud Link を起動したままにしてください。",
+      "instruction1": "パソコンにインストール",
+      "instruction2": "このアプリで登録",
+      "instruction3": "スキャンしてペアリング",
+      "openOnComputer": "パソコンで開くサイト：",
+      "copySetupUrl": "パソコン設定用 URL をコピー",
+      "copied": "設定用 URL をコピーしました",
+      "copyError": "URL をコピーできませんでした。パソコンで opencodecloud.link を開いてください。",
+      "downloadHint": "Cloud Link をダウンロードして起動し、ペアリング用 QR コードを画面に表示したままにしてください。",
+      "remote": "インターネット経由で接続",
+      "pair": "パソコンをこのアプリとペアリング",
+      "billing": "請求はアプリストアが管理します。",
+      "checkoutHint": "アプリストアを開いて購入を確認します。",
+      "approveHint": "その後、パソコンで接続を承認してください。",
+      "usePairingLink": "ペアリングリンクを使う"
+    }
+  },
+  "editor": {
+    "title": "エディター"
+  },
+  "general": {
+    "title": "一般",
+    "resetOnboarding": "セットアップを見直す"
+  },
+  "autoUpdate": {
+    "title": "アップデートの確認",
+    "enable": {
+      "title": "更新を確認する",
+      "description": "ストアで利用可能になり次第、新しいバージョンを提示します。"
+    },
+    "checkPeriod": {
+      "label": "確認間隔",
+      "available": {
+        "label": "利用可能になったとき",
+        "description": "ストアが通知した時点で新しいバージョンを表示します。"
+      },
+      "daily": {
+        "label": "毎日",
+        "description": "新しいバージョンを1日1回まで確認します。"
+      },
+      "weekly": {
+        "label": "毎週",
+        "description": "新しいバージョンを週1回まで確認します。"
+      }
+    }
+  },
+  "permissions": {
+    "title": "保存された権限",
+    "description": "「常に許可」で作成されたルールです。削除するとサーバーが再度確認します。",
+    "empty": "保存された権限はありません。",
+    "remove": "削除",
+    "removeTitle": "保存された権限を削除",
+    "removeMessage": "{{resource}} の自動許可を停止しますか？",
+    "refresh": "更新"
+  },
+  "subscription": {
+    "inactive": "有効なサブスクリプションはありません",
+    "accessThrough": "{{date}}までアクセス可能",
+    "description": "OpenCodeマシンへのリモートアクセス。",
+    "manage": "サブスクリプションを管理",
+    "opensApple": "App Storeのサブスクリプションを開きます",
+    "opensGoogle": "Google Playを開きます",
+    "restoreDescription": "購入済みの商品を復元",
+    "machines": "マシン",
+    "machinesDescription": "接続済みのマシンを表示・管理"
+  },
+  "services": {
+    "title": "公開サービス",
+    "description": "コネクタがトンネル経由で公開するサービスを追加・置換・削除します。変更はすぐに反映されます。",
+    "add": "サービスを追加",
+    "addTitle": "新しいサービス",
+    "editTitle": "サービスを編集",
+    "empty": "公開されているサービスはまだありません。",
+    "capacity": "公開できるサービスは最大 {{max}} 件です。",
+    "saveFailed": "このサービスを保存できませんでした。",
+    "removed": "{{name}} を削除しました。",
+    "removeFailed": "このサービスを削除できませんでした。",
+    "removeTitle": "{{name}} を削除しますか？",
+    "removeMessage": "コネクタはこのパスのルーティングを直ちに停止します。",
+    "removeConfirm": "{{name}} を削除しますか？コネクタはこのパスのルーティングを直ちに停止します。",
+    "copyLink": "リンクをコピー",
+    "linkCopied": "サービスのリンクをコピーしました。",
+    "linkUnavailable": "このサービスのリンクを作成できませんでした。",
+    "machine": "マシン",
+    "notActive": "{{name}} のサービスを表示中 — これは現在の接続ではありません。",
+    "useMachine": "このマシンに切り替える",
+    "noMachine": "公開サービスを管理するには Cloud Link マシンを接続してください。",
+    "credentialsExpired": "このマシンの Cloud Link アクセスが期限切れか未設定です。サービスの管理には再接続してください。",
+    "reconnectFailed": "このマシンに再接続できませんでした。",
+    "unavailableService": "このサービスはコネクタ上に存在しません。",
+    "unavailableServiceHint": "戻って公開サービスの一覧を更新してください。",
+    "legacyConnector": "このデスクトップコネクタは専用のサービスポートに未対応です。ポートルートでの公開とポート選択を使うには更新してください。",
+    "unknownConnector": "このデスクトップコネクタはアプリの想定より古いです。専用ポートとルートサービスを使うには更新してください。",
+    "enabledHint": "このパスの通信をトンネル経由でルーティングします。",
+    "rootPathHint": "パスを空にするとポートのルート全体を配信します。絶対 URL を使うアプリに適しています。",
+    "portOccupied": "使用中",
+    "portShared": "共有",
+    "stripPrefixHint": "転送前に一致したパスのプレフィックスを削除します。",
+    "fields": {
+      "id": "ID",
+      "name": "名前",
+      "port": "ポート",
+      "path": "パス",
+      "target": "ターゲット",
+      "access": "アクセス",
+      "enabled": "有効",
+      "stripPrefix": "パスプレフィックスを削除"
+    },
+    "access": {
+      "private": "プライベート",
+      "public": "パブリック"
+    },
+    "errors": {
+      "required": "この項目は必須です。",
+      "idFormat": "小文字・数字・ハイフンを1〜32文字で使用してください。",
+      "nameLength": "64文字以内で入力してください。",
+      "pathRoot": "パスをサーバーのルートにはできません。",
+      "pathReserved": "/_cloudlink プレフィックスは予約されています。",
+      "pathFormat": "クエリ・フラグメント・エンコードを含まない /test/api のようなパスを使用してください。",
+      "portRequired": "サービスポートを選択してください。",
+      "portInvalid": "コネクタのサービスポートから選んでください。",
+      "portInUse": "このポートは別のサービスが使用中です。",
+      "portPathInUse": "このポートとパスは別のサービスが使用中です。",
+      "targetFormat": "127.0.0.1:3000 のようなアドレスを使用してください。",
+      "targetLoopback": "ターゲットはループバック（127.0.0.1 または ::1）である必要があります。",
+      "targetReserved": "そのポートは公開サービス用に予約されています。",
+      "targetPort": "1024〜65535 の非特権ポートを使用してください。"
+    }
+  },
+  "extensions": {
+    "title": "Extensions",
+    "description": "Manage MCP servers, plugins, skills and slash commands for this server.",
+    "scope": {
+      "project": "Project",
+      "general": "General"
+    },
+    "scopeDescription": {
+      "project": "These extensions apply only to {{project}}.",
+      "general": "These extensions apply to every project on this server."
+    },
+    "safety": {
+      "writable": "Writable. Changes are backed up and replaced atomically.",
+      "readOnly": "Read-only",
+      "target": "Config file: {{path}}",
+      "backup": "Last backup: {{path}}",
+      "restore": "Restore last backup",
+      "restoreMessage": "Restore the last saved configuration? The current file is backed up first."
+    },
+    "tabs": {
+      "mcp": "MCPs",
+      "plugins": "Plugins",
+      "skills": "Skills",
+      "commands": "Commands"
+    },
+    "shared": "Shared with all projects",
+    "sharedHint": "Shared items are managed in the scope that defines them.",
+    "removeTitle": "Remove extension",
+    "saving": "Saving and waiting for the server to reload…",
+    "unavailable": "Extension management is unavailable for this server.",
+    "mcp": {
+      "addTitle": "Add MCP server",
+      "add": "Add MCP server",
+      "empty": "No MCP servers in this scope.",
+      "runtime": "Runtime-only MCP server",
+      "configured": "Configured",
+      "removeMessage": "Remove MCP server \"{{name}}\" from this scope?"
+    },
+    "plugins": {
+      "addTitle": "Add plugin",
+      "package": "Package or local plugin path",
+      "warning": "Plugins execute code on the server. Only add packages you trust.",
+      "add": "Add plugin",
+      "empty": "No plugins in this scope.",
+      "outdated": "Update available",
+      "removeMessage": "Remove plugin \"{{name}}\" from this scope?"
+    },
+    "skills": {
+      "addTitle": "Add skill",
+      "editTitle": "Edit {{name}}",
+      "id": "Skill ID",
+      "name": "Name",
+      "descriptionLabel": "Description",
+      "instructions": "Instructions",
+      "fileContent": "SKILL.md content",
+      "autoinvokeOn": "Discoverable by the model",
+      "autoinvokeOff": "Hidden from the model by default",
+      "add": "Create skill",
+      "empty": "No skills in this scope.",
+      "removeMessage": "Move skill \"{{name}}\" to the extension trash?"
+    },
+    "commands": {
+      "addTitle": "Add slash command",
+      "editTitle": "Edit /{{name}}",
+      "name": "Command name",
+      "descriptionLabel": "Description",
+      "template": "Template",
+      "templateHint": "Use $ARGUMENTS or $1, $2 for arguments. Shell blocks in templates run on the server.",
+      "empty": "No commands in this scope.",
+      "removeMessage": "Remove command \"/{{name}}\" from this scope?"
+    },
+    "generalConfirmTitle": "Edit global configuration",
+    "generalConfirmMessage": "This changes the configuration for every project on this server. A backup is created first.\n\n{{path}}",
+    "generalConfirmAction": "Continue"
+  },
+  "modelRouting": {
+    "title": "Auto model routing",
+    "description": "Classify each prompt and choose a model by complexity. Routing is skipped when the classifier is unavailable.",
+    "enable": {
+      "title": "Enable auto-routing",
+      "description": "Choose a model for each prompt based on its complexity.",
+      "unavailable": "Set up a classifier below before enabling routing."
+    },
+    "classifier": {
+      "label": "Classifier",
+      "local": {
+        "label": "On-device model",
+        "description": "Runs on this phone. The model is downloaded once."
+      },
+      "server": {
+        "label": "OpenCode classifier",
+        "description": "Calls a model through OpenCode before sending the prompt."
+      }
+    },
+    "local": {
+      "statusLabel": "On-device model",
+      "status": {
+        "unsupported": "Not supported on this platform",
+        "installing": "Downloading",
+        "ready": "Ready",
+        "missing": "Not installed",
+        "error": "Install failed"
+      },
+      "installed": "Installed ({{size}})",
+      "remove": "Remove model",
+      "download": "Download model ({{size}})",
+      "license": "{{model}} · {{license}}. The model runs only on this device."
+    },
+    "server": {
+      "modelLabel": "Classifier model",
+      "cheapest": "Cheapest available",
+      "check": "Check classifier",
+      "status": {
+        "unknown": "Not checked. Check the classifier to enable routing.",
+        "checking": "Checking the classifier...",
+        "available": "Classifier available.",
+        "unsupported": "This server does not expose the classifier endpoint.",
+        "unavailable": "Classifier unavailable. Check the connection and retry.",
+        "auth": "Sign in to this server before using the classifier."
+      }
+    },
+    "tiers": {
+      "simple": {
+        "label": "Simple model"
+      },
+      "standard": {
+        "label": "Standard model"
+      },
+      "complex": {
+        "label": "Complex model"
+      },
+      "automatic": "Automatic",
+      "automaticDescription": "Choose from the enabled models",
+      "automaticValue": "Automatic · {{model}}",
+      "unavailable": "Unavailable"
+    },
+    "protect": {
+      "title": "Protect long chats",
+      "description": "Avoid downgrading models on long conversations where prompt-cache savings may be larger."
+    }
+  },
+  "localServer": {
+    "title": "ローカルサーバー",
+    "description": "OpenCode サーバーはこの端末の Linux 環境内で動作します。",
+    "summary": {
+      "running": "稼働中 · 127.0.0.1:{{port}}",
+      "starting": "起動中…",
+      "downloading": "環境をダウンロード中…",
+      "installing": "環境を展開中…",
+      "failed": "エラー",
+      "stopped": "停止しました",
+      "unsupported": "このプラットフォームでは利用できません"
+    },
+    "identity": {
+      "nick": "ニックネーム",
+      "address": "アドレス",
+      "password": "パスワードは自動生成され、端末内に保持されます"
+    },
+    "restart": "サーバーを再起動",
+    "stop": "サーバーを停止",
+    "logs": "ログを表示",
+    "logsTitle": "サーバーログ",
+    "logsEmpty": "ログは空です。",
+    "apiKey": {
+      "title": "個人用 OpenCode API キー",
+      "description": "任意。キーを設定すると、サーバーは匿名経路ではなく自分のクォータでリクエストを送ります。",
+      "placeholder": "API キーを貼り付け",
+      "saved": "API キーを保存しました。反映にはサーバーを再起動してください。",
+      "removed": "API キーを削除しました。反映にはサーバーを再起動してください。"
+    },
+    "compat": {
+      "title": "互換モード",
+      "description": "システムコールで Android がサーバーを終了させる場合に有効にします。"
+    },
+    "runtime": {
+      "title": "Linux 環境",
+      "version": "バージョン: {{version}}",
+      "downloading": "環境をダウンロード中…",
+      "installing": "環境を展開中…",
+      "progress": "{{percent}}%"
+    }
+  }
+}

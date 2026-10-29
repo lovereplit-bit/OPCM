@@ -1,0 +1,889 @@
+{
+  "screen": {
+    "categories": {
+      "connection": "连接",
+      "ai": "AI 与提供商",
+      "notifications": "通知",
+      "voice": "语音与音频",
+      "advanced": "高级",
+      "support": "支持",
+      "permissions": "审批",
+      "subscription": "订阅",
+      "cloudLink": "Cloud Link",
+      "extensions": "Extensions",
+      "responses": "回复",
+      "appearance": "外观",
+      "chat": "聊天与回复",
+      "about": "关于与帮助"
+    },
+    "summaries": {
+      "configuredCount": "已配置 {{value}} 个",
+      "replyPlaybackOn": "回复播放已开启",
+      "replyPlaybackOff": "回复播放已关闭",
+      "support": "评价应用、发送反馈、获取帮助",
+      "permissions": "已保存 {{value}} 项",
+      "extensions": "MCPs, plugins, skills and commands",
+      "responses": "回复范围和下一步",
+      "voiceSystem": "系统语音 · {{phrase}}",
+      "voiceLocal": "设备端 · {{phrase}}",
+      "responsesOn": "{{scope}} · 下一步开启",
+      "responsesOff": "{{scope}} · 下一步关闭",
+      "appearance": "主题、颜色和界面密度",
+      "diagnostics": "连接状态与故障排查"
+    },
+    "groups": {
+      "app": "应用偏好",
+      "connections": "连接",
+      "server": "所选服务器"
+    },
+    "intro": "个性化应用并管理连接。",
+    "search": {
+      "placeholder": "搜索设置",
+      "clear": "清除搜索",
+      "empty": "没有匹配的设置，请尝试其他关键词。",
+      "results": "匹配的设置：{{count}}"
+    },
+    "keywords": {
+      "appearance": "显示 主题 颜色 深色 浅色 紧凑 密度",
+      "responses": "聊天 消息 文字 字体 大小 回复 风格 引导 追加 队列 气泡",
+      "voice": "语音 音频 声音 麦克风 输入 播放 语言 唤醒词",
+      "notifications": "通知 提醒 电池 小组件",
+      "language": "语言 翻译 界面",
+      "support": "帮助 反馈 支持 更新 版本 设置向导",
+      "connection": "连接 服务器 地址 密码 凭据 重新连接 二维码",
+      "cloud-link": "远程连接 Cloud Link 订阅 计算机 服务",
+      "ai": "人工智能 提供商 账户 模型 身份验证 分类器 路由",
+      "extensions": "扩展 MCP 插件 技能 命令",
+      "permissions": "权限 审批 已保存规则 自动允许",
+      "advanced": "诊断 网络 连接 实时 轮询 错误 用量"
+    }
+  },
+  "support": {
+    "title": "支持",
+    "description": "在 Google Play 上评价 OpenCode，发送改进反馈，或从支持页面获取帮助。",
+    "rate": "在 Play 商店评价",
+    "feedback": "提供反馈",
+    "openSupport": "打开支持页面"
+  },
+  "connection": {
+    "currentConnection": "当前连接",
+    "noServerUrl": "未设置服务器 URL",
+    "notSavedYet": "尚未保存。添加一个连接以便以后使用。",
+    "lastChecked": "上次检查 {{time}}",
+    "serverUrlValue": "服务器 URL：{{url}}",
+    "usernameValue": "用户名：{{username}}",
+    "usernameEmpty": "（无）",
+    "addConnection": "添加连接",
+    "editConnection": "编辑连接",
+    "addDescription": "添加连接即可在多个服务器之间切换，无需重新输入 URL 和密码。",
+    "saveAndConnect": "保存并连接",
+    "deleteTitle": "删除连接",
+    "deleteMessage": "从已保存的连接中移除“{{name}}”？",
+    "deleteWebConfirm": "删除连接\n\n{{message}}",
+    "fields": {
+      "serverUrl": "服务器 URL",
+      "username": "用户名",
+      "password": "密码"
+    },
+    "errors": {
+      "serverUrl": "请输入服务器 URL。",
+      "invalidUrl": "请输入完整的服务器 URL，例如 http://192.168.1.10:4096。",
+      "save": "无法保存此连接。",
+      "headerName": "请输入有效的标头名称。",
+      "headerValue": "标头值不能包含换行符。",
+      "headerDuplicate": "每个标头名称只能使用一次。",
+      "headerReserved": "此标头由应用管理，无法覆盖。",
+      "headerLimit": "最多使用 10 个自定义标头。",
+      "generic": "与 OpenCode 通信时出错。",
+      "tunnelStarting": "Cloudflare 隧道仍在启动（错误 1033）。请稍后重试。",
+      "notApi": "{{url}} 的服务器未返回 OpenCode API 响应。{{apiHint}}{{versionHint}}",
+      "endpointNotFound": "在 {{url}} 未找到 OpenCode 端点。{{apiHint}}{{versionHint}}",
+      "webPage": "{{url}} 的服务器返回了网页而不是 OpenCode API。{{apiHint}}{{versionHint}}",
+      "apiHint": " 如果此地址提供 Web UI，请改用其 API 基础 URL，通常是 {{url}}/api。",
+      "versionHint": " 此应用支持 OpenCode 1.x 和 2.x 服务器；请检查 API 基础 URL。"
+    },
+    "setup": {
+      "step": "第 {{step}} 步，共 2 步",
+      "addressTitle": "服务器地址",
+      "detailsTitle": "连接详情",
+      "addressHint": "连接到你的 OpenCode 服务器。",
+      "continue": "继续",
+      "change": "更改",
+      "detected": "已检测到 OpenCode {{version}}",
+      "identify": "输入凭据以识别服务器。",
+      "customUsername": "自定义用户名",
+      "passwordHint": "输入服务器密码。",
+      "optionalName": "名称（可选）",
+      "nameHint": "留空以使用服务器 IP 或域名。",
+      "showPassword": "显示密码",
+      "hidePassword": "隐藏密码",
+      "scan": "扫描本地二维码",
+      "pairCommand": "在电脑上运行 opencode pair。",
+      "sameNetwork": "请让两台设备连接到同一网络。",
+      "scanAutomatic": "扫描后自动保存并连接。",
+      "scanAgain": "重新扫描",
+      "unreachable": "无法连接服务器。请检查地址和网络后重试。",
+      "credentialsRejected": "凭据被拒绝。请检查密码和用户名，或扫描新的二维码。",
+      "pairingErrors": {
+        "invalid": "这不是 OpenCode 配对码。请运行 opencode pair 并重新扫描。",
+        "expired": "此配对码已过期或已使用。请重新运行 opencode pair。",
+        "unreachable": "无法连接服务器。请确认两台设备连接到同一网络，或手动输入地址。",
+        "loopback": "此配对码仅包含 localhost 地址。请在电脑上运行 opencode service set hostname 0.0.0.0，然后运行 opencode service start 和 opencode pair。"
+      }
+    },
+    "headers": {
+      "title": "自定义标头",
+      "add": "添加标头",
+      "name": "标头名称",
+      "value": "值",
+      "remove": "移除标头",
+      "hint": "会随发往此服务器的每个请求发送。值将安全存储在此设备上。",
+      "showValues": "显示值",
+      "hideValues": "隐藏值"
+    },
+    "reconnectSuccess": "已连接到 {{url}}。"
+  },
+  "providers": {
+    "accounts": "Accounts",
+    "addAnotherAccount": "Add another account",
+    "removeAccount": "Remove account",
+    "selectMethod": "Select login method",
+    "apiKey": "API 密钥",
+    "pasteApiKey": "粘贴你的 API 密钥",
+    "chooseModels": "选择在聊天中显示哪些已配置的模型。你在聊天中最后选择的模型会保留用于新聊天。",
+    "configuredProviders": "已配置的提供商",
+    "addProvider": "添加提供商",
+    "connectFirst": "请先连接以加载提供商。",
+    "configureAtLeastOne": "至少配置一个提供商以选择默认值。",
+    "selectedCount": "已选择 {{selected}}/{{total}}",
+    "reasoningSupported": "支持推理",
+    "standardModel": "标准模型",
+    "noModels": "未找到你所配置提供商的模型。",
+    "configuredSuccess": "{{provider}} 配置成功。",
+    "signInFinished": "{{provider}} 登录完成。提供商状态已刷新。",
+    "couldNotConfigure": "无法配置提供商。",
+    "couldNotRemove": "无法移除提供商凭据。",
+    "credentialsRemoved": "{{provider}} 的凭据已移除。",
+    "removeTitle": "移除 {{provider}}？",
+    "removeMessage": "已存储的凭据和提供商配置将被移除。",
+    "signInTitle": "完成提供商登录",
+    "authorizationCode": "授权码",
+    "complete": "完成",
+    "continue": "继续",
+    "cancelSetup": "取消提供商设置",
+    "configureProvider": "配置 {{provider}}",
+    "oauthHint": "这将在浏览器中打开提供商的登录流程。",
+    "signInPendingHint": "请在浏览器中完成登录。此屏幕会自动更新。",
+    "pairingCode": "配对码",
+    "openLink": "打开链接",
+    "copyLink": "复制链接",
+    "authorizationCodeHint": "登录后，复制显示的代码并粘贴到此处。",
+    "setupUnavailable": "此提供商的设置详情目前不可用。",
+    "couldNotComplete": "无法完成登录。",
+    "removeCredentials": "移除 {{provider}} 的凭据",
+    "promptDelivery": {
+      "label": "工作期间发送的消息",
+      "steer": {
+        "label": "引导",
+        "description": "在当前回复的下一步中应用此消息。"
+      },
+      "queue": {
+        "label": "追加",
+        "description": "将消息排队，等待后续轮次处理。"
+      }
+    }
+  },
+  "providerCopy": {
+    "openai": {
+      "label": "OpenAI",
+      "description": "来自 OpenAI 的 GPT 模型，包括最新的推理和多模态选项。"
+    },
+    "anthropic": {
+      "label": "Anthropic",
+      "description": "来自 Anthropic 的 Claude 模型，适用于编码、分析和长上下文工作。"
+    },
+    "github-copilot": {
+      "label": "GitHub Copilot",
+      "description": "使用你的 GitHub Copilot 权限登录，并启用受支持的基础模型。"
+    },
+    "google": {
+      "label": "Google",
+      "description": "来自 Google 的 Gemini 模型，适用于多模态和大上下文任务。"
+    },
+    "groq": {
+      "label": "Groq",
+      "description": "为受支持的开源和前沿模型提供快速托管推理。"
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "description": "通过一个账户在多个提供商和模型系列之间路由请求。"
+    },
+    "mistral": {
+      "label": "Mistral",
+      "description": "Mistral AI 托管的模型，适用于通用和编码工作负载。"
+    },
+    "xai": {
+      "label": "xAI",
+      "description": "来自 xAI 的 Grok 模型。"
+    },
+    "azure": {
+      "label": "Azure OpenAI",
+      "description": "通过 Azure 部署的 OpenAI 兼容模型。"
+    }
+  },
+  "notifications": {
+    "status": {
+      "checking": "检查中",
+      "enabled": "已启用",
+      "needsSetup": "需要设置"
+    },
+    "background": {
+      "checking": "检查中",
+      "ready": "就绪",
+      "limited": "受限"
+    },
+    "summary": {
+      "enabled": "通知已启用",
+      "off": "通知已关闭",
+      "background": "后台 {{status}}"
+    },
+    "enable": "启用通知",
+    "settings": "通知设置",
+    "appSettings": "应用设置",
+    "appSettingsDescription": "查看此应用的系统设置。",
+    "batteryOptimization": "电池优化",
+    "batteryOptimizationDescription": "允许应用在后台更可靠地运行。",
+    "batterySaver": "省电模式",
+    "batterySaverDescription": "省电模式可能会延迟提醒。",
+    "refreshStatus": "刷新状态",
+    "enabledFeedback": "此设备上的通知已启用。",
+    "disabledFeedback": "通知仍处于禁用状态。打开系统设置以手动启用。"
+  },
+  "voice": {
+    "onDeviceInput": {
+      "title": "优先使用设备端识别",
+      "description": "优先使用本地识别，必要时再使用云端。"
+    },
+    "autoPlay": {
+      "title": "自动播放助手回复",
+      "description": "朗读聊天回复。对话模式始终会朗读。"
+    },
+    "workingSound": {
+      "title": "工作提示音",
+      "description": "助手仍在处理回复时播放一段舒缓的循环音。"
+    },
+    "wakePhrase": {
+      "label": "唤醒短语",
+      "helper": "对话模式只会在听到此短语后发送消息。建议使用两个或更多词。"
+    },
+    "modelDownloads": {
+      "timeout": "下载超时。连接已停滞，请改用 Wi‑Fi 或信号更好的网络重试。",
+      "offline": "无法连接到下载服务器。请检查网络连接后重试。",
+      "server": "下载服务器暂时无法提供文件。请稍后重试。",
+      "storage": "没有足够的可用空间来安装此模型。",
+      "incomplete": "下载未完成。请重试。",
+      "integrity": "下载的文件已损坏。请重试。",
+      "unknown": "无法下载模型。请检查网络连接后重试。",
+      "installFailed": "模型安装失败。请重试。"
+    },
+    "localWake": {
+      "title": "设备端语音",
+      "description": "运行本地唤醒词模型和可选的声纹校验。下载 {{size}} 的预训练模型；不可用时回退到短语检测。",
+      "statusMissing": "模型未安装",
+      "statusInstalling": "正在安装…",
+      "statusReady": "模型已安装",
+      "statusUnsupported": "此版本不支持",
+      "statusError": "安装失败",
+      "install": "安装模型（{{size}}）",
+      "remove": "移除模型",
+      "phraseLabel": "唤醒短语",
+      "phraseHelper": "唤醒检测器支持这些英语短语。命令语言由所选的命令模型处理；无需训练。",
+      "speakerVerification": "验证我的声音",
+      "speakerVerificationDescription": "当唤醒短语不是已登记声音所说时拒绝它。",
+      "enroll": "登记声音",
+      "reEnroll": "重新录制",
+      "removeVoice": "移除声音",
+      "enrolled": "已登记声纹。",
+      "notEnrolled": "尚无声纹。",
+      "recording": "录音中…请自然说话约十秒。",
+      "saving": "正在生成声纹…",
+      "unsupportedHint": "此版本不包含本地原生语音运行时。",
+      "commandModelLabel": "命令识别模型",
+      "commandModelHelper": "选择用于命令的设备端模型。多语言模型占用更多空间。",
+      "fallback": "回退：系统短语检测“{{phrase}}”。",
+      "baseModels": "基础包",
+      "voiceProfile": "声纹档案",
+      "enrollRequiresModels": "请先安装模型，再录入您的声音。",
+      "installBase": "安装基础包（{{size}}）",
+      "installCommand": "安装命令模型（{{size}}）"
+    },
+    "speechLocale": {
+      "label": "语音区域设置",
+      "helper": "留空以使用系统默认语言进行语音输入和播放。"
+    },
+    "responseScope": {
+      "label": "回复范围",
+      "brief": {
+        "label": "简短",
+        "description": "简短、范围明确的回答，适合自然的来回对话。"
+      },
+      "balanced": {
+        "label": "均衡",
+        "description": "简洁的回答，在有用时提供稍多背景。"
+      },
+      "detailed": {
+        "label": "详细",
+        "description": "更长的解释和更多支持细节。"
+      }
+    },
+    "nextActions": {
+      "title": "简单的后续操作",
+      "description": "在有明确下一步时，以简短的建议结束回复。"
+    },
+    "speechRate": {
+      "label": "语速"
+    },
+    "workingSoundVariant": {
+      "label": "工作提示音",
+      "soft": {
+        "label": "柔和提示音",
+        "description": "温暖的分层音调，带有轻柔的脉冲。"
+      },
+      "glass": {
+        "label": "玻璃音色",
+        "description": "更明亮、更轻盈的环境循环音。"
+      }
+    },
+    "workingSoundVolume": {
+      "label": "工作提示音音量"
+    },
+    "voiceSelect": {
+      "label": "系统语音",
+      "automatic": "自动（最佳可用）",
+      "enhanced": "增强 · {{language}}"
+    },
+    "enhancedVoices": "在设备的文字转语音设置中安装增强或高级语音，以获得最自然的系统语音。",
+    "playbackEngine": {
+      "label": "播放引擎",
+      "systemDescription": "使用设备内置语音。始终可用。",
+      "localDescription": "使用已下载的神经网络语音。在下方选择模型。"
+    },
+    "localTts": {
+      "title": "设备端播放",
+      "description": "只有在你选择后才会下载模型。系统语音始终可用。",
+      "piper": "轻量",
+      "kokoro": "自然",
+      "piperDescription": "快速轻量",
+      "kokoroDescription": "最自然的英语，下载更大",
+      "download": "下载（{{size}}）",
+      "installing": "正在安装…",
+      "installed": "已安装",
+      "notInstalled": "未安装",
+      "use": "使用",
+      "preview": "预览",
+      "speaker": "语音",
+      "storage": "设备端语音已使用 {{size}}",
+      "downloadHint": "下载内容会经过验证并保存在此设备上。",
+      "japaneseUnavailable": "日语使用系统语音，因为没有可用的 Piper 模型。",
+      "fallbackToSystem": "设备端语音不可用。正在使用系统语音。",
+      "languageMismatch": "此模型使用 {{language}}。请将语音区域设置设为匹配，否则播放将使用系统语音。",
+      "installFirst": "请先选择并安装设备端模型。"
+    },
+    "footer": "Android 可以定期在后台检查正在运行的会话，并发布完成通知。不支持后台语音和持续的麦克风采集。",
+    "check": {
+      "title": "语音检查",
+      "permission": "麦克风和语音权限",
+      "recognition": "语音识别",
+      "onDevice": "系统设备端识别",
+      "restricted": "受设备策略限制",
+      "restrictedHint": "此设备上的语音识别受到限制。请联系设备管理员。",
+      "unavailableHint": "请在设备设置中开启 Siri 与听写，然后重新检查。",
+      "deniedHint": "访问被拒绝。打开设置以手动开启。",
+      "enable": "启用语音输入",
+      "recheck": "重新检查语音",
+      "test": "测试播放",
+      "testPhrase": "语音播放正常。",
+      "testFailed": "语音播放失败。请检查所选语音和设备音量。",
+      "allowed": "已允许",
+      "available": "可用"
+    },
+    "mode": {
+      "label": "语音输入",
+      "system": "系统",
+      "local": "设备端",
+      "systemDescription": "使用手机的语音识别，可能会使用厂商云服务。",
+      "localDescription": "使用已下载的模型，音频保留在设备上。"
+    },
+    "playback": {
+      "title": "播放",
+      "helper": "适用于系统语音和设备端语音。"
+    },
+    "readInterim": {
+      "title": "朗读进度更新",
+      "description": "朗读“正在处理…”等更新；最终回复始终会朗读。"
+    }
+  },
+  "diagnostics": {
+    "title": "服务器诊断",
+    "server": "服务器",
+    "openCodeVersion": "OpenCode {{version}}",
+    "healthUnavailable": "健康检查端点不可用",
+    "healthy": "正常",
+    "realtimeUpdates": "实时更新",
+    "eventStreamConnected": "全局事件流已连接",
+    "pollingFallback": "轮询回退已启用",
+    "subsystems": "子系统",
+    "subsystemsMcp": "MCP {{value}}",
+    "notAvailable": "不适用",
+    "refresh": "刷新诊断",
+    "networkUsage": "网络使用量",
+    "networkUsageValue": "{{requests}} 次请求 · 今日已知响应大小 {{size}}",
+    "networkUsageReset": "重置",
+    "lastError": "最近的 App 错误",
+    "lastErrorValue": "{{message}} · {{time}}",
+    "lastErrorNone": "未记录到 App 错误",
+    "lastErrorFatal": "致命",
+    "lastErrorHandled": "已处理",
+    "network": "网络",
+    "networkValue": "{{type}} · {{state}}{{generation}}",
+    "networkOnline": "在线",
+    "networkOffline": "离线",
+    "networkConstrained": "受限",
+    "networkNormal": "正常",
+    "reconnect": "自动重连",
+    "reconnectValue": "第 {{attempt}} 次，共 {{max}} 次",
+    "requestLatency": "请求延迟",
+    "requestLatencyValue": "p50 {{p50}} ms · p95 {{p95}} ms · {{failed}} 次失败 · {{retries}} 次重试"
+  },
+  "mcp": {
+    "title": "MCP 服务器",
+    "couldNotUpdate": "无法更新 MCP 服务器。",
+    "configurationUnavailable": "配置详情不可用",
+    "invalidCommand": "请将本地命令输入为 JSON 字符串数组。",
+    "local": "本地",
+    "remote": "远程",
+    "serverName": "服务器名称",
+    "commandArguments": "命令参数（JSON）",
+    "url": "URL",
+    "addLocalServer": "添加本地服务器",
+    "addRemoteServer": "添加远程服务器",
+    "noServers": "未配置 MCP 服务器。",
+    "statusConfigured": "已配置",
+    "statusDisabled": "已禁用",
+    "oauth": "OAuth"
+  },
+  "language": {
+    "title": "语言",
+    "description": "使用系统语言或为应用界面选择一种语言。"
+  },
+  "appearance": {
+    "theme": {
+      "label": "主题模式",
+      "description": "选择浅色或深色，或跟随系统设置。",
+      "system": "跟随系统",
+      "light": "浅色",
+      "dark": "深色"
+    },
+    "accent": {
+      "label": "主题",
+      "description": "选择颜色主题。它会改变整个应用的表面、强调色和聊天气泡。",
+      "green": "绿色",
+      "blue": "蓝色",
+      "red": "红色",
+      "purple": "紫色",
+      "pink": "粉色",
+      "gray": "灰色"
+    },
+    "chatTextSize": "聊天文字大小",
+    "chatTextSizeDescription": "调整聊天消息的文字大小。较小的文字可一次显示更多对话。",
+    "flatThread": {
+      "title": "扁平对话",
+      "description": "以全宽显示消息，不显示气泡，从而在一屏内显示更多对话。"
+    },
+    "slimInterface": {
+      "title": "精简界面",
+      "description": "缩小聊天、终端和项目中的按钮、间距和标题栏，以便在屏幕上显示更多文本。"
+    }
+  },
+  "connect": {
+    "entry": "Pair with Cloud Link",
+    "title": "Cloud Link",
+    "description": "Scan your machine’s connector QR code or open its pairing link. Manual connections remain available.",
+    "pairingLink": "Pairing deep link",
+    "openLink": "Open pairing link",
+    "machines": "Your machines",
+    "refreshMachines": "Refresh machines",
+    "noMachines": "No machines registered for this user.",
+    "revoke": "Revoke machine",
+    "revokeConfirm": "Delete this machine for every device? Its public tunnel will be deleted.",
+    "forget": "Forget locally",
+    "forgetConfirm": "Remove this connection and its credentials from this device? Other devices will keep access.",
+    "expiresAt": "Credentials expire: {{date}}",
+    "savedConnection": "Connection saved: {{name}}",
+    "manage": "Manage Cloud Link",
+    "cameraLoading": "Opening camera",
+    "cameraUnavailable": "Camera unavailable. Open the connector deep link instead.",
+    "progress": {
+      "idle": "Loading…",
+      "claiming": "Claiming pairing…",
+      "saving": "Saving credentials securely…",
+      "connecting": "Connecting to the machine…",
+      "waitingForApproval": "请在电脑上确认此连接。",
+      "delayed": "尚未批准。请在电脑上批准，或扫描新的二维码。",
+      "paired": "Loading…",
+      "catalog": "Loading store subscriptions…",
+      "purchasing": "Waiting for the store…",
+      "pending": "Waiting for purchase approval…",
+      "restoring": "Restoring purchases…",
+      "verifying": "Verifying subscription…",
+      "savingSession": "Saving the Cloud Link session securely…",
+      "finalizing": "Finalizing the store transaction…"
+    },
+    "subscriptionActive": "Your Cloud Link subscription is active.",
+    "restore": "Restore purchases",
+    "accessUnavailable": "Access unavailable. Purchase or Restore to reactivate this machine.",
+    "scanHint": "扫描电脑的二维码以连接。",
+    "scanNewQr": "扫描电脑上的新二维码",
+    "scanLocal": "扫描二维码",
+    "scanLocalHint": "连接到同一网络上的电脑。",
+    "manual": "手动",
+    "manualHint": "输入服务器网址和凭据。",
+    "nativeOnly": "Cloud Link 可在 iOS 和 Android 应用中使用。",
+    "benefits": "通过二维码连接，使用 Cloud Link 远程访问电脑，并通过“恢复购买”在另一台设备上恢复您的机器。",
+    "subscribe": "订阅",
+    "options": "连接选项",
+    "learnMore": "了解 Cloud Link",
+    "onboarding": {
+      "step": "第 {{step}} 步，共 {{total}} 步",
+      "step1": {
+        "title": "你的电脑。\n随时随地。",
+        "subtitle": "通过手机使用电脑上的 OpenCode。",
+        "action": "开始"
+      },
+      "step2": {
+        "title": "设置你的\n电脑",
+        "subtitle": "在电脑上下载 Cloud Link。",
+        "action": "Cloud Link 已启动"
+      },
+      "step3": {
+        "title": "启用\nCloud Link",
+        "subtitle": "订阅后，通过互联网将此应用连接到你的电脑。",
+        "action": "订阅并继续"
+      },
+      "step4": {
+        "title": "配对你的\n电脑",
+        "subtitle": "扫描电脑上 Cloud Link 显示的二维码。",
+        "action": "扫描二维码"
+      },
+      "explanation": "Cloud Link 通过互联网连接你的设备。请保持电脑开机，并让 Cloud Link 运行。",
+      "instruction1": "在电脑上安装",
+      "instruction2": "在此应用中订阅",
+      "instruction3": "扫描以配对",
+      "openOnComputer": "在电脑上打开：",
+      "copySetupUrl": "复制电脑设置网址",
+      "copied": "已复制设置网址",
+      "copyError": "无法复制网址。请在电脑上打开 opencodecloud.link。",
+      "downloadHint": "下载并打开 Cloud Link，然后保持配对二维码显示在屏幕上。",
+      "remote": "通过互联网连接",
+      "pair": "将电脑与此应用配对",
+      "billing": "账单由你的应用商店管理。",
+      "checkoutHint": "打开应用商店以确认购买。",
+      "approveHint": "然后在电脑上批准连接。",
+      "usePairingLink": "使用配对链接"
+    }
+  },
+  "editor": {
+    "title": "编辑器"
+  },
+  "general": {
+    "title": "常规",
+    "resetOnboarding": "检查设置"
+  },
+  "autoUpdate": {
+    "title": "更新检查",
+    "enable": {
+      "title": "检查更新",
+      "description": "当商店中有新版本可用时提示。"
+    },
+    "checkPeriod": {
+      "label": "检查周期",
+      "available": {
+        "label": "可用时",
+        "description": "商店一报告新版本就显示。"
+      },
+      "daily": {
+        "label": "每天",
+        "description": "每天最多检查一次新版本。"
+      },
+      "weekly": {
+        "label": "每周",
+        "description": "每周最多检查一次新版本。"
+      }
+    }
+  },
+  "permissions": {
+    "title": "已保存的权限",
+    "description": "由“始终允许”创建的规则。移除后服务器将再次询问。",
+    "empty": "没有已保存的权限。",
+    "remove": "移除",
+    "removeTitle": "移除已保存的权限",
+    "removeMessage": "不再自动允许 {{resource}}？",
+    "refresh": "刷新"
+  },
+  "subscription": {
+    "inactive": "没有有效订阅",
+    "accessThrough": "可访问至 {{date}}",
+    "description": "远程访问你的 OpenCode 设备。",
+    "manage": "管理订阅",
+    "opensApple": "打开 App Store 订阅",
+    "opensGoogle": "打开 Google Play",
+    "restoreDescription": "恢复已有购买",
+    "machines": "设备",
+    "machinesDescription": "查看和管理已连接的设备"
+  },
+  "services": {
+    "title": "已公开的服务",
+    "description": "添加、替换和移除连接器通过隧道公开的服务路径。更改会立即生效。",
+    "add": "添加服务",
+    "addTitle": "新服务",
+    "editTitle": "编辑服务",
+    "empty": "尚未公开任何服务。",
+    "capacity": "最多可公开 {{max}} 个服务。",
+    "saveFailed": "无法保存此服务。",
+    "removed": "已移除 {{name}}。",
+    "removeFailed": "无法移除此服务。",
+    "removeTitle": "移除 {{name}}？",
+    "removeMessage": "连接器将立即停止路由此路径。",
+    "removeConfirm": "移除 {{name}}？连接器将立即停止路由此路径。",
+    "copyLink": "复制链接",
+    "linkCopied": "已复制服务链接。",
+    "linkUnavailable": "无法为此服务生成链接。",
+    "machine": "设备",
+    "notActive": "正在显示 {{name}} 的服务——这不是你当前的连接。",
+    "useMachine": "切换到此设备",
+    "noMachine": "连接 Cloud Link 设备以管理其公开的服务。",
+    "credentialsExpired": "此设备的 Cloud Link 访问已过期或缺失。请重新连接以管理其服务。",
+    "reconnectFailed": "无法重新连接此设备。",
+    "unavailableService": "连接器上已不存在此服务。",
+    "unavailableServiceHint": "请返回并刷新已公开的服务列表。",
+    "legacyConnector": "此桌面连接器尚不支持专用服务端口。请更新后使用端口根路径和端口选择。",
+    "unknownConnector": "此桌面连接器比应用预期的版本更旧。请更新以使用专用端口和根服务。",
+    "enabledHint": "通过隧道路由此路径的流量。",
+    "rootPathHint": "路径留空即可提供整个端口根路径——适合使用绝对 URL 的应用。",
+    "portOccupied": "已被占用",
+    "portShared": "共享",
+    "stripPrefixHint": "转发前移除匹配的路径前缀。",
+    "fields": {
+      "id": "ID",
+      "name": "名称",
+      "port": "端口",
+      "path": "路径",
+      "target": "目标",
+      "access": "访问权限",
+      "enabled": "已启用",
+      "stripPrefix": "移除路径前缀"
+    },
+    "access": {
+      "private": "私有",
+      "public": "公开"
+    },
+    "errors": {
+      "required": "此字段为必填项。",
+      "idFormat": "请使用 1-32 个小写字母、数字或连字符。",
+      "nameLength": "请使用不超过 64 个字符。",
+      "pathRoot": "路径不能是服务器根路径。",
+      "pathReserved": "/_cloudlink 前缀为保留前缀。",
+      "pathFormat": "请使用类似 /test/api 的路径，不含查询、片段或编码。",
+      "portRequired": "请选择服务端口。",
+      "portInvalid": "请选择连接器的服务端口之一。",
+      "portInUse": "该端口已被其他服务使用。",
+      "portPathInUse": "该端口和路径已被其他服务使用。",
+      "targetFormat": "请使用类似 127.0.0.1:3000 的地址。",
+      "targetLoopback": "目标必须是回环地址（127.0.0.1 或 ::1）。",
+      "targetReserved": "该端口保留给已公开的服务。",
+      "targetPort": "请使用 1024 到 65535 之间的非特权端口。"
+    }
+  },
+  "extensions": {
+    "title": "Extensions",
+    "description": "Manage MCP servers, plugins, skills and slash commands for this server.",
+    "scope": {
+      "project": "Project",
+      "general": "General"
+    },
+    "scopeDescription": {
+      "project": "These extensions apply only to {{project}}.",
+      "general": "These extensions apply to every project on this server."
+    },
+    "safety": {
+      "writable": "Writable. Changes are backed up and replaced atomically.",
+      "readOnly": "Read-only",
+      "target": "Config file: {{path}}",
+      "backup": "Last backup: {{path}}",
+      "restore": "Restore last backup",
+      "restoreMessage": "Restore the last saved configuration? The current file is backed up first."
+    },
+    "tabs": {
+      "mcp": "MCPs",
+      "plugins": "Plugins",
+      "skills": "Skills",
+      "commands": "Commands"
+    },
+    "shared": "Shared with all projects",
+    "sharedHint": "Shared items are managed in the scope that defines them.",
+    "removeTitle": "Remove extension",
+    "saving": "Saving and waiting for the server to reload…",
+    "unavailable": "Extension management is unavailable for this server.",
+    "mcp": {
+      "addTitle": "Add MCP server",
+      "add": "Add MCP server",
+      "empty": "No MCP servers in this scope.",
+      "runtime": "Runtime-only MCP server",
+      "configured": "Configured",
+      "removeMessage": "Remove MCP server \"{{name}}\" from this scope?"
+    },
+    "plugins": {
+      "addTitle": "Add plugin",
+      "package": "Package or local plugin path",
+      "warning": "Plugins execute code on the server. Only add packages you trust.",
+      "add": "Add plugin",
+      "empty": "No plugins in this scope.",
+      "outdated": "Update available",
+      "removeMessage": "Remove plugin \"{{name}}\" from this scope?"
+    },
+    "skills": {
+      "addTitle": "Add skill",
+      "editTitle": "Edit {{name}}",
+      "id": "Skill ID",
+      "name": "Name",
+      "descriptionLabel": "Description",
+      "instructions": "Instructions",
+      "fileContent": "SKILL.md content",
+      "autoinvokeOn": "Discoverable by the model",
+      "autoinvokeOff": "Hidden from the model by default",
+      "add": "Create skill",
+      "empty": "No skills in this scope.",
+      "removeMessage": "Move skill \"{{name}}\" to the extension trash?"
+    },
+    "commands": {
+      "addTitle": "Add slash command",
+      "editTitle": "Edit /{{name}}",
+      "name": "Command name",
+      "descriptionLabel": "Description",
+      "template": "Template",
+      "templateHint": "Use $ARGUMENTS or $1, $2 for arguments. Shell blocks in templates run on the server.",
+      "empty": "No commands in this scope.",
+      "removeMessage": "Remove command \"/{{name}}\" from this scope?"
+    },
+    "generalConfirmTitle": "Edit global configuration",
+    "generalConfirmMessage": "This changes the configuration for every project on this server. A backup is created first.\n\n{{path}}",
+    "generalConfirmAction": "Continue"
+  },
+  "modelRouting": {
+    "title": "Auto model routing",
+    "description": "Classify each prompt and choose a model by complexity. Routing is skipped when the classifier is unavailable.",
+    "enable": {
+      "title": "Enable auto-routing",
+      "description": "Choose a model for each prompt based on its complexity.",
+      "unavailable": "Set up a classifier below before enabling routing."
+    },
+    "classifier": {
+      "label": "Classifier",
+      "local": {
+        "label": "On-device model",
+        "description": "Runs on this phone. The model is downloaded once."
+      },
+      "server": {
+        "label": "OpenCode classifier",
+        "description": "Calls a model through OpenCode before sending the prompt."
+      }
+    },
+    "local": {
+      "statusLabel": "On-device model",
+      "status": {
+        "unsupported": "Not supported on this platform",
+        "installing": "Downloading",
+        "ready": "Ready",
+        "missing": "Not installed",
+        "error": "Install failed"
+      },
+      "installed": "Installed ({{size}})",
+      "remove": "Remove model",
+      "download": "Download model ({{size}})",
+      "license": "{{model}} · {{license}}. The model runs only on this device."
+    },
+    "server": {
+      "modelLabel": "Classifier model",
+      "cheapest": "Cheapest available",
+      "check": "Check classifier",
+      "status": {
+        "unknown": "Not checked. Check the classifier to enable routing.",
+        "checking": "Checking the classifier...",
+        "available": "Classifier available.",
+        "unsupported": "This server does not expose the classifier endpoint.",
+        "unavailable": "Classifier unavailable. Check the connection and retry.",
+        "auth": "Sign in to this server before using the classifier."
+      }
+    },
+    "tiers": {
+      "simple": {
+        "label": "Simple model"
+      },
+      "standard": {
+        "label": "Standard model"
+      },
+      "complex": {
+        "label": "Complex model"
+      },
+      "automatic": "Automatic",
+      "automaticDescription": "Choose from the enabled models",
+      "automaticValue": "Automatic · {{model}}",
+      "unavailable": "Unavailable"
+    },
+    "protect": {
+      "title": "Protect long chats",
+      "description": "Avoid downgrading models on long conversations where prompt-cache savings may be larger."
+    }
+  },
+  "localServer": {
+    "title": "本地服务器",
+    "description": "OpenCode 服务器在本手机的 Linux 环境中运行。",
+    "summary": {
+      "running": "运行中 · 127.0.0.1:{{port}}",
+      "starting": "启动中…",
+      "downloading": "正在下载环境…",
+      "installing": "正在解压环境…",
+      "failed": "失败",
+      "stopped": "已停止",
+      "unsupported": "在此平台不可用"
+    },
+    "identity": {
+      "nick": "昵称",
+      "address": "地址",
+      "password": "密码自动创建并保存在设备上"
+    },
+    "restart": "重启服务器",
+    "stop": "停止服务器",
+    "logs": "显示日志",
+    "logsTitle": "服务器日志",
+    "logsEmpty": "日志为空。",
+    "apiKey": {
+      "title": "个人 OpenCode API 密钥",
+      "description": "可选。配置密钥后，服务器将使用你的专属额度而非匿名通道发送模型请求。",
+      "placeholder": "粘贴你的 API 密钥",
+      "saved": "密钥已保存。重启服务器后生效。",
+      "removed": "密钥已移除。重启服务器后生效。"
+    },
+    "compat": {
+      "title": "兼容模式",
+      "description": "如果 Android 因系统调用终止服务器，请开启。"
+    },
+    "runtime": {
+      "title": "Linux 环境",
+      "version": "版本：{{version}}",
+      "downloading": "正在下载环境…",
+      "installing": "正在解压环境…",
+      "progress": "{{percent}}%"
+    }
+  }
+}

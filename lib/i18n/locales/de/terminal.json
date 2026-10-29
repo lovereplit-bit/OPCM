@@ -1,0 +1,53 @@
+{
+  "screen": {
+    "connectTitle": "Mit OpenCode verbinden",
+    "chooseProject": "Projekt wählen",
+    "selectProject": "Wähle ein Projekt aus, bevor du ein Terminal öffnest.",
+    "openProjects": "Projekte öffnen",
+    "title": "Terminal"
+  },
+  "console": {
+    "selectTerminal": "Terminal auswählen",
+    "create": "Terminal erstellen",
+    "refresh": "Terminals aktualisieren",
+    "openOrCreate": "Öffne oder erstelle ein Terminal, um zu beginnen.",
+    "terminateTitle": "Terminal beenden?",
+    "terminateAction": "Beenden",
+    "new": "Neues Terminal",
+    "interactiveHint": "Tippe direkt im Terminal. Verwende die Leiste für Terminaltasten.",
+    "pasteTitle": "Im Terminal einfügen?",
+    "pasteMessage": "Dieser Text enthält mehrere Zeilen oder Steuerzeichen und kann Befehle ausführen. Fortfahren?",
+    "terminateMessage": "{{terminal}} ({{id}})\n{{server}} / {{project}}",
+    "copied": "In die Zwischenablage kopiert"
+  },
+  "sessions": {
+    "title": "Terminals",
+    "empty": "Noch keine Terminals. Tippe auf +, um eines zu erstellen.",
+    "openLabel": "{{terminal}} öffnen"
+  },
+  "errors": {
+    "load": "Terminals konnten nicht geladen werden.",
+    "create": "Das Terminal konnte nicht erstellt werden.",
+    "open": "Das Terminal konnte nicht geöffnet werden.",
+    "connect": "Verbindung konnte nicht hergestellt werden.",
+    "refresh": "Terminals konnten nicht aktualisiert werden."
+  },
+  "accessory": {
+    "paste": "Einfügen",
+    "copy": "Kopieren",
+    "latest": "Neueste Ausgabe",
+    "input": "Terminaleingabe",
+    "more": "Weitere Terminaltasten",
+    "armed": "aktiviert",
+    "locked": "gesperrt",
+    "off": "aus"
+  },
+  "status": {
+    "connecting": "Verbindung wird hergestellt",
+    "connected": "Verbunden",
+    "reconnecting": "Verbindung wird wiederhergestellt",
+    "exited": "Beendet",
+    "error": "Fehler",
+    "idle": "Inaktiv"
+  }
+}

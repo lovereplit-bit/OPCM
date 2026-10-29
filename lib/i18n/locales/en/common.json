@@ -1,0 +1,83 @@
+{
+  "tabs": {
+    "chat": "Chat",
+    "terminal": "Terminal",
+    "projects": "Projects",
+    "settings": "Settings"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "retry": "Retry",
+    "delete": "Delete",
+    "dismiss": "Dismiss",
+    "refresh": "Refresh",
+    "remove": "Remove",
+    "open": "Open",
+    "copy": "Copy",
+    "connect": "Connect",
+    "reconnect": "Reconnect",
+    "disconnect": "Disconnect",
+    "edit": "Edit",
+    "stop": "Stop",
+    "closeWithName": "Close {{title}}",
+    "openSettings": "Open settings"
+  },
+  "select": {
+    "chooseOption": "Choose an option"
+  },
+  "labels": {
+    "connected": "Connected",
+    "enabled": "Enabled",
+    "off": "Off",
+    "active": "Active",
+    "unavailable": "Unavailable",
+    "unknown": "Unknown",
+    "none": "None",
+    "notSet": "not set",
+    "systemDefault": "System default"
+  },
+  "updates": {
+    "available": "Update available",
+    "ready": "Update ready",
+    "later": "Later",
+    "failed": "Could not update. Please try again later.",
+    "opening": "Opening the update…",
+    "installing": "Installing update…",
+    "readyDescription": "Restart the app to install.",
+    "availableDescription": "Install the latest version through the App Store.",
+    "restart": "Restart & install",
+    "openStore": "Open App Store"
+  },
+  "servers": {
+    "allServers": "All servers",
+    "allProjects": "All projects",
+    "server": "Server",
+    "projectContext": "Project context",
+    "serverSettings": "Server settings",
+    "appSettings": "App settings",
+    "forServer": "Changes apply to {{name}}",
+    "searchProjects": "Search projects",
+    "lastSynced": "Showing last synced projects",
+    "newTerminalHint": "Choose where this terminal starts.",
+    "workingDirectory": "Working directory",
+    "chatUnchanged": "Your chat stays on {{name}}.",
+    "pending": "Pending ({{count}})",
+    "savedRules": "Saved rules ({{count}})",
+    "onlyThisServer": "For this server only",
+    "appDiagnostics": "App diagnostics · All servers",
+    "discardDrafts": "Unsaved chat and editor drafts on this server will be discarded.",
+    "status": {
+      "idle": "Disconnected",
+      "connecting": "Connecting",
+      "connected": "Connected",
+      "error": "Unavailable"
+    },
+    "appSettingsSummary": "Editor, general and updates",
+    "serverToolsSummary": "MCP servers and diagnostics"
+  }
+}

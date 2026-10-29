@@ -1,0 +1,3 @@
+// proot cannot switch to the unprivileged _apt user.
+APT::Sandbox::User "root";
+Acquire::Retries "3";

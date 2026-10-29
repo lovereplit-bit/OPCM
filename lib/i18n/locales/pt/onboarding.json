@@ -1,0 +1,115 @@
+{
+  "welcome": {
+    "title": "OpenCode",
+    "subtitle": "Your OpenCode projects, wherever you are.",
+    "body": "OpenCode brings your OpenCode server to your phone. Chat with coding agents, follow their work, and review changes across your projects.",
+    "start": "Continue",
+    "points": {
+      "server": {
+        "title": "Your server does the work",
+        "description": "Models and tasks run on your OpenCode server. This app keeps you connected to them."
+      },
+      "project": {
+        "title": "Projects and conversations",
+        "description": "Projects keep chats, files, and changes together."
+      },
+      "optional": {
+        "title": "Voice and task updates",
+        "description": "Voice input and completion notifications help you keep up with work on the go."
+      }
+    }
+  },
+  "connect": {
+    "skip": "Skip"
+  },
+  "project": {
+    "title": "Choose a project",
+    "subtitle": "Pick a project to start in, or add a folder on the server.",
+    "continue": "Continuar",
+    "skip": "Skip",
+    "empty": "This server did not report any projects. Add a directory on the server to get started.",
+    "loading": "Loading projects…"
+  },
+  "permissions": {
+    "title": "Permissions",
+    "subtitle": "Optional. OpenCode only asks when you choose to enable something.",
+    "skip": "Skip",
+    "continue": "Continue",
+    "notifications": {
+      "title": "Notifications",
+      "body": "Allow OpenCode to notify you when a task finishes while the app is in the background.",
+      "unsupported": "Notifications are not available on this platform.",
+      "enable": "Enable notifications",
+      "battery": "Review battery / background settings"
+    },
+    "voice": {
+      "title": "Voice input",
+      "body": "Microphone access lets you dictate prompts instead of typing them.",
+      "unsupported": "Voice input is not available on this device.",
+      "enable": "Enable voice input",
+      "deniedHint": "You can still turn voice input on later from Settings › Voice."
+    },
+    "checking": "Verificando…"
+  },
+  "ready": {
+    "title": "You're ready",
+    "subtitle": "Review your setup and start coding.",
+    "server": "Server",
+    "project": "Project",
+    "projectMissing": "No project selected",
+    "footnote": "Pode alterar estas definições a qualquer momento.",
+    "start": "Start coding",
+    "done": "Done",
+    "serverMissing": "Sem ligação",
+    "providers": "Fornecedores",
+    "enabledModels": "Modelos ativados"
+  },
+  "settingsAssistant": {
+    "summary": "Rever permissões, ligação, fornecedores, projeto, voz e preferências"
+  },
+  "reviewSetup": "Revisar configuração",
+  "stepIndicator": "Etapa {{step}} de {{totalSteps}}",
+  "general": {
+    "title": "Definições gerais",
+    "subtitle": "Adapte o OpenCode às suas preferências.",
+    "defaultModel": "Modelo predefinido"
+  },
+  "voice": {
+    "title": "Voz e respostas",
+    "subtitle": "Escolha como falar e ouvir as respostas.",
+    "input": "Entrada de voz",
+    "playback": "Respostas faladas",
+    "responses": "Estilo de resposta",
+    "autoPlay": "Ler respostas em voz alta"
+  },
+  "setup": {
+    "title": "Configurando o servidor",
+    "subtitle": "O app cria o próprio localhost, senha e apelido — você não digita nada.",
+    "otherServer": "Outro servidor",
+    "retry": "Tentar novamente",
+    "status": {
+      "preparing": "Preparando…",
+      "downloading": "Baixando o ambiente Linux",
+      "installing": "Descompactando o ambiente Linux",
+      "starting": "Iniciando o servidor",
+      "running": "O servidor está em execução",
+      "failed": "Não funcionou",
+      "failedConnect": "Não foi possível conectar ao servidor"
+    },
+    "progress": "{{percent}}%",
+    "hint": "O primeiro início baixa e descompacta o ambiente. Leva alguns minutos.",
+    "identity": {
+      "nick": "Apelido",
+      "address": "Endereço",
+      "password": "Senha",
+      "automatic": "criada automaticamente",
+      "footnote": "O apelido e a senha foram criados pelo app e guardados neste dispositivo."
+    },
+    "showLogs": "Ver registros",
+    "logsTitle": "Registros",
+    "logsEmpty": "O registro está vazio.",
+    "errors": {
+      "connect": "Não foi possível conectar ao servidor local."
+    }
+  }
+}

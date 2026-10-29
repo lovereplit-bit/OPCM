@@ -1,0 +1,53 @@
+{
+  "screen": {
+    "connectTitle": "Conectar con OpenCode",
+    "chooseProject": "Elegir un proyecto",
+    "selectProject": "Selecciona un proyecto antes de abrir una terminal.",
+    "openProjects": "Abrir proyectos",
+    "title": "Terminal"
+  },
+  "console": {
+    "selectTerminal": "Seleccionar terminal",
+    "create": "Crear terminal",
+    "refresh": "Actualizar terminales",
+    "openOrCreate": "Abre o crea una terminal para empezar.",
+    "terminateTitle": "¿Terminar la terminal?",
+    "terminateAction": "Terminar",
+    "new": "Nueva terminal",
+    "interactiveHint": "Escribe directamente en el terminal. Usa la barra para las teclas del terminal.",
+    "pasteTitle": "¿Pegar en el terminal?",
+    "pasteMessage": "El texto contiene varias líneas o caracteres de control y puede ejecutar comandos. ¿Continuar?",
+    "terminateMessage": "{{terminal}} ({{id}})\n{{server}} / {{project}}",
+    "copied": "Copiado al portapapeles"
+  },
+  "sessions": {
+    "title": "Terminales",
+    "empty": "Aún no hay terminales. Usa + para crear una.",
+    "openLabel": "Abrir {{terminal}}"
+  },
+  "errors": {
+    "load": "No se pudieron cargar las terminales.",
+    "create": "No se pudo crear la terminal.",
+    "open": "No se pudo abrir la terminal.",
+    "connect": "No se pudo conectar.",
+    "refresh": "No se pudieron actualizar las terminales."
+  },
+  "accessory": {
+    "paste": "Pegar",
+    "copy": "Copiar",
+    "latest": "Última salida",
+    "input": "Entrada del terminal",
+    "more": "Más teclas del terminal",
+    "armed": "activado",
+    "locked": "bloqueado",
+    "off": "desactivado"
+  },
+  "status": {
+    "connecting": "Conectando",
+    "connected": "Conectado",
+    "reconnecting": "Reconectando",
+    "exited": "Finalizado",
+    "error": "Error",
+    "idle": "Inactivo"
+  }
+}
