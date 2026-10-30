@@ -7,6 +7,7 @@ data class ProotConfig(
   val prootBin: String,
   val loader: String,
   val nativeLibDir: String,
+  val launcherLibs: String,
   val rootfs: String,
   val home: String,
   val fakeProc: String,
@@ -35,6 +36,10 @@ data class LaunchVariant(
   val noMountinfo: Boolean = false,
   /** Drop --link2symlink, whose hard-link emulation had device-specific crashes. */
   val noLink2Symlink: Boolean = false,
+  /** PROOT_FORCE_KOMPAT: treat the kernel as the oldest one supported, enabling every
+   *  syscall emulation proot carries - OEM kernels that report a modern version while
+   *  behaving like an older one get served either way. */
+  val forceKompat: Boolean = false,
   /** PROOT_VERBOSE level for this attempt, so the log pinpoints where it dies. */
   val verbose: Int = 0,
 )
@@ -60,8 +65,17 @@ object LaunchVariants {
     verbose = 2,
   )
 
+  val KOMPAT = LaunchVariant(
+    "kernel compatibility mode",
+    noSeccomp = true,
+    noMountinfo = true,
+    noLink2Symlink = true,
+    forceKompat = true,
+    verbose = 1,
+  )
+
   /** The whole ladder, in the order the service climbs it. */
-  val ALL = listOf(DEFAULT, COMPAT, COMPAT_NO_MOUNTINFO, COMPAT_MINIMAL)
+  val ALL = listOf(DEFAULT, COMPAT, COMPAT_NO_MOUNTINFO, COMPAT_MINIMAL, KOMPAT)
 }
 
 data class Launch(val command: List<String>, val env: Map<String, String>)
@@ -111,11 +125,12 @@ object ProotCommand {
 
     env["PROOT_TMP_DIR"] = c.prootTmp
     env["PROOT_LOADER"] = c.loader
-    env["LD_LIBRARY_PATH"] = c.nativeLibDir
+    env["LD_LIBRARY_PATH"] = "${c.launcherLibs}:${c.nativeLibDir}"
     env["TMPDIR"] = c.prootTmp
 
     if (c.variant.noSeccomp) env["PROOT_NO_SECCOMP"] = "1"
     if (c.variant.noMountinfo) env["PROOT_NO_MOUNTINFO"] = "1"
+    if (c.variant.forceKompat) env["PROOT_FORCE_KOMPAT"] = "1"
     if (c.variant.verbose > 0) env["PROOT_VERBOSE"] = c.variant.verbose.toString()
 
     return env

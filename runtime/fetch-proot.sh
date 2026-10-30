@@ -1,16 +1,30 @@
 #!/usr/bin/env bash
-# Downloads proot and its loader from the Termux package repository and turns them into the three files the app
+# Downloads proot and its loader from the Termux package repository and turns them into the four files the app
 # executes from its native library directory:
 #
-#   libproot.so          the launcher
-#   libproot-loader.so   its helper, started inside the guest
-#   libtalloc.so         the talloc library proot needs
-#   libandroid-shmem.so  the shared memory helper library proot needs (if required)
+#   libproot.so           the launcher (Termux's proot, byte for byte)
+#   libproot-loader.so    its helper, started inside the guest
+#   libtalloc.so          the talloc library proot needs
+#   libandroid-shmem.so   the shared memory helper library proot needs (if required)
 #
-# Android only unpacks files named lib*.so into that directory, so the names are rewritten with patchelf. The result is
-# refused unless every library it needs is something Android itself provides.
+# Android only unpacks files named lib*.so into that directory, so the files are renamed with plain copies.
+# NOTHING is rewritten with patchelf: on these exact binaries (lld layout with separate RELRO segments, mixed
+# vaddr offsets) patchelf's section rewrite appended a PT_LOAD whose file offset and virtual address are not
+# congruent modulo the page size - the ELF gABI requirement every loader relies on. The bytes of such a segment
+# land at shifted addresses at load time, the dynamic linker reads garbage as its string table, and the process
+# dies with a bare SIGSEGV before printing a single line. Every launcher patched that way crashed on every
+# device the app was installed on. The two renames that patchelf used to do are done differently instead:
 #
-# Usage: runtime/fetch-proot.sh <dest-dir>      (needs curl, dpkg-deb, patchelf, readelf, python3, xz)
+#   - libtalloc keeps its DT_SONAME "libtalloc.so.2", and the app resolves it by putting a symlink
+#     files/launcher-libs/libtalloc.so.2 -> <nativeLibDir>/libtalloc.so in front of nativeLibDir on
+#     LD_LIBRARY_PATH (exactly how Termux itself resolves it);
+#   - libandroid-shmem already carries the name we need, and proot's DT_NEEDED entries are left untouched.
+#
+# The output is verified instead of trusted: every produced file must pass check-elf-loadable.py (all PT_LOAD
+# segments congruent modulo 4096, 16384 and their own alignment), so no rewrite of this script can ever ship
+# a loader that crashes before its first line of output again.
+#
+# Usage: runtime/fetch-proot.sh <dest-dir>      (needs curl, dpkg-deb, readelf, python3, xz)
 # Environment: TERMUX_MIRRORS (space separated, see versions.env). EXPECT_MACHINE exists for the offline test only.
 set -euo pipefail
 
@@ -24,8 +38,10 @@ dest="$(cd "$dest" && pwd)"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
-# Libraries every Android device provides. Anything else in a NEEDED entry means the package layout changed.
+# Libraries every Android device provides, plus the ones this script ships next to proot. Anything else in a
+# NEEDED entry means the package layout changed.
 system_libs="libc.so libm.so libdl.so liblog.so"
+bundled_libs="libtalloc.so.2 libandroid-shmem.so"
 
 fetch_index() {
   local mirror
@@ -80,26 +96,21 @@ talloc="$(find "$work/talloc/$prefix/lib" -maxdepth 1 -type f -name 'libtalloc.s
 [ -f "$loader" ] || { echo "proot loader not found in the package" >&2; exit 1; }
 [ -n "$talloc" ] || { echo "libtalloc not found in the package" >&2; exit 1; }
 
+# Plain copies under the lib*.so names Android extracts; the ELF contents stay byte for byte as Termux
+# built them. See the header comment for why nothing may be rewritten here.
 install -m 0755 "$proot_bin" "$dest/libproot.so"
 install -m 0755 "$loader" "$dest/libproot-loader.so"
 install -m 0755 "$talloc" "$dest/libtalloc.so"
 
-patchelf --replace-needed libtalloc.so.2 libtalloc.so "$dest/libproot.so"
-patchelf --remove-rpath "$dest/libproot.so"
-patchelf --set-soname libtalloc.so "$dest/libtalloc.so"
-patchelf --remove-rpath "$dest/libtalloc.so"
-
 needed() { readelf -d "$1" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p'; }
-bundled_libs="libtalloc.so"
 
 if needed "$dest/libproot.so" | grep -q "libandroid-shmem"; then
   download libandroid-shmem "$work/shmem" "$LIBANDROID_SHMEM_VERSION"
   shmem="$(find "$work/shmem/$prefix/lib" -maxdepth 1 -type f -name 'libandroid-shmem.so*' | sort | head -1)"
   [ -n "$shmem" ] || { echo "libandroid-shmem not found in the package" >&2; exit 1; }
   install -m 0755 "$shmem" "$dest/libandroid-shmem.so"
-  patchelf --set-soname libandroid-shmem.so "$dest/libandroid-shmem.so" 2>/dev/null || true
-  patchelf --remove-rpath "$dest/libandroid-shmem.so"
-  bundled_libs="$bundled_libs libandroid-shmem.so"
+else
+  bundled_libs="libtalloc.so.2"
 fi
 
 status=0
@@ -124,8 +135,16 @@ if readelf -l "$dest/libproot-loader.so" | grep -q 'INTERP'; then
   exit 1
 fi
 
+# The gate this script exists behind: no file leaves here with a PT_LOAD a loader cannot map.
+# See check-elf-loadable.py for what it catches and why that must never ship.
+python3 "$here/check-elf-loadable.py" "$dest"/lib*.so >/dev/null || {
+  echo "A launcher library has PT_LOAD segments a loader cannot map; refusing to package it." >&2
+  exit 1
+}
+
 {
   echo "proot packaged from the Termux repository $repo"
+  echo "binaries are unmodified Termux builds; libtalloc.so.2 is resolved by the app's launcher-libs symlink"
   echo "libproot.so needs: $(needed "$dest/libproot.so" | tr '\n' ' ')"
 } >"$dest/../proot-origin.txt" 2>/dev/null || true
 

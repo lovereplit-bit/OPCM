@@ -15,6 +15,14 @@ class Paths(context: Context) {
 
   val prootLoader: String = "$nativeLibDir/libproot-loader.so"
 
+  /**
+   * The small directory the launcher's shared libraries are resolved through. The
+   * packaged proot links against `libtalloc.so.2` (the name Termux built it with),
+   * while Android only unpacks `lib*.so` files - so the app provides the name as a
+   * symlink to the unpacked copy and puts this directory first on LD_LIBRARY_PATH.
+   */
+  val launcherLibs = File(files, "launcher-libs")
+
   val rootfs = File(files, "rootfs")
 
   val rootfsStamp = File(files, "rootfs.stamp")
@@ -34,6 +42,6 @@ class Paths(context: Context) {
   val serverLog = File(logs, "server.log")
 
   fun ensure() {
-    for (dir in listOf(files, cache, fakeProc, prootTmp, home, logs)) dir.mkdirs()
+    for (dir in listOf(files, cache, fakeProc, prootTmp, home, logs, launcherLibs)) dir.mkdirs()
   }
 }

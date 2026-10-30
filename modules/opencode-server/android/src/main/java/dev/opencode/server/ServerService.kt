@@ -209,6 +209,13 @@ class ServerService : Service() {
         ServerLog.w("service", "the server ended with ${ServerProcess.describeExit(exit)} before answering (${variant.name} attempt)")
       }
 
+      // A death without its own words gets the kernel's instead: libc and the
+      // linker write the faulting address and library into the log buffer this
+      // app may read, and those lines are what makes a crash report fixable.
+      if (exit != null && (ServerProcess.diedBySignal(exit) || server.attemptWasSilent())) {
+        server.captureCrashContext(variant.name)
+      }
+
       // Someone took the port between the check and the bind; move to the
       // next free one. Every candidate is probed for availability first, so
       // the server keeps walking upward until it actually connects.
@@ -249,7 +256,13 @@ class ServerService : Service() {
         continue
       }
 
-      fail(server.failureHint(exit, ladder[rung].noSeccomp))
+      // The ladder is exhausted. Before giving up, say which layer actually died:
+      // the launcher binary alone, or the launcher tracing a trivial guest. The
+      // verdict lands in the failure message and the log, so a report from a
+      // phone that still refuses names the culprit instead of a bare signal.
+      val selfTest = server.selfTest()
+
+      fail(server.failureHint(exit, ladder[rung].noSeccomp) + "\n" + selfTest)
       return
     }
 

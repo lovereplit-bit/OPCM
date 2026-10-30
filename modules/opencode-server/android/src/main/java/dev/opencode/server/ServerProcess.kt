@@ -1,9 +1,11 @@
 package dev.opencode.server
 
 import android.os.Process as AndroidProcess
+import android.system.Os
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.TimeUnit
 
 /** Starts, finds and stops the OpenCode server that runs inside the Linux environment. */
 class ServerProcess(private val paths: Paths) {
@@ -19,6 +21,7 @@ class ServerProcess(private val paths: Paths) {
       prootBin = paths.prootBin,
       loader = paths.prootLoader,
       nativeLibDir = paths.nativeLibDir,
+      launcherLibs = paths.launcherLibs.path,
       rootfs = paths.rootfs.path,
       home = paths.home.path,
       fakeProc = paths.fakeProc.path,
@@ -31,8 +34,46 @@ class ServerProcess(private val paths: Paths) {
       variant = variant,
     )
 
+  /**
+   * The name the launcher resolves its talloc dependency through. proot is shipped
+   * byte for byte as Termux built it, so it links against `libtalloc.so.2`; the
+   * library itself has to carry an Android-friendly `lib*.so` name to be unpacked
+   * at all. The bridge is a symlink in the app's own directory - the same trick
+   * Termux's own /usr/lib plays - and it is refreshed on every start because the
+   * native library directory moves with each app update.
+   */
+  private fun ensureLauncherLibs() {
+    val link = File(paths.launcherLibs, "libtalloc.so.2")
+    val target = File(paths.nativeLibDir, "libtalloc.so")
+
+    if (!target.exists()) {
+      ServerLog.w("launcher", "libtalloc.so is missing from ${paths.nativeLibDir}")
+      return
+    }
+
+    val wanted = target.absolutePath
+    val current = try {
+      if (link.exists()) Os.readlink(link.absolutePath) else null
+    } catch (_: Exception) {
+      null
+    }
+
+    if (current == wanted) return
+
+    link.delete()
+
+    try {
+      Os.symlink(wanted, link.absolutePath)
+    } catch (_: Exception) {
+      // A filesystem without symlink support still gets a working, if boring, copy.
+      runCatching { target.copyTo(link, overwrite = true) }
+    }
+  }
+
   fun spawn(config: ProotConfig): Process {
     val launch = ProotCommand.server(config)
+
+    ensureLauncherLibs()
 
     File(config.home).mkdirs()
     File(config.prootTmp).mkdirs()
@@ -52,6 +93,112 @@ class ServerProcess(private val paths: Paths) {
     process = started
 
     return started
+  }
+
+  /**
+   * The kernel's own words about a native crash, pulled from the log this app is
+   * allowed to read (its own uid's lines). A process that dies from a signal
+   * says nothing on its way down, but libc and the dynamic linker do: the
+   * faulting address, the library, the abort message. They land in the server
+   * log, so a report from the diagnostics screen carries the crash site instead
+   * of a bare "signal 11". Best effort on every level: phones that refuse the
+   * read simply contribute nothing.
+   */
+  fun captureCrashContext(where: String) {
+    try {
+      val reader = ProcessBuilder("/system/bin/logcat", "-d", "-t", "400")
+        .redirectErrorStream(true)
+        .start()
+
+      val text = try {
+        reader.inputStream.bufferedReader().use { it.readText() }
+      } finally {
+        reader.destroyForcibly()
+      }
+
+      val lines = text.lines().filter { line ->
+        val low = line.lowercase()
+        "fatal signal" in low || "abort message" in low || "tombstone" in low ||
+          "cannot link executable" in low || "cannot load library" in low ||
+          "cannot locate symbol" in low
+      }.takeLast(30)
+
+      if (lines.isNotEmpty()) {
+        paths.serverLog.appendText("--- crash context ($where)\n${lines.joinToString("\n")}\n")
+        ServerLog.w("crash", "captured ${lines.size} native crash line(s) after the $where attempt")
+      }
+    } catch (_: Exception) {
+      // Reading the log is a privilege some phones deny; the failure path stays quiet.
+    }
+  }
+
+  /**
+   * Splits a start failure into its two hiding places, after the real server
+   * refused to start: the launcher binary on its own (no tracing, no guest),
+   * and the launcher tracing a trivial guest through the full rootfs path. The
+   * verdict is one compact line per probe for the failure message, with the
+   * full output in the log - so the next report says which layer died, instead
+   * of making us guess.
+   */
+  fun selfTest(): String {
+    ensureLauncherLibs()
+
+    val config = ProotConfig(
+      prootBin = paths.prootBin,
+      loader = paths.prootLoader,
+      nativeLibDir = paths.nativeLibDir,
+      launcherLibs = paths.launcherLibs.path,
+      rootfs = paths.rootfs.path,
+      home = paths.home.path,
+      fakeProc = paths.fakeProc.path,
+      prootTmp = paths.prootTmp.path,
+      port = 0,
+      password = "",
+      compat = true,
+      timeZone = "UTC",
+      variant = LaunchVariants.COMPAT_MINIMAL,
+    )
+
+    // Both probes need the launcher environment: even `proot --version` has to
+    // link against libtalloc.so.2 first, and that resolution is exactly what
+    // the probe exists to check.
+    val env = ProotCommand.hostEnv(config)
+    val version = runProbe(listOf(paths.prootBin, "--version"), env)
+    val guest = runProbe(ProotCommand.base(config) + "/bin/true", env)
+
+    ServerLog.w("launcher", "self-test: proot --version -> $version; proot /bin/true -> $guest")
+
+    return "Launcher self-test: proot --version $version; proot /bin/true $guest."
+  }
+
+  private fun runProbe(command: List<String>, env: Map<String, String>): String = try {
+    val builder = ProcessBuilder(command).redirectErrorStream(true)
+
+    builder.environment().putAll(env)
+
+    val probe = builder.start()
+    val answered = probe.waitFor(8, TimeUnit.SECONDS)
+
+    if (!answered) {
+      probe.destroyForcibly()
+      "did not answer in 8 s"
+    } else {
+      val text = try {
+        probe.inputStream.bufferedReader().use { it.readText().trim() }
+      } catch (_: Exception) {
+        ""
+      }
+      val code = try {
+        probe.exitValue()
+      } catch (_: IllegalThreadStateException) {
+        -1
+      }
+      val first = text.lineSequence().firstOrNull { it.isNotBlank() }?.take(120) ?: "no output"
+
+      "exit $code ($first)"
+    }
+  } catch (e: Exception) {
+    "failed: ${e.message ?: e.javaClass.simpleName}"
   }
 
   private fun rotateLog() {
