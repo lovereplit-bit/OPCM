@@ -47,7 +47,13 @@ export default function OnboardingSetupScreen() {
   // Reflect native server publishes into the screen state.
   useEffect(() => {
     const unsubscribe = subscribeLocalServer((event: LocalServerEvent) => {
-      setInfo((current) => ({ ...current, ...event }));
+      setInfo((current) => ({
+        ...current,
+        ...event,
+        // A failed publish carries no port of its own; keep the last known
+        // one so the address row never blanks out mid-setup.
+        port: event.port > 0 ? event.port : current.port,
+      }));
     });
     setInfo(getLocalServerInfo());
     return unsubscribe;
@@ -126,7 +132,7 @@ export default function OnboardingSetupScreen() {
           : phase === 'running'
             ? t('onboarding:setup.status.running')
             : phase === 'failed'
-              ? (info.message || t('onboarding:setup.status.failed'))
+              ? t('onboarding:setup.status.failed')
               : t('onboarding:setup.status.preparing');
 
   return (
@@ -172,6 +178,11 @@ export default function OnboardingSetupScreen() {
             </View>
           ) : progressValue !== undefined ? (
             <ProgressBar progress={progressValue} color={palette.tint} style={styles.bar} />
+          ) : null}
+          {phase === 'starting' && info.message ? (
+            <Text variant="bodySmall" style={{ color: palette.muted }}>
+              {info.message}
+            </Text>
           ) : null}
           {busy ? (
             <Text variant="bodySmall" style={{ color: palette.muted }}>

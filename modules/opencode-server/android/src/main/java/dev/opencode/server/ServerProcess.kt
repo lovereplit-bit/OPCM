@@ -87,7 +87,12 @@ class ServerProcess(private val paths: Paths) {
       if (health(baseUrl, password) == 200) return true
       if (!alive()) return false
 
-      Thread.sleep(500)
+      try {
+        Thread.sleep(500)
+      } catch (_: InterruptedException) {
+        // The service is being torn down; the caller notices the stale epoch and stops.
+        return false
+      }
     }
 
     return false
@@ -137,18 +142,35 @@ class ServerProcess(private val paths: Paths) {
   }
 
   /** Reads why the server died, to tell the person something more useful than "failed". */
-  fun failureHint(): String {
+  fun failureHint(exitCode: Int? = null, compatOn: Boolean = false): String {
     val tail = attemptLog()
     val lower = tail.lowercase()
 
     return when {
-      "bad system call" in lower || "sigsys" in lower || "seccomp" in lower ->
-        "Android stopped the process over a system call. Turn on compatibility mode in settings and try again."
       portWasBusy() ->
         "The server port is already in use. The next free port is picked automatically."
-      else -> tail.lines().filter { it.isNotBlank() }.takeLast(6).joinToString("\n").ifEmpty { "The server did not answer in time" }
+      stoppedBySyscall(exitCode, lower) && compatOn ->
+        "Android stopped the server over a system call${suffix(exitCode)}, even in compatibility mode. Share the logs from this screen so it can be fixed."
+      stoppedBySyscall(exitCode, lower) ->
+        "Android stopped the server over a system call${suffix(exitCode)}. Compatibility mode in Settings can work around it."
+      exitCode == 128 + SIGKILL ->
+        "The phone stopped the server to free memory (SIGKILL). Close other apps and try again."
+      exitCode != null && diedBySignal(exitCode) ->
+        if (compatOn) {
+          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}, even in compatibility mode. Share the logs from this screen so it can be fixed."
+        } else {
+          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}. Compatibility mode in Settings can work around it."
+        }
+      else ->
+        tail.lines().filter { it.isNotBlank() }.takeLast(6).joinToString("\n").ifEmpty { "The server did not answer in time" } + suffix(exitCode)
     }
   }
+
+  /** The kernel's SIGSYS text, or the signal itself, when Android killed the server over a syscall. */
+  private fun stoppedBySyscall(exitCode: Int?, lowerLog: String): Boolean =
+    "bad system call" in lowerLog || "sigsys" in lowerLog || "seccomp" in lowerLog || exitCode == 128 + SIGSYS
+
+  private fun suffix(exitCode: Int?): String = exitCode?.let { " (${describeExit(it)})" } ?: ""
 
   /** True when the current attempt died because its port was already in use by something else on the phone. */
   fun portWasBusy(): Boolean {
@@ -160,6 +182,22 @@ class ServerProcess(private val paths: Paths) {
   /** What the current attempt printed, so an earlier attempt in the same log cannot be mistaken for it. */
   private fun attemptLog(): String = ServerLog.since(paths.serverLog, logMark, 6 * 1024)
 
+  /** The exit code once the attempt has ended, or null while it still runs. */
+  fun exitCodeOf(process: Process): Int? = try {
+    process.exitValue()
+  } catch (_: IllegalThreadStateException) {
+    null
+  }
+
+  /**
+   * True when this attempt printed nothing beyond its own start banner. A
+   * process the kernel kills with a signal says nothing on its way down, and
+   * without a shell in front of it nobody reports the signal - so a bare
+   * banner means "died in silence", not "all is well".
+   */
+  fun attemptWasSilent(): Boolean =
+    attemptLog().lines().filter { it.isNotBlank() }.all { it.trimStart().startsWith("--- start") }
+
   companion object {
     // How "this port is taken" looks in the logs of the Go, Node and Bun
     // servers alike, so a bind race is never mistaken for a real failure.
@@ -170,6 +208,27 @@ class ServerProcess(private val paths: Paths) {
       "errno: -98",             // Node's numeric form of EADDRINUSE
       "errno=98",               // strace-style rendering
     )
+
+    // Linux signals proot can be killed with on Android, by waitpid number.
+    private const val SIGKILL = 9
+    private const val SIGSYS = 31
+
+    private val SIGNALS = mapOf(
+      4 to "SIGILL", 5 to "SIGTRAP", 6 to "SIGABRT", 7 to "SIGBUS",
+      9 to "SIGKILL", 11 to "SIGSEGV", 13 to "SIGPIPE", 15 to "SIGTERM", 31 to "SIGSYS",
+    )
+
+    /** True when the waitpid code means the process was killed by a signal. */
+    fun diedBySignal(code: Int): Boolean = code - 128 in 1..31
+
+    /** "exit code 159 (killed by signal 31: SIGSYS)" for the log and the failure hints. */
+    fun describeExit(code: Int): String {
+      val signal = code - 128
+
+      if (signal in 1..31) return "exit code $code (killed by signal $signal: ${SIGNALS[signal] ?: "unknown"})"
+
+      return "exit code $code"
+    }
 
     fun basicCredential(password: String): String =
       android.util.Base64.encodeToString(":$password".toByteArray(Charsets.UTF_8), android.util.Base64.NO_WRAP)

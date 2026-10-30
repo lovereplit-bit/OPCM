@@ -97,9 +97,10 @@ const config: ExpoConfig = {
   userInterfaceStyle: 'automatic',
   android: {
     package: androidPackage,
-    // Bumped for the native-library extraction fix (libproot.so now unpacks
-    // into nativeLibraryDir, which unblocks the local server start).
-    versionCode: 201,
+    // Bumped for the silent-death recovery: a signal-killed proot is retried
+    // once in compatibility mode, the exit code reaches the failure hint, and
+    // the setup screen keeps the picked port in the address row.
+    versionCode: 202,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: "#131010"

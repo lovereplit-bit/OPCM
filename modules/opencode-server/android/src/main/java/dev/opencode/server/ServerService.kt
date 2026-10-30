@@ -154,6 +154,7 @@ class ServerService : Service() {
     }
 
     var shifts = 0
+    var compatTries = 0
 
     while (true) {
       val config = server.config(prefs, port)
@@ -165,7 +166,14 @@ class ServerService : Service() {
         return
       }
 
-      ServerState.publish(Phase.STARTING, "Starting the server...", null, port)
+      // The message stays empty on a plain start so the setup screen keeps its
+      // localized text; the compatibility retry and the port moves are worth a line.
+      ServerState.publish(
+        Phase.STARTING,
+        if (config.compat) "Starting the server in compatibility mode..." else "",
+        null,
+        port,
+      )
 
       val healthy = server.waitHealthy(baseUrl(port), password, 180_000) { process.isAlive }
 
@@ -173,7 +181,15 @@ class ServerService : Service() {
 
       if (healthy) break
 
+      // Read how it ended before stop() reaps the process: the code tells a
+      // signal kill (128 + signal) from a clean exit, and nothing else will.
+      val exit = server.exitCodeOf(process)
+
       server.stop()
+
+      if (exit != null) {
+        ServerLog.w("service", "the server ended with ${ServerProcess.describeExit(exit)} before answering")
+      }
 
       // Someone took the port between the check and the bind; move to the
       // next free one. The shift count only guards a pathological run of
@@ -199,7 +215,22 @@ class ServerService : Service() {
         }
       }
 
-      fail(server.failureHint())
+      // A death with no output is the classic seccomp kill: the kernel
+      // terminates proot with a signal before it prints a word, and without a
+      // shell in front of it nobody reports the signal. One retry in
+      // compatibility mode (PROOT_NO_SECCOMP=1) rescues those phones without
+      // slowing every other one down with ptrace-only interception.
+      if (exit != null && compatTries < MAX_COMPAT_RETRIES && !config.compat &&
+          (ServerProcess.diedBySignal(exit) || server.attemptWasSilent())) {
+        compatTries++
+        prefs.compat = true
+
+        ServerLog.w("service", "the server died without printing a word (${ServerProcess.describeExit(exit)}); retrying in compatibility mode")
+
+        continue
+      }
+
+      fail(server.failureHint(exit, prefs.compat))
       return
     }
 
@@ -237,18 +268,22 @@ class ServerService : Service() {
 
       if (p == null) return@Thread
 
-      val code = runCatching { p.waitFor() }.getOrDefault(-1)
+      val code = runCatching { p.waitFor() }.getOrNull()
 
       if (ServerState.snapshot.phase == Phase.RUNNING && server.process === p) {
-        ServerLog.w("service", "the server exited with code $code")
-        ServerState.publish(Phase.FAILED, server.failureHint())
+        ServerLog.w("service", "the server exited with ${code?.let { ServerProcess.describeExit(it) } ?: "an unknown status"}")
+        ServerState.publish(Phase.FAILED, server.failureHint(code, prefs.compat), null, ServerState.snapshot.port ?: prefs.port)
       }
     }.apply { isDaemon = true }.start()
   }
 
   private fun fail(message: String) {
     ServerLog.w("service", "failed: $message")
-    ServerState.publish(Phase.FAILED, message)
+
+    // Keep the last port in the snapshot: the address row on the setup screen
+    // follows it, and wiping it on failure made the row read "-" as if no
+    // port had ever been picked.
+    ServerState.publish(Phase.FAILED, message, null, ServerState.snapshot.port ?: prefs.port)
     updateNotification("OpenCode", "Server stopped")
     releaseLocks()
   }
@@ -347,6 +382,9 @@ class ServerService : Service() {
 
     /** How many times a startup may move to the next port after a bind race. */
     const val MAX_PORT_SHIFTS = 64
+
+    /** How many times a silent death may switch on compatibility mode and retry. */
+    const val MAX_COMPAT_RETRIES = 1
 
     const val ACTION_START = "dev.opencode.server.START"
     const val ACTION_STOP = "dev.opencode.server.STOP"
