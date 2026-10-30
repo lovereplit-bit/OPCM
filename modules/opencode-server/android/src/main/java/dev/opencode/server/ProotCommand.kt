@@ -17,7 +17,52 @@ data class ProotConfig(
   val timeZone: String,
   val locale: String = "C.UTF-8",
   val apiKey: String? = null,
+  /** One rung of the start-up retry ladder; see [LaunchVariants]. */
+  val variant: LaunchVariant = LaunchVariants.DEFAULT,
 )
+
+/**
+ * How defensively proot is asked to run. The first attempt uses the fast
+ * path; every rung after that trades a little speed for compatibility with
+ * kernels that kill or crash the tracer, so a phone that rejects one
+ * setting still gets a working server on the next try.
+ */
+data class LaunchVariant(
+  val name: String,
+  /** PROOT_NO_SECCOMP: pure ptrace interception instead of the seccomp fast path. */
+  val noSeccomp: Boolean = false,
+  /** PROOT_NO_MOUNTINFO: skip parsing Android's mount table, a known crash surface. */
+  val noMountinfo: Boolean = false,
+  /** Drop --link2symlink, whose hard-link emulation had device-specific crashes. */
+  val noLink2Symlink: Boolean = false,
+  /** PROOT_VERBOSE level for this attempt, so the log pinpoints where it dies. */
+  val verbose: Int = 0,
+)
+
+object LaunchVariants {
+  /** The default rung: every acceleration enabled, no diagnostics noise. */
+  val DEFAULT = LaunchVariant("default")
+
+  val COMPAT = LaunchVariant("compatibility", noSeccomp = true, verbose = 1)
+
+  val COMPAT_NO_MOUNTINFO = LaunchVariant(
+    "compatibility without the mount table",
+    noSeccomp = true,
+    noMountinfo = true,
+    verbose = 1,
+  )
+
+  val COMPAT_MINIMAL = LaunchVariant(
+    "compatibility without the mount table and without link emulation",
+    noSeccomp = true,
+    noMountinfo = true,
+    noLink2Symlink = true,
+    verbose = 2,
+  )
+
+  /** The whole ladder, in the order the service climbs it. */
+  val ALL = listOf(DEFAULT, COMPAT, COMPAT_NO_MOUNTINFO, COMPAT_MINIMAL)
+}
 
 data class Launch(val command: List<String>, val env: Map<String, String>)
 
@@ -32,7 +77,7 @@ object ProotCommand {
 
     args += c.prootBin
     args += "--kill-on-exit"
-    args += "--link2symlink"
+    if (!c.variant.noLink2Symlink) args += "--link2symlink"
     args += "-0"
     args += "-r"
     args += c.rootfs
@@ -69,7 +114,9 @@ object ProotCommand {
     env["LD_LIBRARY_PATH"] = c.nativeLibDir
     env["TMPDIR"] = c.prootTmp
 
-    if (c.compat) env["PROOT_NO_SECCOMP"] = "1"
+    if (c.variant.noSeccomp) env["PROOT_NO_SECCOMP"] = "1"
+    if (c.variant.noMountinfo) env["PROOT_NO_MOUNTINFO"] = "1"
+    if (c.variant.verbose > 0) env["PROOT_VERBOSE"] = c.variant.verbose.toString()
 
     return env
   }

@@ -23,10 +23,23 @@ class Prefs(context: Context) {
     value
   }
 
-  /** The port the server prefers; moved and remembered when it was taken. */
+  /**
+   * The port the server prefers; moved and remembered when it was taken.
+   * Zero means no port has been picked yet: the next start takes a random
+   * free one instead of parking every install on the same shared number.
+   */
   var port: Int
     get() = sp.getInt("port", DEFAULT_PORT)
     set(value) = sp.edit().putInt("port", value).apply()
+
+  /**
+   * True once the server actually answered on the stored port. A port that
+   * was only written during failed starts is not proof of anything, so the
+   * next start draws a fresh random one instead of clinging to it.
+   */
+  var portProven: Boolean
+    get() = sp.getBoolean("port_proven", false)
+    set(value) = sp.edit().putBoolean("port_proven", value).apply()
 
   /** The personal OpenCode API key the server should send requests under, when set. */
   var apiKey: String?
@@ -59,7 +72,11 @@ class Prefs(context: Context) {
   }
 
   companion object {
-    const val DEFAULT_PORT = 4096
+    /** "No port chosen yet" - the start-up code replaces it with a random free port. */
+    const val DEFAULT_PORT = 0
+
+    /** Where the port walk starts when even the kernel could not hand out a random port. */
+    const val DEFAULT_PORT_FALLBACK = 16384
   }
 }
 

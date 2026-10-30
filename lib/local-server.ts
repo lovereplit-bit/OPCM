@@ -69,7 +69,7 @@ export function getLocalServerInfo(): LocalServerInfo {
   const native = getNativeModule();
   if (!native) {
     return {
-      phase: 'idle', message: '', progress: -1, port: 4096, password: '', nick: '', version: '',
+      phase: 'idle', message: '', progress: -1, port: 0, password: '', nick: '', version: '',
       installed: false, running: false, compat: false,
     };
   }

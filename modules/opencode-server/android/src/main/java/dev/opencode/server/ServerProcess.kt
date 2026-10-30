@@ -14,7 +14,7 @@ class ServerProcess(private val paths: Paths) {
   /** Where the server log stood when the running attempt started, so only that attempt is inspected on failure. */
   private var logMark: Long = 0
 
-  fun config(prefs: Prefs, port: Int): ProotConfig =
+  fun config(prefs: Prefs, port: Int, variant: LaunchVariant = LaunchVariants.DEFAULT): ProotConfig =
     ProotConfig(
       prootBin = paths.prootBin,
       loader = paths.prootLoader,
@@ -25,9 +25,10 @@ class ServerProcess(private val paths: Paths) {
       prootTmp = paths.prootTmp.path,
       port = port,
       password = prefs.password,
-      compat = prefs.compat,
+      compat = variant.noSeccomp,
       timeZone = java.util.TimeZone.getDefault().id,
       apiKey = prefs.apiKey,
+      variant = variant,
     )
 
   fun spawn(config: ProotConfig): Process {
@@ -37,7 +38,7 @@ class ServerProcess(private val paths: Paths) {
     File(config.prootTmp).mkdirs()
     rotateLog()
     logMark = paths.serverLog.length()
-    paths.serverLog.appendText("--- start ${java.util.Date()} port=${config.port} compat=${config.compat}\n")
+    paths.serverLog.appendText("--- start ${java.util.Date()} port=${config.port} mode=${config.variant.name}\n")
 
     val builder = ProcessBuilder(launch.command)
 
@@ -150,21 +151,32 @@ class ServerProcess(private val paths: Paths) {
       portWasBusy() ->
         "The server port is already in use. The next free port is picked automatically."
       stoppedBySyscall(exitCode, lower) && compatOn ->
-        "Android stopped the server over a system call${suffix(exitCode)}, even in compatibility mode. Share the logs from this screen so it can be fixed."
+        "Android stopped the server over a system call${suffix(exitCode)}, even in compatibility mode. ${shareLogs()}"
       stoppedBySyscall(exitCode, lower) ->
         "Android stopped the server over a system call${suffix(exitCode)}. Compatibility mode in Settings can work around it."
       exitCode == 128 + SIGKILL ->
         "The phone stopped the server to free memory (SIGKILL). Close other apps and try again."
       exitCode != null && diedBySignal(exitCode) ->
         if (compatOn) {
-          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}, even in compatibility mode. Share the logs from this screen so it can be fixed."
+          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}, even in compatibility mode. ${shareLogs()} ${logTailLines()}"
         } else {
-          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}. Compatibility mode in Settings can work around it."
+          "The server process died from signal ${exitCode - 128}${suffix(exitCode)}. Compatibility mode in Settings can work around it. ${logTailLines()}"
         }
       else ->
         tail.lines().filter { it.isNotBlank() }.takeLast(6).joinToString("\n").ifEmpty { "The server did not answer in time" } + suffix(exitCode)
     }
   }
+
+  private fun shareLogs(): String =
+    "Share the logs from this screen (Telegram: \u0040OpenCodeMob) so it can be fixed."
+
+  /** The last thing proot itself printed, so a crash report carries the fault site. */
+  private fun logTailLines(): String =
+    attemptLog().lines()
+      .filter { it.isNotBlank() && !it.trimStart().startsWith("--- start") }
+      .takeLast(4)
+      .joinToString("\n")
+      .ifEmpty { "" }
 
   /** The kernel's SIGSYS text, or the signal itself, when Android killed the server over a syscall. */
   private fun stoppedBySyscall(exitCode: Int?, lowerLog: String): Boolean =

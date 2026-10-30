@@ -119,7 +119,7 @@ export function LocalServerSection() {
 
       <List.Item
         title={t('settings:localServer.title')}
-        description={t(`settings:localServer.summary.${summaryKey}`, { port: info.port > 0 ? info.port : 4096 })}
+        description={t(`settings:localServer.summary.${summaryKey}`, { port: info.port > 0 ? String(info.port) : '—' })}
         left={(props) => <List.Icon {...props} icon="server" color={palette.tint} />}
         right={() => <Chip compact>{info.version || '—'}</Chip>}
       />

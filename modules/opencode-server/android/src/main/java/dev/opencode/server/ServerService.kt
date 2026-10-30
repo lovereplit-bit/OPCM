@@ -143,21 +143,39 @@ class ServerService : Service() {
 
     server.killOrphans()
 
-    var port: Int = pickPort(prefs.port) ?: run {
-      fail("No free port was left for the server (looked from ${prefs.port} upward).")
+    // No two installs sit on one shared port: a fresh start draws a random
+    // free one from the kernel. A remembered port counts only after the
+    // server actually answered on it, so numbers left behind by failed
+    // runs are not clung to either. Whatever number comes out is probed
+    // (and walked upward) before the server is asked to bind it.
+    val wanted = if (prefs.portProven && prefs.port in 1..65535) prefs.port else PortPicker.randomFree()
+    val firstCandidate = wanted ?: Prefs.DEFAULT_PORT_FALLBACK
+
+    var port: Int = pickPort(firstCandidate) ?: run {
+      fail("No free port was left for the server.")
       return
     }
 
     if (port != prefs.port) {
       prefs.port = port
+      prefs.portProven = false
       ServerLog.i("service", "the server listens on port $port now")
     }
 
     var shifts = 0
-    var compatTries = 0
+
+    // The ladder starts where Settings put it: a phone that already needed
+    // compatibility mode goes straight there instead of crashing once more.
+    val ladder = if (prefs.compat) {
+      LaunchVariants.ALL.dropWhile { !it.noSeccomp }
+    } else {
+      LaunchVariants.ALL
+    }
+    var rung = 0
 
     while (true) {
-      val config = server.config(prefs, port)
+      val variant = ladder[rung]
+      val config = server.config(prefs, port, variant)
       val process = try {
         server.spawn(config)
       } catch (e: Exception) {
@@ -167,10 +185,10 @@ class ServerService : Service() {
       }
 
       // The message stays empty on a plain start so the setup screen keeps its
-      // localized text; the compatibility retry and the port moves are worth a line.
+      // localized text; the compatibility retries and the port moves are worth a line.
       ServerState.publish(
         Phase.STARTING,
-        if (config.compat) "Starting the server in compatibility mode..." else "",
+        if (variant === LaunchVariants.DEFAULT) "" else "Starting the server in ${variant.name} mode...",
         null,
         port,
       )
@@ -188,13 +206,12 @@ class ServerService : Service() {
       server.stop()
 
       if (exit != null) {
-        ServerLog.w("service", "the server ended with ${ServerProcess.describeExit(exit)} before answering")
+        ServerLog.w("service", "the server ended with ${ServerProcess.describeExit(exit)} before answering (${variant.name} attempt)")
       }
 
       // Someone took the port between the check and the bind; move to the
-      // next free one. The shift count only guards a pathological run of
-      // races: every candidate is probed for availability first, so the
-      // server keeps walking upward until it actually connects.
+      // next free one. Every candidate is probed for availability first, so
+      // the server keeps walking upward until it actually connects.
       if (server.portWasBusy() && shifts < MAX_PORT_SHIFTS) {
         val next = pickPort(port)
 
@@ -215,24 +232,28 @@ class ServerService : Service() {
         }
       }
 
-      // A death with no output is the classic seccomp kill: the kernel
-      // terminates proot with a signal before it prints a word, and without a
-      // shell in front of it nobody reports the signal. One retry in
-      // compatibility mode (PROOT_NO_SECCOMP=1) rescues those phones without
-      // slowing every other one down with ptrace-only interception.
-      if (exit != null && compatTries < MAX_COMPAT_RETRIES && !config.compat &&
+      // A death without an answer climbs the compatibility ladder: the
+      // kernel on some phones kills or crashes the tracer over a setting
+      // the next rung turns off (seccomp fast path, Android's mount table,
+      // hard-link emulation). Verbose output on the later rungs lands in the
+      // log the diagnostics screen shows, so a persistent failure can be
+      // pinpointed from a report alone.
+      if (exit != null && rung + 1 < ladder.size &&
           (ServerProcess.diedBySignal(exit) || server.attemptWasSilent())) {
-        compatTries++
-        prefs.compat = true
+        rung++
 
-        ServerLog.w("service", "the server died without printing a word (${ServerProcess.describeExit(exit)}); retrying in compatibility mode")
+        if (ladder[rung].noSeccomp) prefs.compat = true
+
+        ServerLog.w("service", "retrying in ${ladder[rung].name} mode")
 
         continue
       }
 
-      fail(server.failureHint(exit, prefs.compat))
+      fail(server.failureHint(exit, ladder[rung].noSeccomp))
       return
     }
+
+    prefs.portProven = true
 
     onRunning(port, runtime.installedStamp())
   }
@@ -382,9 +403,6 @@ class ServerService : Service() {
 
     /** How many times a startup may move to the next port after a bind race. */
     const val MAX_PORT_SHIFTS = 64
-
-    /** How many times a silent death may switch on compatibility mode and retry. */
-    const val MAX_COMPAT_RETRIES = 1
 
     const val ACTION_START = "dev.opencode.server.START"
     const val ACTION_STOP = "dev.opencode.server.STOP"
