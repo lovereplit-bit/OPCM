@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Freigabe erforderlich",
+    "freeLaneLimit": "Das kostenlose OpenCode-Kontingent ist aufgebraucht. Das ist ein Limit des opencode.ai-Gateways, kein App-Fehler. Trage einen eigenen API-Key ein (Einstellungen → Lokaler Server → Persönlicher OpenCode-API-Key) oder warte, bis sich das Kontingent zurücksetzt.",
     "waitingForAnswer": "OpenCode wartet auf deine Antwort, bevor es fortfahren kann.",
     "couldNotSubmitAnswer": "Antwort konnte nicht gesendet werden.",
     "couldNotRejectQuestion": "Frage konnte nicht abgelehnt werden.",

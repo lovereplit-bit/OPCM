@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "承認が必要",
+    "freeLaneLimit": "OpenCodeの無料枠を使い切りました。これはopencode.aiゲートウェイの制限で、アプリの不具合ではありません。設定 → ローカルサーバー → 個人用OpenCode APIキー からキーを追加するか、枠のリセットをお待ちください。",
     "waitingForAnswer": "OpenCode は続行する前にあなたの回答を待っています。",
     "couldNotSubmitAnswer": "回答を送信できませんでした。",
     "couldNotRejectQuestion": "質問を拒否できませんでした。",

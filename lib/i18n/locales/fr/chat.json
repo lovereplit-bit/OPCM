@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Autorisation nécessaire",
+    "freeLaneLimit": "Le quota gratuit d’OpenCode est épuisé. C’est une limite de la passerelle opencode.ai, pas une panne de l’application. Ajoutez votre propre clé API (Réglages → Serveur local → Clé API OpenCode personnelle) ou attendez la réinitialisation du quota.",
     "waitingForAnswer": "OpenCode attend ta réponse avant de pouvoir continuer.",
     "couldNotSubmitAnswer": "Impossible d'envoyer la réponse.",
     "couldNotRejectQuestion": "Impossible de rejeter la question.",

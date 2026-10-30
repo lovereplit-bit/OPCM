@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Se necesita aprobación",
+    "freeLaneLimit": "La cuota gratuita de OpenCode se ha agotado. Es un límite de la pasarela de opencode.ai, no un fallo de la app. Añade tu propia clave de API (Ajustes → Servidor local → Clave de API personal de OpenCode) o espera a que se restablezca la cuota.",
     "waitingForAnswer": "OpenCode está esperando tu respuesta antes de poder continuar.",
     "couldNotSubmitAnswer": "No se pudo enviar la respuesta.",
     "couldNotRejectQuestion": "No se pudo rechazar la pregunta.",

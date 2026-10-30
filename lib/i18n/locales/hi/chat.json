@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "अनुमोदन आवश्यक है",
+    "freeLaneLimit": "OpenCode का मुफ़्त कोटा समाप्त हो गया है। यह opencode.ai गेटवे की सीमा है, ऐप की खराबी नहीं। अपनी API कुंजी जोड़ें (सेटिंग्स → लोकल सर्वर → व्यक्तिगत OpenCode API कुंजी) या कोटा रीसेट होने की प्रतीक्षा करें।",
     "waitingForAnswer": "जारी रखने से पहले OpenCode आपके उत्तर की प्रतीक्षा कर रहा है।",
     "couldNotSubmitAnswer": "उत्तर सबमिट नहीं किया जा सका।",
     "couldNotRejectQuestion": "प्रश्न अस्वीकार नहीं किया जा सका।",

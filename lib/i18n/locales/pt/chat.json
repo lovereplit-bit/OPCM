@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Aprovação necessária",
+    "freeLaneLimit": "A cota gratuita do OpenCode acabou. É um limite do gateway opencode.ai, não uma falha do app. Adicione sua própria chave de API (Ajustes → Servidor local → Chave de API pessoal do OpenCode) ou aguarde a cota ser redefinida.",
     "waitingForAnswer": "O OpenCode está aguardando sua resposta antes de continuar.",
     "couldNotSubmitAnswer": "Não foi possível enviar a resposta.",
     "couldNotRejectQuestion": "Não foi possível rejeitar a pergunta.",

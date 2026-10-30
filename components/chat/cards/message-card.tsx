@@ -27,6 +27,15 @@ type TranscriptMessageProps = {
   speaking?: boolean;
 };
 
+/**
+ * The gateway's free-lane quota answer. Without this check the chat shows the
+ * raw upstream text and it reads like the app is broken; the friendly line says
+ * what to do (add a personal key or wait for the quota window to reset).
+ */
+function isFreeLaneError(error: string) {
+  return /free usage limit reached|freeusagelimiterror/i.test(error);
+}
+
 function TranscriptMessageImpl({
   canSpeak = false,
   copied = false,
@@ -120,7 +129,14 @@ function TranscriptMessageImpl({
               mutedColor={flat ? palette.muted : isUser ? palette.onBubbleUser : palette.muted}
             />
           ) : null}
-          {entry.error ? <Text variant="bodyMedium" style={{ color: palette.danger }}>{entry.error}</Text> : null}
+          {entry.error ? (
+            <Text variant="bodyMedium" style={{ color: palette.danger }}>
+              {isFreeLaneError(entry.error) ? t('chat:cards.freeLaneLimit') : entry.error}
+            </Text>
+          ) : null}
+          {entry.error && isFreeLaneError(entry.error) ? (
+            <Text variant="bodySmall" style={{ color: palette.muted }}>{entry.error}</Text>
+          ) : null}
           {!isUser && detailSummary.length > 0 ? (
             <View style={styles.summaryRow}>
               {detailSummary.map((item) => (

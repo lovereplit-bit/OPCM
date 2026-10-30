@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Нужно подтверждение",
+    "freeLaneLimit": "Бесплатный лимит OpenCode исчерпан. Это ограничение сервера opencode.ai, а не сбой приложения. Введите свой API-ключ (Настройки → Локальный сервер → Личный API-ключ OpenCode) или подождите сброса лимита.",
     "waitingForAnswer": "OpenCode ждёт вашего ответа, чтобы продолжить.",
     "couldNotSubmitAnswer": "Не удалось отправить ответ.",
     "couldNotRejectQuestion": "Не удалось отклонить вопрос.",

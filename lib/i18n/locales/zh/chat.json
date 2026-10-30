@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "需要批准",
+    "freeLaneLimit": "OpenCode 的免费额度已用完。这是 opencode.ai 网关的限制，不是应用故障。请在 设置 → 本地服务器 → 个人 OpenCode API 密钥 中添加自己的密钥，或等待额度重置。",
     "waitingForAnswer": "OpenCode 正在等待你的回答，然后才能继续。",
     "couldNotSubmitAnswer": "无法提交回答。",
     "couldNotRejectQuestion": "无法拒绝问题。",

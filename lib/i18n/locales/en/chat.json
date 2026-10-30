@@ -69,6 +69,7 @@
   },
   "cards": {
     "respondToContinue": "Approval needed",
+    "freeLaneLimit": "The free OpenCode quota is used up. This is an opencode.ai gateway limit, not an app failure. Add your own API key (Settings → Local server → Personal OpenCode API key) or wait for the quota to reset.",
     "waitingForAnswer": "OpenCode is waiting for your answer before it can continue.",
     "couldNotSubmitAnswer": "Could not submit answer.",
     "couldNotRejectQuestion": "Could not reject question.",
