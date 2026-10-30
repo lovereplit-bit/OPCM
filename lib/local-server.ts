@@ -130,6 +130,15 @@ export function subscribeLocalServer(listener: (event: LocalServerEvent) => void
 
 export const LOCAL_PROFILE_NAME = 'OpenCode on this phone';
 
+/**
+ * The Basic-auth username the local OpenCode server accepts. The server pins
+ * the username to exactly "opencode" (see ServerAuth in the upstream source:
+ * `credentials.username !== config.username` rejects the request), so the
+ * nickname must never ride along as the auth identity — it stays the display
+ * name of the profile.
+ */
+export const LOCAL_SERVER_USERNAME = 'opencode';
+
 export function localServerUrl(port: number) {
   return `http://127.0.0.1:${port}`;
 }
@@ -157,15 +166,16 @@ export async function ensureLocalServerProfile(info: LocalServerInfo): Promise<{
       id: createProfileId(),
       name: info.nick || LOCAL_PROFILE_NAME,
       serverUrl,
-      username: info.nick,
+      username: LOCAL_SERVER_USERNAME,
     } satisfies ConnectionProfile;
 
     const updated: ConnectionProfile = {
       ...model,
-      // The nickname is the human-visible identity of this install.
+      // The nickname is the human-visible identity of this install; the auth
+      // username is the fixed one the server actually verifies.
       name: existing?.name && existing.name !== LOCAL_PROFILE_NAME ? existing.name : (info.nick || LOCAL_PROFILE_NAME),
       serverUrl,
-      username: info.nick,
+      username: LOCAL_SERVER_USERNAME,
     };
 
     const next = existing
@@ -179,7 +189,7 @@ export async function ensureLocalServerProfile(info: LocalServerInfo): Promise<{
 
   await saveProfilePassword(profile.id, info.password);
 
-  return { profile, serverUrl, username: info.nick, password: info.password };
+  return { profile, serverUrl, username: LOCAL_SERVER_USERNAME, password: info.password };
 }
 
 /** The connection scope of the local profile, used to find it later. */

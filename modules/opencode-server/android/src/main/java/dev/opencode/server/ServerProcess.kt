@@ -210,9 +210,15 @@ class ServerProcess(private val paths: Paths) {
     }
   }
 
-  /** HTTP status of `GET /`, or -1 when nothing answers. */
+  /**
+   * HTTP status of `GET /api/info`, or -1 when nothing answers. The API path
+   * (not the public web shell on `/`) is probed on purpose: it is the first
+   * route behind the Basic-auth gate, so a healthy answer proves the very
+   * credentials the app's own client will send — a mismatched username or
+   * password fails here instead of surfacing as a 401 after "running".
+   */
   fun health(baseUrl: String, password: String): Int = try {
-    val connection = URL("$baseUrl/").openConnection() as HttpURLConnection
+    val connection = URL("$baseUrl/api/info").openConnection() as HttpURLConnection
 
     try {
       connection.connectTimeout = 1500
@@ -390,6 +396,7 @@ class ServerProcess(private val paths: Paths) {
     }
 
     fun basicCredential(password: String): String =
-      android.util.Base64.encodeToString(":$password".toByteArray(Charsets.UTF_8), android.util.Base64.NO_WRAP)
+      // The server verifies the username too and only accepts "opencode".
+      android.util.Base64.encodeToString("opencode:$password".toByteArray(Charsets.UTF_8), android.util.Base64.NO_WRAP)
   }
 }
