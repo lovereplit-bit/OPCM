@@ -109,7 +109,8 @@
     "logsTitle": "Protokolle",
     "logsEmpty": "Das Protokoll ist leer.",
     "errors": {
-      "connect": "Verbindung zum lokalen Server fehlgeschlagen."
+      "connect": "Verbindung zum lokalen Server fehlgeschlagen.",
+      "timeout": "Die Verbindung zum Server dauert zu lange. Prüfe die Verbindung und versuche es erneut."
     }
   }
 }

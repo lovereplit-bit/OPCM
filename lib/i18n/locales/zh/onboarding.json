@@ -109,7 +109,8 @@
     "logsTitle": "日志",
     "logsEmpty": "日志为空。",
     "errors": {
-      "connect": "无法连接本地服务器。"
+      "connect": "无法连接本地服务器。",
+      "timeout": "连接服务器耗时过长。请检查网络连接后重试。"
     }
   }
 }

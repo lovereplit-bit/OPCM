@@ -109,7 +109,8 @@
     "logsTitle": "Journaux",
     "logsEmpty": "Le journal est vide.",
     "errors": {
-      "connect": "Impossible de se connecter au serveur local."
+      "connect": "Impossible de se connecter au serveur local.",
+      "timeout": "La connexion au serveur prend trop de temps. Vérifiez la connexion, puis réessayez."
     }
   }
 }

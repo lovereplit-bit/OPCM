@@ -109,7 +109,8 @@
     "logsTitle": "Logs",
     "logsEmpty": "The log is empty.",
     "errors": {
-      "connect": "Could not connect to the local server."
+      "connect": "Could not connect to the local server.",
+      "timeout": "Connecting to the server is taking too long. Check the connection and retry."
     }
   }
 }

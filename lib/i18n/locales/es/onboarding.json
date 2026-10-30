@@ -109,7 +109,8 @@
     "logsTitle": "Registros",
     "logsEmpty": "El registro está vacío.",
     "errors": {
-      "connect": "No se pudo conectar al servidor local."
+      "connect": "No se pudo conectar al servidor local.",
+      "timeout": "La conexión con el servidor está tardando demasiado. Comprueba la conexión y vuelve a intentarlo."
     }
   }
 }

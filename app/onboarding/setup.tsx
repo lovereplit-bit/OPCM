@@ -27,6 +27,22 @@ import {
  * OpenCode server on the phone's loopback and creates the connection profile
  * with the generated password and nickname — nobody enters anything by hand.
  */
+
+/** How long the wizard waits for the connect step before surfacing an error. */
+const CONNECT_TIMEOUT_MS = 60_000;
+
+/** Rejects with [message] when [promise] is still pending after [timeoutMs]. */
+function withConnectTimeout<T>(promise: Promise<T>, timeoutMs: number, message: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(message)), timeoutMs);
+
+    promise.then(
+      (value) => { clearTimeout(timer); resolve(value); },
+      (reason) => { clearTimeout(timer); reject(reason); },
+    );
+  });
+}
+
 export default function OnboardingSetupScreen() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -39,6 +55,7 @@ export default function OnboardingSetupScreen() {
   const [connecting, setConnecting] = useState(false);
   const [connectError, setConnectError] = useState<string>();
   const attemptedRef = useRef(false);
+  const connectAttemptedRef = useRef(false);
 
   const phase = info.phase;
   const busy = phase === 'downloading' || phase === 'installing' || phase === 'starting' || connecting;
@@ -74,10 +91,15 @@ export default function OnboardingSetupScreen() {
       });
   }, []);
 
-  // When the server is up, create the profile and connect.
+  // When the server is up, create the profile and connect. The run is
+  // guarded by a ref, not by the effect lifecycle: switchConnection gets a new
+  // identity while it runs (the catalog load inside it updates state that hook
+  // depends on), and a re-run of this effect would mark the in-flight connect
+  // cancelled, silently drop its result and leave `connecting` stuck on with
+  // the buttons grayed out forever.
   useEffect(() => {
-    if (phase !== 'running' || connecting) return;
-    let cancelled = false;
+    if (phase !== 'running' || connectAttemptedRef.current) return;
+    connectAttemptedRef.current = true;
     setConnecting(true);
     setConnectError(undefined);
 
@@ -85,27 +107,29 @@ export default function OnboardingSetupScreen() {
       try {
         const snapshot = getLocalServerInfo();
         const credentials = await ensureLocalServerProfile(snapshot);
-        if (cancelled) return;
-        const result = await switchConnection({
-          serverUrl: credentials.serverUrl,
-          username: credentials.username,
-          password: credentials.password,
-        });
-        if (cancelled) return;
+        const result = await withConnectTimeout(
+          switchConnection({
+            serverUrl: credentials.serverUrl,
+            username: credentials.username,
+            password: credentials.password,
+          }),
+          CONNECT_TIMEOUT_MS,
+          t('onboarding:setup.errors.timeout'),
+        );
         if (result.status !== 'connected') {
           throw new Error(result.message || t('onboarding:setup.errors.connect'));
         }
         requestAnimationFrame(() => router.push('/onboarding/ai'));
       } catch (reason: unknown) {
-        if (cancelled) return;
         setConnectError(reason instanceof Error ? reason.message : String(reason));
+        // The server itself may still be healthy: a retry, or the next healthy
+        // phase after a restart, must be allowed to connect again.
+        connectAttemptedRef.current = false;
       } finally {
-        if (!cancelled) setConnecting(false);
+        setConnecting(false);
       }
     })();
-
-    return () => { cancelled = true; };
-  }, [phase, connecting, router, switchConnection, t]);
+  }, [phase, router, switchConnection, t]);
 
   const retry = useCallback(() => {
     setConnectError(undefined);
