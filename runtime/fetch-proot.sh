@@ -50,9 +50,13 @@ repo=""
 fetch_index || { echo "None of the Termux mirrors could be reached" >&2; exit 1; }
 echo "Using $repo"
 
-download() { # download <package> <extract-dir>
-  local pkg="$1" dir="$2" version file sha
-  mapfile -t info < <(python3 "$here/termux_index.py" "$work/Packages" "$pkg")
+download() { # download <package> <extract-dir> [version]
+  local pkg="$1" dir="$2" pin="${3:-}" version file sha
+  if [ -n "$pin" ]; then
+    mapfile -t info < <(python3 "$here/termux_index.py" "$work/Packages" "$pkg" "$pin")
+  else
+    mapfile -t info < <(python3 "$here/termux_index.py" "$work/Packages" "$pkg")
+  fi
   version="${info[0]}"
   file="${info[1]}"
   sha="${info[2]}"
@@ -64,8 +68,8 @@ download() { # download <package> <extract-dir>
   dpkg-deb -x "$work/$pkg.deb" "$dir"
 }
 
-download proot "$work/proot"
-download libtalloc "$work/talloc"
+download proot "$work/proot" "$PROOT_VERSION"
+download libtalloc "$work/talloc" "$LIBTALLOC_VERSION"
 
 prefix="data/data/com.termux/files/usr"
 proot_bin="$work/proot/$prefix/bin/proot"
@@ -89,7 +93,7 @@ needed() { readelf -d "$1" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p'; }
 bundled_libs="libtalloc.so"
 
 if needed "$dest/libproot.so" | grep -q "libandroid-shmem"; then
-  download libandroid-shmem "$work/shmem"
+  download libandroid-shmem "$work/shmem" "$LIBANDROID_SHMEM_VERSION"
   shmem="$(find "$work/shmem/$prefix/lib" -maxdepth 1 -type f -name 'libandroid-shmem.so*' | sort | head -1)"
   [ -n "$shmem" ] || { echo "libandroid-shmem not found in the package" >&2; exit 1; }
   install -m 0755 "$shmem" "$dest/libandroid-shmem.so"
